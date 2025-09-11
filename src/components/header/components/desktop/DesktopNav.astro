@@ -1,0 +1,28 @@
+---
+import HomeOutline from "../../../../../public/svg/home-outline.svg"
+import NewspaperOutline from "../../../../../public/svg/newspaper-outline.svg"
+import UserOutline from "../../../../../public/svg/user-outline.svg"
+import EnvelopeOutline from "../../../../../public/svg/envelope-outline.svg"
+
+import DesktopNavTab from "./DesktopNavTab.astro";
+
+import { getLangFromUrl, useTranslations } from '../../../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<ul class="w-full h-full flex flex-row justify-start items-center gap-2">
+    <DesktopNavTab href={`/${lang}/`} title={t("nav.home")}>
+        <HomeOutline />
+    </DesktopNavTab>
+    <DesktopNavTab href={`/${lang}/products`} title={t("nav.products")}>
+        <NewspaperOutline />
+    </DesktopNavTab>
+    <DesktopNavTab href={`/${lang}/about`} title={t("nav.about")}>
+        <UserOutline />
+    </DesktopNavTab>
+    <DesktopNavTab href={`/${lang}/contact`} title={t("nav.contact")}>
+        <EnvelopeOutline />
+    </DesktopNavTab>
+</ul>

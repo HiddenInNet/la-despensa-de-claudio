@@ -1,0 +1,16 @@
+---
+interface Props {
+    href: string;
+    title: string;
+}
+
+const { href, title } = Astro.props as Props;
+
+---
+
+<li class="flex justify-start items-center px-6">
+  <a href={`${href}`} class="flex w-full gap-2 p-4 items-center rounded-xl text-neutral-800 focus:bg-neutral-200">
+    <slot />
+    <h3 class="rounded-xl text-lg text-nowrap">{title}</h3>
+  </a>
+</li>

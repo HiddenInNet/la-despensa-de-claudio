@@ -1,0 +1,58 @@
+---
+// Icon imports
+import HomeOutline from "../../../../../public/svg/home-outline.svg"
+import NewspaperOutline from "../../../../../public/svg/newspaper-outline.svg"
+import UserOutline from "../../../../../public/svg/user-outline.svg"
+import EnvelopeOutline from "../../../../../public/svg/envelope-outline.svg"
+
+import MobileNavTab from "./MobileNavTab.astro"
+import { getLangFromUrl, useTranslations } from '../../../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<ul class="w-full flex flex-col gap-2 py-6 h-screen">
+  <MobileNavTab href={`/${lang}/`} title={t('nav.home')} >
+    <HomeOutline />
+  </MobileNavTab>
+  <MobileNavTab href={`/${lang}/products`} title={t('nav.products')} >
+    <NewspaperOutline />
+  </MobileNavTab>
+  <MobileNavTab href={`/${lang}/about`} title={t('nav.about')} >
+    <UserOutline />
+  </MobileNavTab>
+  <MobileNavTab href={`/${lang}/contact`} title={t('nav.contact')} >
+    <EnvelopeOutline />
+  </MobileNavTab>
+</ul>
+
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const $departmentsNavTab = document.querySelector("#phone-header-departments");
+    const $departments = document.querySelector("#departments");
+
+    if (!$departmentsNavTab || !$departments) return;
+
+    $departmentsNavTab.addEventListener("click", () => {
+      const isOpen = $departments.classList.contains("hidden");
+      if (isOpen) {
+        $departments.classList.remove("hidden");
+        $departments.classList.add("grid");
+        // Animación de entrada de arriba hacia abajo
+        setTimeout(() => {
+          $departments.classList.remove("opacity-0", "-translate-y-2");
+          $departments.classList.add("opacity-100", "translate-y-0");
+        }, 0);
+      } else {
+        $departments.classList.remove("opacity-100", "translate-y-0");
+        $departments.classList.add("opacity-0", "-translate-y-2");
+        setTimeout(() => {
+          $departments.classList.remove("grid");
+          $departments.classList.add("hidden");
+        }, 300); // Ajustar el tiempo a la duración de la animación
+      }
+    });
+  });
+</script>
