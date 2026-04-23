@@ -8,10 +8,12 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+const userLang = navigator.language.split("-")[0] || "es";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={userLang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -23,7 +25,7 @@ const { title } = Astro.props;
 	</head>
 	<body class="flex flex-col min-h-screen bg-neutral-100 text-neutral-900">
 		<Header />
-		<main class="flex-1 pt-24">
+		<main class="flex-1 pt-20">
 			<slot />
 		</main>
 		<Footer />

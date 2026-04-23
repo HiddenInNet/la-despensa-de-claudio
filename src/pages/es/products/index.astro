@@ -1,20 +1,23 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import { PRODUCTS_ES } from "../../../constants/products.ts";
 import ProductCard from "../../../components/products/ProductCard.astro";
+import { supabase } from "../../../db/supabase";
 
 const tabName = "Productos";
 
-console.log("PRODUCTS", PRODUCTS_ES);
+const { data, error } = await supabase.from("products").select('*');
 
+console.log("Prod: ", data);
 ---
 
 <Layout title={tabName}>
-    <div id={`${tabName}-main-container`} class="w-full h-full flex flex-col px-2 py-4 pb-2 gap-2">
-        {
-            PRODUCTS_ES.map(productType => (
-                <ProductCard product={productType} />
-            ))
-        }
+    <div id={`${tabName}-main-container`} class="flex w-full h-full justify-center">
+        <div class="w-full lg:w-[50%] px-2 h-full flex flex-col items-center gap-2 mb-2">
+            {
+                data?.map(product => (
+                    <ProductCard product={product} />
+                ))
+            }
+        </div>
     </div>
 </Layout>

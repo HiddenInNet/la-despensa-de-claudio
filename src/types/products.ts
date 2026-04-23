@@ -1,15 +1,8 @@
 export interface ProductsList {
+    id: string;
     name: string;
     description: string;
-    image: string;
-    products?: Product[];
-}
-
-export interface Product {
-    name: string;
-    description: string;
-    image: string;
+    category: string;
     price: number;
-    unit: string;
-    stock: boolean;
+    created_at: string;
 }
