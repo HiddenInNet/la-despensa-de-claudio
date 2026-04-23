@@ -3,6 +3,8 @@ import Layout from "../../../layouts/Layout.astro";
 import ProductCard from "../../../components/products/ProductCard.astro";
 import { supabase } from "../../../db/supabase";
 
+export const prerender = false;
+
 const tabName = "Productos";
 
 const { data, error } = await supabase.from("products").select('*');
