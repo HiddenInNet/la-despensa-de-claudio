@@ -1,25 +1,25 @@
 ---
+// src/pages/productos/index.astro (o tu ruta actual)
 import Layout from "../../../layouts/Layout.astro";
-import ProductCard from "../../../components/products/ProductCard.astro";
-import { supabase } from "../../../db/supabase";
-
-export const prerender = false;
+import ProductList from "./ProductList.astro";
 
 const tabName = "Productos";
-
-const { data, error } = await supabase.from("products").select('*');
-
-console.log("Prod: ", data);
 ---
 
 <Layout title={tabName}>
     <div id={`${tabName}-main-container`} class="flex w-full h-full justify-center">
-        <div class="w-full lg:w-[50%] px-2 h-full flex flex-col items-center gap-2 mb-2">
-            {
-                data?.map(product => (
-                    <ProductCard product={product} />
-                ))
-            }
+        <div class="w-full lg:w-[50%] px-2 h-full flex flex-col items-center gap-4 mb-2">
+            
+            <ProductList server:defer>
+                
+                <div slot="fallback" class="w-full flex flex-col gap-4">
+                    <div class="w-full h-40 bg-neutral-200 animate-pulse rounded-2xl"></div>
+                    <div class="w-full h-40 bg-neutral-200 animate-pulse rounded-2xl"></div>
+                    <div class="w-full h-40 bg-neutral-200 animate-pulse rounded-2xl"></div>
+                </div>
+                
+            </ProductList>
+
         </div>
     </div>
 </Layout>

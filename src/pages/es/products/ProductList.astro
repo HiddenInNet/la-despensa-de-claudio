@@ -1,0 +1,15 @@
+---
+import ProductCard from "../../../components/products/ProductCard.astro";
+import { supabase } from "../../../db/supabase";
+
+const { data, error } = await supabase.from("products").select('*');
+
+if (error) {
+  console.error("Error fetching products:", error);
+}
+---
+{
+    data?.map(product => (
+        <ProductCard product={product} />
+    ))
+}
