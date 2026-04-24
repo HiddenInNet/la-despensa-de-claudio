@@ -3,11 +3,19 @@
 
 @theme {
   --font-story-script: "StoryScript", sans-serif;
+  --font-inter: "Inter", sans-serif;
 }
 
 @font-face {
   font-family: "StoryScript";
   src: url("/fonts/story-script/StoryScript-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter/Inter-Variable.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

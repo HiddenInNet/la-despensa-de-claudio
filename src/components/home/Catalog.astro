@@ -1,0 +1,53 @@
+---
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+---
+
+<section class="py-20 px-6 max-w-7xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif text-green-900 mb-4 tracking-tight">Nuestras Joyas</h2>
+                <div class="h-1 w-20 bg-green-700 mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <a href={`/${lang}/products?cat=JAMON`} class="group relative block h-96 overflow-hidden bg-gray-100 rounded-sm">
+                    <div class="absolute inset-0 bg-[url('/images/iberic-jam.jpg')] bg-cover bg-center group-hover:scale-105 transition-transform duration-700"></div>
+                    <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="text-3xl text-white font-serif mb-2">Jamones</h3>
+                        <p class="text-white/90 text-sm uppercase tracking-widest">Ver Selección →</p>
+                    </div>
+                </a>
+
+                <a href={`/${lang}/products?cat=CHORIZO`} class="group relative block h-96 overflow-hidden bg-gray-100 rounded-sm">
+                    <div class="absolute inset-0 bg-[url('/images/cured-meat.jpg')] bg-cover bg-center group-hover:scale-105 transition-transform duration-700"></div>
+                    <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="text-3xl text-white font-serif mb-2">Embutidos</h3>
+                        <p class="text-white/90 text-sm uppercase tracking-widest">Ver Selección →</p>
+                    </div>
+                </a>
+
+                <a href={`/${lang}/products?cat=QUESO`} class="group relative block h-96 overflow-hidden bg-gray-100 rounded-sm col-span-1">
+                    <div class="absolute inset-0 bg-[url('/images/cheese-table.jpg')] bg-cover bg-center group-hover:scale-105 transition-transform duration-700"></div>
+                    <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="text-3xl text-white font-serif mb-2">Quesos</h3>
+                        <p class="text-white/90 text-sm uppercase tracking-widest">Ver Selección →</p>
+                    </div>
+                </a>
+
+                <a href={`/${lang}/products?cat=VINO`} class="group relative block h-96 overflow-hidden bg-gray-100 rounded-sm col-span-1">
+                    <div class="absolute inset-0 bg-[url('/images/wine-glass.jpg')] bg-cover bg-center group-hover:scale-105 transition-transform duration-700"></div>
+                    <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="text-3xl text-white font-serif mb-2">Vinos</h3>
+                        <p class="text-white/90 text-sm uppercase tracking-widest">Ver Selección →</p>
+                    </div>
+                </a>
+            </div>
+        </section>
