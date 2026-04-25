@@ -1,4 +1,9 @@
-export const mailHTML = (email: string, subject: string, message: string) => {
+export const mailHTML = (
+  name: string,
+  email: string,
+  subject: string,
+  message: string,
+) => {
   return `
     <div style="font-family: Arial, sans-serif; background-color: #fafaf9; padding: 40px 20px; color: #1c1917;">
       <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e7e5e4; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">

@@ -20,8 +20,8 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  // Plantilla HTML Premium
   const emailHtml = mailHTML(
+    name.toString(),
     email.toString(),
     subject.toString(),
     message.toString(),
