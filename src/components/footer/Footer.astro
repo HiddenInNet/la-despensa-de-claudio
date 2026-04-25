@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import BUS_DATA from "../../docs/bussiness-data.json";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -9,22 +10,22 @@ const t = useTranslations(lang);
   <div class="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 md:grid-cols-3 gap-6">
     <!-- Branding -->
     <div class="flex flex-col items-start">
-      <h2 class="text-2xl text-neutral-50">La Despensa de Claudio</h2>
-      <p class="text-sm mt-2 text-neutral-200">© {new Date().getFullYear()} La Despensa de Claudio. Todos los derechos reservados.</p>
+      <h2 class="text-2xl text-neutral-50">{BUS_DATA.bussiness_name}</h2>
+      <p class="text-sm mt-2 text-neutral-200">© {new Date().getFullYear()} {BUS_DATA.bussiness_name}. Todos los derechos reservados.</p>
     </div>
 
     <!-- Enlaces -->
     <div class="flex flex-col gap-2 text-neutral-200">
-      <a href={`/${lang}/home/`} class="hover:underline">{t("nav.home")}</a>
-      <a href={`/${lang}/products/`} class="hover:underline">{t("nav.products")}</a>
-      <a href={`/${lang}/about/`} class="hover:underline">{t("nav.about")}</a>
-      <a href={`/${lang}/contact/`} class="hover:underline">{t("nav.contact")}</a>
+      <a href={`/es`} class="hover:underline">{t("nav.home")}</a>
+      <a href={`/es/products`} class="hover:underline">{t("nav.products")}</a>
+      <a href={`/es/about`} class="hover:underline">{t("nav.about")}</a>
+      <a href={`/es/contact`} class="hover:underline">{t("nav.contact")}</a>
     </div>
 
     <!-- Créditos o contacto -->
     <div class="flex flex-col gap-2">
       <p class="text-sm text-neutral-200">Desarrollado por tu equipo de confianza.</p>
-      <a href="mailto:contacto@truescope.es" class="text-sm text-neutral-50 hover:underline">ladespensadeclaudio@gmail.com</a>
+      <a href={`mailto:${BUS_DATA.email}`} class="text-sm text-neutral-50 hover:underline">{BUS_DATA.email}</a>
     </div>
   </div>
 </footer>
