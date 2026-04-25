@@ -28,12 +28,11 @@ const priceInEuros = product.price / 100;
         
         <div class="relative w-full h-56 overflow-hidden bg-stone-100">
             <Image
-                src="/images/montesierra-jamon-100.webp" 
+                src={product.url}
                 alt={`Imagen de ${product.name}`} 
                 width="50"
                 height="50"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" 
-                loading="lazy"
             />
             <span class="absolute top-3 left-3 bg-green-900 text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest shadow-md">
                 {formattedCategory}

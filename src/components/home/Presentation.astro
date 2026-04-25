@@ -10,42 +10,43 @@ const t = useTranslations(lang);
 ---
 
 <section class="relative w-full h-[70vh] min-h-[500px] flex items-center justify-center bg-green-900 overflow-hidden">
-            <div class="absolute inset-0 opacity-50">
-                <Image
-                    src={dehesa}
-                    alt="Dehesa Ibérica" 
-                    class="w-full h-full object-cover"
-                />
-            </div>
+    <div class="absolute inset-0 opacity-50">
+        <Image
+            src={dehesa}
+            alt="Dehesa Ibérica" 
+            class="w-full h-full object-cover"
+        />
+    </div>
             
-            <div class="relative z-10 text-center px-4">
-                <span class="text-white uppercase tracking-[0.3em] text-sm mb-4 block font-light">Tradición y Sabor</span>
-                <h1 class="text-5xl md:text-7xl font-serif text-white mb-6 drop-shadow-md">
-                    {BUS_DATA.bussiness_name}
-                </h1>
-                <p class="text-lg md:text-xl text-green-50 mb-10 max-w-2xl mx-auto font-light">
-                    Selección exclusiva de embutidos y jamones ibéricos directos desde la raíz a tu mesa.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href={`/${lang}/products`} class="bg-white text-green-900 hover:bg-green-50 font-bold py-4 px-10 transition-all rounded-sm shadow-lg uppercase text-sm tracking-widest">
-                        Ver Catálogo
-                    </a>
-                    <a href={`/${lang}/about`} class="border border-white text-white hover:bg-white hover:text-green-900 font-bold py-4 px-10 transition-all rounded-sm uppercase text-sm tracking-widest">
-                        Nuestra Historia
-                    </a>
-                </div>
+    <div class="relative z-10 text-center px-4">
+        <span class="text-white uppercase tracking-[0.3em] text-sm mb-4 block font-light">Tradición y Sabor</span>
+        <h1 class="text-5xl md:text-7xl font-serif text-white mb-6 drop-shadow-md">
+            {BUS_DATA.bussiness_name}
+        </h1>
+        <p class="text-lg md:text-xl text-green-50 mb-10 max-w-2xl mx-auto font-light">
+            Selección exclusiva de embutidos y jamones ibéricos directos desde la raíz a tu mesa.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href={`/${lang}/products`} class="bg-white text-green-900 hover:bg-green-50 font-bold py-4 px-10 transition-all rounded-sm shadow-lg uppercase text-sm tracking-widest">
+                Ver Catálogo
+            </a>
+            <a href={`/${lang}/about`} class="border border-white text-white hover:bg-white hover:text-green-900 font-bold py-4 px-10 transition-all rounded-sm uppercase text-sm tracking-widest">
+                Nuestra Historia
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-12 bg-green-50 border-b border-green-100">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3">
+        <div class="flex items-center gap-4">
+            <div class="bg-green-800 text-white p-3 rounded-full">
+                <Stars />
             </div>
-        </section>
-        <section class="py-12 bg-green-50 border-b border-green-100">
-            <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="flex items-center gap-4">
-                    <div class="bg-green-800 text-white p-3 rounded-full">
-                        <Stars />
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-green-900">Calidad Certificada</h3>
-                        <p class="text-sm text-green-700">Productos con garantía de origen.</p>
-                    </div>
-                </div>
+            <div>
+                <h3 class="font-bold text-green-900">Calidad Certificada</h3>
+                <p class="text-sm text-green-700">Productos con garantía de origen.</p>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
