@@ -1,9 +1,139 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 
-
+const tabName = "Contacto";
 ---
 
-<Layout title="Contacto">
+<Layout title={`${tabName} - La Despensa de Claudio`}>
+    <main class="w-full min-h-screen bg-stone-50 font-sans text-stone-800">
+        
+        <section class="bg-green-900 py-10 px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-serif text-white mb-4">Contacto</h1>
+            <p class="text-green-50 font-light max-w-2xl mx-auto text-lg">
+                ¿Tienes alguna duda sobre nuestros productos? 
+                Te asesoramos de forma personalizada.
+            </p>
+        </section>
 
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                
+                <div class="flex flex-col gap-10">
+                    <div>
+                        <h2 class="text-2xl font-serif text-green-900 mb-6 underline decoration-stone-300 underline-offset-8">
+                            Atención al Cliente
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-white p-3 shadow-sm rounded-sm text-green-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-stone-900">Teléfono</h4>
+                                    <p class="text-stone-600 font-light">+34 628 18 27 89</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="bg-white p-3 shadow-sm rounded-sm text-green-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-stone-900">Email</h4>
+                                    <p class="text-stone-600 font-light">ladespensadeclaudio@hotmail.com</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="bg-white p-3 shadow-sm rounded-sm text-green-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-stone-900">Horario</h4>
+                                    <p class="text-stone-600 font-light">Lunes a Viernes:</p>
+                                    <p class="text-stone-600 font-light">- Mañana: 08:30 - 14:30</p>
+                                    <p class="text-stone-600 font-light">- Tarde: 17:30 - 21:00</p>
+                                    <p class="text-stone-600 font-light">Sábados: 8:30 - 14:30</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-8 border-t border-stone-200">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-4">Síguenos</h4>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-stone-400 hover:text-green-900 transition-colors">Instagram</a>
+                            <a href="#" class="text-stone-400 hover:text-green-900 transition-colors">Facebook</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 md:p-12 shadow-xl shadow-stone-200/50 rounded-sm border border-stone-100">
+                    <form action="#" class="flex flex-col gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="flex flex-col gap-2">
+                                <label for="name" class="text-xs font-bold uppercase tracking-wider text-stone-500">Nombre completo</label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    placeholder="Ej. Juan Pérez"
+                                    class="bg-stone-50 border border-stone-200 rounded-sm py-3 px-4 focus:outline-none focus:border-green-800 transition-colors"
+                                />
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="email" class="text-xs font-bold uppercase tracking-wider text-stone-500">Correo electrónico</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    placeholder="juan@ejemplo.com"
+                                    class="bg-stone-50 border border-stone-200 rounded-sm py-3 px-4 focus:outline-none focus:border-green-800 transition-colors"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label for="subject" class="text-xs font-bold uppercase tracking-wider text-stone-500">Asunto</label>
+                            <select id="subject" class="bg-stone-50 border border-stone-200 rounded-sm py-3 px-4 focus:outline-none focus:border-green-800 transition-colors">
+                                <option>Consulta sobre productos</option>
+                                <option>Otro motivo</option>
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label for="message" class="text-xs font-bold uppercase tracking-wider text-stone-500">Mensaje</label>
+                            <textarea 
+                                id="message" 
+                                rows="5" 
+                                placeholder="Escribe aquí tu consulta..."
+                                class="bg-stone-50 border border-stone-200 rounded-sm py-3 px-4 focus:outline-none focus:border-green-800 transition-colors resize-none"
+                            ></textarea>
+                        </div>
+
+                        <button 
+                            type="submit"
+                            class="mt-4 bg-green-900 hover:bg-green-800 text-white font-bold py-4 px-8 rounded-sm shadow-md transition-all duration-300 uppercase text-xs tracking-[0.2em]"
+                        >
+                            Enviar Mensaje
+                        </button>
+                        
+                        <p class="text-[10px] text-stone-400 text-center mt-2 leading-relaxed">
+                            Al enviar este formulario, aceptas nuestra política de privacidad y el tratamiento de tus datos para gestionar tu consulta.
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <section class="w-full h-[400px] bg-stone-200 relative hover:grayscale-0 transition-all duration-700">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1308.2847920783786!2d-5.980913126137285!3d37.38947654687013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126ea7a9b54171%3A0x395d9ad3fd29d9b8!2sLa%20Despensa%20De%20Claudio!5e0!3m2!1ses!2ses!4v1777116442510!5m2!1ses!2ses" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </section>
+    </main>
 </Layout>

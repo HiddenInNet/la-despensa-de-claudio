@@ -9,13 +9,11 @@ const categories = [
     { label: "Todos", slug: "TODOS" },
     { label: "Jamón", slug: "JAMON" },
     { label: "Queso", slug: "QUESO" },
-    { label: "Salchichón", slug: "SALCHICHON" },
-    { label: "Chorizo", slug: "CHORIZO" },
+    { label: "Embutidos", slug: "EMBUTIDOS" },
     { label: "Vinos", slug: "VINO" },
     { label: "Otros", slug: "OTRO"}
 ];
 
-// Capturamos la categoría de la URL. Si no hay ninguna, por defecto es "TODOS"
 const currentCategory = Astro.url.searchParams.get('cat') || "TODOS";
 ---
 

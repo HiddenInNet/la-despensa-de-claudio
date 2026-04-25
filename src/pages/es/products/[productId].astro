@@ -6,10 +6,15 @@ import type { ProductDetail } from "../../../types/products";
 
 const { productId: id } = Astro.params;
 
-const {data, error} = await supabase.from("products").select("*").eq("id", id).single();
+const { data, error }: { data: ProductDetail | null, error: any } = await supabase
+    .from("products")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-if (!(data as ProductDetail) || error) {
-    console.error("Error", error)
+if (error || !data) {
+    console.error("Error fetching product:", error?.message);
+    return Astro.redirect('/404');
 }
 
 const formattedCategory = data.category.charAt(0).toUpperCase() + data.category.slice(1).toLowerCase();
@@ -31,7 +36,7 @@ const priceFormatter = new Intl.NumberFormat('es-ES', {
                     <li><span class="mx-1">/</span></li>
                     <li><a href="../products" class="hover:text-green-800 transition-colors">Catálogo</a></li>
                     <li><span class="mx-1">/</span></li>
-                    <li><a href={`/categoria/${data.category.toLowerCase()}`} class="hover:text-green-800 transition-colors">{formattedCategory}</a></li>
+                    <li><a href={`../products?cat=${data.category}`} class="hover:text-green-800 transition-colors">{formattedCategory}</a></li>
                     <li><span class="mx-1">/</span></li>
                     <li class="text-stone-800 font-medium truncate">{data.name}</li>
                 </ol>
@@ -47,8 +52,8 @@ const priceFormatter = new Intl.NumberFormat('es-ES', {
                             src={"/images/" + data.url}
                             alt={data.name} 
                             class="w-full h-full object-cover object-center"
-                            width="50"
-                            height="50"
+                            width={50}
+                            height={50}
                             transition:name={`product-image-${data.id}`}
                         />
                         <span class="absolute top-4 left-4 bg-green-900 text-white text-xs font-bold px-4 py-1.5 uppercase tracking-widest shadow-md rounded-xs">
@@ -69,7 +74,6 @@ const priceFormatter = new Intl.NumberFormat('es-ES', {
                         <span class="font-thin text-neutral-500 text-sm">
                             / kg
                         </span>
-                        <span class="text-sm font-sans font-light text-stone-500 block mt-1">IVA incluido. Envío gratuito en este producto.</span>
                     </div>
 
                     <p class="text-stone-600 font-light leading-relaxed mb-8">
