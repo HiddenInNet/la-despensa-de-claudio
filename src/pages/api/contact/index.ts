@@ -2,9 +2,9 @@
 import type { APIRoute } from "astro";
 import { Resend } from "resend";
 import { mailHTML } from "./mail-body";
+import BUS_DATA from "../../../docs/bussiness-data.json";
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
-const MAIN_MAIL = import.meta.env.MAIN_MAIL;
 
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.formData();
@@ -30,7 +30,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const { error } = await resend.emails.send({
       from: "La Despensa de Claudio <onboarding@resend.dev>",
-      to: MAIN_MAIL,
+      to: BUS_DATA.email,
       replyTo: email.toString(),
       subject: `CONTACTO: ${subject} - ${name}`,
       html: emailHtml,
