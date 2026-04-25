@@ -1,3 +1,5 @@
+import { bussiness_name } from "../../../docs/bussiness-data.json";
+
 export const mailHTML = (
   name: string,
   email: string,
@@ -9,7 +11,7 @@ export const mailHTML = (
       <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e7e5e4; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
         
         <div style="background-color: #14532d; padding: 30px; text-align: center;">
-          <h1 style="color: #ffffff; margin: 0; font-family: 'Georgia', serif; font-size: 24px; letter-spacing: 2px; text-transform: uppercase;">La Despensa de Claudio</h1>
+          <h1 style="color: #ffffff; margin: 0; font-family: 'Georgia', serif; font-size: 24px; letter-spacing: 2px; text-transform: uppercase;">${bussiness_name}</h1>
           <p style="color: #dcfce7; margin: 10px 0 0 0; font-size: 14px; font-weight: 300;">Nuevo aviso desde la web</p>
         </div>
         
