@@ -3,12 +3,14 @@ import Layout from "../../layouts/Layout.astro";
 import Presentation from "../../components/home/Presentation.astro";
 import Catalog from "../../components/home/Catalog.astro";
 import Recomendations from "../../components/home/Recomendations.astro";
+
+import {bussiness_name} from "../../docs/bussiness-data.json";
 ---
 
-<Layout title="Inicio - La Despensa de Claudio">
-    <div id="home-main-container" class="w-full h-full flex flex-col font-sans text-gray-800 bg-white">
+<Layout title={`Inicio - ${bussiness_name}`}>
+    <div id="home-main-container" class="w-full h-full flex flex-col font-sans bg-white">
         <Presentation />
         <Catalog />
-        <Recomendations />
+        <!-- <Recomendations /> -->
     </div>
 </Layout>

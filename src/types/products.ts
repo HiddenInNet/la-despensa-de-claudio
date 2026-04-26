@@ -19,4 +19,5 @@ export interface ProductDetail {
   weight: number;
   origin: string;
   curing: number;
+  taste_notes: string;
 }

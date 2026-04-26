@@ -43,7 +43,7 @@ const tabName = "Contacto";
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-stone-900">Teléfono</h4>
-                                    <p class="text-stone-600 font-light">{BUS_DATA.phone_number}</p>
+                                    <a href={`tel:${BUS_DATA.phone_number}`} class="text-blue-500 font-medium" >{BUS_DATA.phone_number}</a>
                                 </div>
                             </div>
 
@@ -53,7 +53,7 @@ const tabName = "Contacto";
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-stone-900">Email</h4>
-                                    <p class="text-stone-600 font-light">{BUS_DATA.email}</p>
+                                    <a href={`mailto:${BUS_DATA.email}`} class="text-blue-500 font-medium">{BUS_DATA.email}</p>
                                 </div>
                             </div>
 

@@ -32,6 +32,8 @@ const priceInEuros = product.price / 100;
                 alt={`Imagen de ${product.name}`} 
                 width="50"
                 height="50"
+                loading="eager"
+                transition:name={`product-image-${product.id}`}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" 
             />
             <span class="absolute top-3 left-3 bg-green-900 text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest shadow-md">

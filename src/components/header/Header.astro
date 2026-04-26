@@ -6,6 +6,8 @@ import MobileNav from "./components/mobile/MobileNav.astro"
 import DesktopNav from "./components/desktop/DesktopNav.astro"
 
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { Image } from "astro:assets";
+import spainFlag from "../../assets/images/flag-spain.webp";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -37,7 +39,7 @@ const t = useTranslations(lang);
 
     <div id="header-aux-container" class="h-full w-full flex justify-center">
       <div id="header-aux" class="h-full w-auto flex items-center">
-        <img src="/images/flag-spain.webp" alt="" class="w-10 h-10 rounded-xl" />
+        <Image src={spainFlag} alt="Bandera de España" class="w-10 h-10" loading="eager"/>
       </div>
     </div>    
 

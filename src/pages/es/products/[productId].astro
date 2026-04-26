@@ -54,7 +54,9 @@ const priceFormatter = new Intl.NumberFormat('es-ES', {
                             class="w-full h-full object-cover object-center"
                             width={50}
                             height={50}
+                            loading="eager"
                             transition:name={`product-image-${data.id}`}
+                            transition:animate="fade"
                         />
                         <span class="absolute top-4 left-4 bg-green-900 text-white text-xs font-bold px-4 py-1.5 uppercase tracking-widest shadow-md rounded-xs">
                             Calidad Oro
@@ -91,7 +93,7 @@ const priceFormatter = new Intl.NumberFormat('es-ES', {
                         </li>
                         <li class="flex items-center gap-3">
                             <svg class="w-5 h-5 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="text-sm font-medium text-stone-800">Curación: <span class="font-light text-stone-600">{data.curing} meses</span></span>
+                            <span class="text-sm font-medium text-stone-800">Curación: <span class="font-light text-stone-600">± {data.curing} meses</span></span>
                         </li>
                     </ul>
                 </div>
@@ -107,18 +109,9 @@ const priceFormatter = new Intl.NumberFormat('es-ES', {
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-stone-600 font-light leading-relaxed">
                     <div>
                         <h4 class="font-serif text-xl text-green-900 mb-3">Sabor y Aroma</h4>
-                        <p class="mb-4">
-                            Al corte presenta un color rojo intenso y brillante, con una gran presencia de vetas blancas de grasa infiltrada que se deshace en la boca. Su aroma es intenso, penetrante y muy característico de las piezas elaboradas de forma natural en bodega.
-                        </p>
-                        <p>
-                            En boca es suave, con matices dulces y muy poco salado, evidenciando el respeto por la materia prima durante su largo proceso de curación.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 class="font-serif text-xl text-green-900 mb-3">Maridaje Recomendado</h4>
-                        <p>
-                            Para disfrutar al máximo de todos sus matices, recomendamos acompañarlo con vinos tintos de crianza, finos o manzanillas muy frías. También marida a la perfección con cavas reserva que limpian el paladar y preparan para el siguiente bocado.
-                        </p>
+                        <div class="flex flex-col gap-4 mb-4" set:html={data.taste_notes}>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
