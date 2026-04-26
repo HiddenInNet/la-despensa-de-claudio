@@ -1,0 +1,66 @@
+---
+import ShoppingCart from "../../assets/svg/shopping-cart.svg";
+import ShoppingResumeContainer from "./ShoppingResumeContainer.astro";
+
+// const items = localStorage.getItem("");
+---
+
+<button 
+    id="cart-toggle-btn"
+    aria-label="Abrir carrito de compras"
+    class="fixed bottom-10 right-5 z-50 p-4 rounded-full flex items-center justify-center bg-green-800 text-white shadow-lg hover:bg-green-700 hover:shadow-xl hover:-translate-y-1 hover:cursor-pointer transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-900/30 group"
+>
+    <ShoppingCart class="size-7 transition-transform group-hover:scale-110" />
+
+    <span class="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white shadow-sm border-2 border-white">
+        3
+    </span>
+</button>
+
+<ShoppingResumeContainer />
+
+<script>
+    function initCartMenu() {
+        const openBtn = document.getElementById('cart-toggle-btn');
+        const closeBtn = document.getElementById('close-cart-btn');
+        const drawer = document.getElementById('cart-drawer');
+        const backdrop = document.getElementById('cart-backdrop');
+
+        if (!openBtn || !drawer || !openBtn.parentNode) return;
+
+        const newOpenBtn = openBtn.cloneNode(true);
+        openBtn.parentNode.replaceChild(newOpenBtn, openBtn);
+
+        function openCart() {
+
+            if (!backdrop || !drawer) return;
+            
+            // Mostrar backdrop
+            backdrop.classList.remove('opacity-0', 'pointer-events-none');
+            backdrop.classList.add('opacity-100', 'pointer-events-auto');
+            
+            // Subir drawer (eliminamos la traslación hacia abajo)
+            drawer.classList.remove('translate-y-full');
+            drawer.classList.add('translate-y-0');
+        }
+
+        function closeCart() {
+            if (!backdrop || !drawer) return;
+
+            // Ocultar backdrop
+            backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+            backdrop.classList.add('opacity-0', 'pointer-events-none');
+            
+            // Bajar drawer (volvemos a aplicar la traslación hacia abajo)
+            drawer.classList.remove('translate-y-0');
+            drawer.classList.add('translate-y-full');
+        }
+
+        newOpenBtn.addEventListener('click', openCart);
+        closeBtn?.addEventListener('click', closeCart);
+        backdrop?.addEventListener('click', closeCart); // Cierra si haces clic en lo oscuro
+    }
+
+    document.addEventListener("DOMContentLoaded", initCartMenu);
+    document.addEventListener("astro:page-load", initCartMenu);
+</script>

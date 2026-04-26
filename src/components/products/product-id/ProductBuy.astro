@@ -1,0 +1,159 @@
+---
+import type { ProductDetail } from '../../../types/products';
+
+interface Props {
+    product: ProductDetail
+}
+
+const { product } = Astro.props;
+---
+
+<div class="mt-8 flex flex-col gap-8">
+    
+    <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-stone-800 mb-4 block">Selecciona el formato:</span>
+        <div class="flex flex-wrap gap-3" id="weight-selector">
+            <button type="button" data-weight="100" class="weight-btn border-2 border-green-900 bg-green-900 text-white font-medium py-2 px-5 rounded-sm transition-colors text-sm">
+                100 gr
+            </button>
+            <button type="button" data-weight="250" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors text-sm">
+                250 gr
+            </button>
+            <button type="button" data-weight="500" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors text-sm">
+                500 gr
+            </button>
+            <button type="button" data-weight="whole" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors text-sm">
+                Pieza entera
+            </button>
+            <button type="button" data-weight="custom" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors text-sm">
+                Personalizado
+            </button>
+        </div>
+
+        <div id="custom-weight-container" class="hidden mt-4 items-center gap-3 animate-fade-in">
+            <input type="number" id="custom-weight-input" min="50" step="50" placeholder="Ej: 250" class="border border-stone-300 p-2.5 rounded-sm w-28 text-stone-800 focus:outline-none focus:border-green-900 focus:ring-1 focus:ring-green-900" />
+            <span class="text-stone-500 text-sm">gramos (mín. 50g)</span>
+        </div>
+    </div>
+  
+    <div class="flex flex-col sm:flex-row gap-4">
+        <div class="flex w-fit items-center justify-center border border-stone-300 bg-white rounded-sm py-4">
+            <button id="btn-minus" class="px-4 h-full text-stone-500 hover:text-green-900 transition-colors focus:outline-none" aria-label="Disminuir cantidad">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
+            </button>
+            <input type="number" id="qty-input" value="1" min="1" readonly class="w-12 text-center text-stone-800 font-bold bg-transparent focus:outline-none pointer-events-none" />
+            <button id="btn-plus" class="px-4 h-full text-stone-500 hover:text-green-900 transition-colors focus:outline-none" aria-label="Aumentar cantidad">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            </button>
+        </div>
+
+        <button id="add-to-cart-btn" class="bg-green-900 text-white font-bold py-4 px-8 rounded-sm hover:bg-green-800 transition-colors uppercase tracking-widest text-sm shadow-md flex justify-center items-center">
+            Añadir a la cesta
+        </button>
+    </div>
+</div>
+
+<script define:vars={{ product: product }}>
+    function initProductActions() {
+        // Elementos de cantidad (Unidades)
+        const btnMinus = document.getElementById('btn-minus');
+        const btnPlus = document.getElementById('btn-plus');
+        const inputQty = document.getElementById('qty-input');
+        const btnAddToCart = document.getElementById('add-to-cart-btn');
+
+        // Elementos de peso (Formatos)
+        const weightButtons = document.querySelectorAll('.weight-btn');
+        const customWeightContainer = document.getElementById('custom-weight-container');
+        const customWeightInput = document.getElementById('custom-weight-input');
+
+        if (!btnMinus || !btnPlus || !inputQty || !btnAddToCart) return;
+
+        let selectedWeight = "100";
+
+        // Peso
+        weightButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                weightButtons.forEach(btn => {
+                    btn.classList.remove('border-green-900', 'bg-green-900', 'text-white');
+                    btn.classList.add('border-stone-200', 'text-stone-600', 'hover:border-green-900', 'hover:text-green-900');
+                });
+
+                const clickedBtn = e.currentTarget;
+                clickedBtn.classList.remove('border-stone-200', 'text-stone-600', 'hover:border-green-900', 'hover:text-green-900');
+                clickedBtn.classList.add('border-green-900', 'bg-green-900', 'text-white');
+
+                selectedWeight = clickedBtn.getAttribute('data-weight');
+
+                if (selectedWeight === 'custom') {
+                    customWeightContainer.classList.remove('hidden');
+                    customWeightInput.focus();
+                } else {
+                    customWeightContainer.classList.add('hidden');
+                }
+            });
+        });
+
+        // --- 2. LÓGICA DE UNIDADES (+ / -) ---
+        btnMinus.addEventListener('click', () => {
+            let currentValue = parseInt(inputQty.value);
+            if (currentValue > 1) {
+                inputQty.value = currentValue - 1;
+            }
+        });
+
+        btnPlus.addEventListener('click', () => {
+            let currentValue = parseInt(inputQty.value);
+            inputQty.value = currentValue + 1;
+        });
+
+        // --- 3. LÓGICA DE AÑADIR AL CARRITO ---
+        btnAddToCart.addEventListener('click', () => {
+            const units = parseInt(inputQty.value);
+            let finalWeight = selectedWeight;
+
+            // Validación si elige personalizado pero no escribe nada
+            if (selectedWeight === 'custom') {
+                const customValue = customWeightInput.value;
+                if (!customValue || customValue < 50) {
+                    alert("Por favor, introduce una cantidad válida (mínimo 50g)");
+                    return;
+                }
+                finalWeight = customValue;
+            }
+
+            // Objeto final para el carrito
+            const item = {
+                id: product.id,
+                name: product.name,
+                pricePerKg: product.price,
+                format: finalWeight === 'whole' ? 'Pieza entera' : `${finalWeight} gr`,
+                quantity: units
+            };
+
+            console.log("Añadiendo a la cesta:", item);
+            
+            try {
+                const localData = localStorage.getItem("SHOP_LIST");
+                let shopList = localData ? JSON.parse(localData) : [];
+                shopList.push(item);
+                localStorage.setItem("SHOP_LIST", JSON.stringify(shopList));
+
+            } catch (e) {
+                console.error("Error al actualizar el carrito:", e);
+            }
+            
+            // Efecto visual de feedback
+            const originalText = btnAddToCart.innerHTML;
+            btnAddToCart.innerHTML = "¡Añadido!";
+            btnAddToCart.classList.replace('bg-green-900', 'bg-green-600');
+            
+            setTimeout(() => {
+                btnAddToCart.innerHTML = originalText;
+                btnAddToCart.classList.replace('bg-green-600', 'bg-green-900');
+            }, 1500);
+        });
+    }
+
+    // document.addEventListener("DOMContentLoaded", initProductActions);
+    document.addEventListener("astro:page-load", initProductActions);
+</script>

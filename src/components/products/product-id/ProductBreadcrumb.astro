@@ -1,0 +1,23 @@
+---
+interface Props {
+    category: string;
+    name: string;
+    formattedCategory: string;
+}
+
+const {category, name, formattedCategory} = Astro.props;
+---
+
+<nav class="w-full bg-stone-50 border-b border-stone-200 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <ol class="flex items-center space-x-2 text-sm text-stone-500 font-light">
+            <li><a href="/" class="hover:text-green-800 transition-colors">Inicio</a></li>
+            <li><span class="mx-1">/</span></li>
+            <li><a href="../products" class="hover:text-green-800 transition-colors">Catálogo</a></li>
+            <li><span class="mx-1">/</span></li>
+            <li><a href={`../products?cat=${category}`} class="hover:text-green-800 transition-colors">{formattedCategory}</a></li>
+            <li><span class="mx-1">/</span></li>
+            <li class="text-stone-800 font-medium truncate">{name}</li>
+        </ol>
+    </div>
+</nav>
