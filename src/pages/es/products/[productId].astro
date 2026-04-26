@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import { supabase } from "../../../db/supabase";
 import Layout from "../../../layouts/Layout.astro";
+import defaultImage from "../../../assets/images/no-photo.avif";
 import type { ProductDetail } from "../../../types/products";
 
 const { productId: id } = Astro.params;
@@ -49,7 +50,7 @@ const priceFormatter = new Intl.NumberFormat('es-ES', {
                 <div class="w-full lg:w-1/2 flex flex-col gap-4">
                     <div class="relative w-full aspect-square bg-stone-100 rounded-sm overflow-hidden border border-stone-200">
                         <Image
-                            src={data.url}
+                            src={data.url ?? defaultImage}
                             alt={data.name} 
                             class="w-full h-full object-cover object-center"
                             width={50}

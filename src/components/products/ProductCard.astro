@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import defaultImage from "../../assets/images/no-photo.avif";
 import type { ProductsList } from "../../types/products";
 
 const lang = getLangFromUrl(Astro.url);
@@ -28,7 +29,7 @@ const priceInEuros = product.price / 100;
         
         <div class="relative w-full h-56 overflow-hidden bg-stone-100">
             <Image
-                src={product.url}
+                src={product.url ?? defaultImage}
                 alt={`Imagen de ${product.name}`} 
                 width="50"
                 height="50"
