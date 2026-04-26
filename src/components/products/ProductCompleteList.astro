@@ -1,0 +1,21 @@
+---
+import ProductList from "./ProductList.astro";
+import ProductDefaultList from "./ProductDefaultList.astro";
+
+interface Props {
+    currentCategory: string;
+}
+
+const { currentCategory } = Astro.props;
+
+---
+
+<div class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-10 flex flex-col items-center flex-grow">
+    <div class="w-full flex flex-col">
+        <ProductList category={currentCategory} server:defer>
+                    
+            <ProductDefaultList slot="fallback"/>
+
+        </ProductList>
+    </div>
+</div>

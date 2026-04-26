@@ -1,0 +1,50 @@
+---
+import type { Category } from "../../types/category";
+
+interface Props {
+    categories: Category[];
+    currentCategory: string;
+}
+
+const { categories, currentCategory } = Astro.props;
+
+---
+
+<div class="w-full bg-white py-4 border-b border-stone-200 shadow-sm sticky top-18 z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div id="tags-list" class="w-full flex items-center gap-3 pb-1 overflow-x-auto hide-scrollbar">
+                    
+            {categories.map((category: Category) => {
+                
+                const isActive = currentCategory === category.slug;
+                        
+                return (
+                    <a
+                        href={`?cat=${category.slug}`}
+                        class={`
+                            whitespace-nowrap px-6 py-2 text-sm font-bold tracking-wide uppercase transition-all duration-300 rounded-sm border
+                                    ${isActive 
+                                        ? 'bg-green-900 text-white border-green-900 shadow-md' 
+                                        : 'bg-stone-50 text-stone-600 border-stone-300 hover:border-green-900 hover:text-green-900'
+                                    }
+                                `}
+                            >
+                                {category.label}
+                    </a>
+                );
+            })}
+
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Ocultar la barra de desplazamiento (scrollbar) en navegadores webkit pero permitir el scroll */
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+</style>

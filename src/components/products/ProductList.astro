@@ -1,0 +1,39 @@
+---
+import ProductCard from "./ProductCard.astro"; 
+import { supabase } from "../../db/supabase";
+import type { ProductDetail } from "../../types/products";
+
+interface Props {
+    category: string;
+}
+
+const { category = "TODOS" } = Astro.props;
+
+let query = supabase.from("products").select("*");
+
+if (category !== "TODOS") {
+    query = query.eq("category", category);
+}
+
+const { data, error } = await query;
+
+if (error) {
+    console.error("Error obteniendo productos:", error.message);
+}
+
+const productsFiltered: ProductDetail[] = data ? (data as ProductDetail[]) : [];
+---
+
+<div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    {
+        productsFiltered && productsFiltered.length > 0 ? (
+            productsFiltered.map(product => (
+                <ProductCard product={product} />
+            ))
+        ) : (
+            <p class="col-span-full text-center text-stone-500 py-12 font-light">
+                No se encontraron productos en esta categoría.
+            </p>
+        )
+    }
+</div>

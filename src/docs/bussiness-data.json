@@ -2,5 +2,14 @@
   "bussiness_name": "La Despensa de Claudio",
   "phone_number": "+34 628 18 27 89",
   "email": "ladespensadeclaudio@hotmail.com",
-  "address": "C. Juan Antonio Cavestany, 41018 Sevilla"
+  "address": "C. Juan Antonio Cavestany, 41018 Sevilla",
+
+  "products_categories": [
+    { "label": "Todos", "slug": "TODOS" },
+    { "label": "Jamón", "slug": "JAMON" },
+    { "label": "Queso", "slug": "QUESO" },
+    { "label": "Embutido", "slug": "EMBUTIDO" },
+    { "label": "Vinos", "slug": "VINO" },
+    { "label": "Otros", "slug": "OTRO" }
+  ]
 }

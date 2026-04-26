@@ -1,87 +1,22 @@
 ---
 import ProductHeader from "../../../components/products/ProductHeader.astro";
 import Layout from "../../../layouts/Layout.astro";
-import ProductList from "./ProductList.astro";
+import BUS_DATA from "../../../docs/bussiness-data.json";
+import ProductCategoriesList from "../../../components/products/ProductCategoriesList.astro";
+import ProductCompleteList from "../../../components/products/ProductCompleteList.astro";
 
 const tabName = "Catálogo";
 
-const categories = [
-    { label: "Todos", slug: "TODOS" },
-    { label: "Jamón", slug: "JAMON" },
-    { label: "Queso", slug: "QUESO" },
-    { label: "Embutidos", slug: "EMBUTIDOS" },
-    { label: "Vinos", slug: "VINO" },
-    { label: "Otros", slug: "OTRO"}
-];
-
 const currentCategory = Astro.url.searchParams.get('cat') || "TODOS";
+
 ---
 
-<Layout title={`${tabName} - La Despensa de Claudio`}>
+<Layout title={`${tabName} - ${BUS_DATA.bussiness_name}`}>
     <div id={`${tabName}-main-container`} class="w-full min-h-screen bg-stone-50 flex flex-col font-sans text-gray-800">
         
         <ProductHeader />
+        <ProductCategoriesList categories={BUS_DATA.products_categories} currentCategory={currentCategory} />
+        <ProductCompleteList currentCategory={currentCategory} />
 
-        <div class="w-full bg-white py-4 border-b border-stone-200 shadow-sm sticky top-18 z-10">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6">
-                <div id="tags-list" class="w-full flex items-center overflow-x-auto hide-scrollbar gap-3 pb-1">
-                    
-                    {categories.map((category) => {
-                        const isActive = currentCategory === category.slug;
-                        return (
-                            <a
-                                href={`?cat=${category.slug}`}
-                                class={`
-                                    whitespace-nowrap px-6 py-2 text-sm font-bold tracking-wide uppercase transition-all duration-300 rounded-sm border
-                                    ${isActive 
-                                        ? 'bg-green-900 text-white border-green-900 shadow-md' 
-                                        : 'bg-stone-50 text-stone-600 border-stone-300 hover:border-green-900 hover:text-green-900'
-                                    }
-                                `}
-                            >
-                                {category.label}
-                            </a>
-                        );
-                    })}
-
-                </div>
-            </div>
-        </div>
-
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-10 flex flex-col items-center flex-grow">
-            <div class="w-full flex flex-col gap-4">
-                <ProductList category={currentCategory} server:defer>
-                    
-                    <div slot="fallback" class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {Array.from({ length: 6 }).map(() => (
-                            <div class="w-full bg-white rounded-sm border border-stone-200 shadow-sm overflow-hidden flex flex-col h-[400px]">
-                                <div class="w-full h-56 bg-stone-200 animate-pulse"></div>
-                                <div class="p-6 flex flex-col gap-3 flex-grow">
-                                    <div class="h-6 w-3/4 bg-stone-200 animate-pulse rounded-sm"></div>
-                                    <div class="h-3 w-full bg-stone-100 animate-pulse rounded-sm mt-2"></div>
-                                    <div class="h-3 w-5/6 bg-stone-100 animate-pulse rounded-sm"></div>
-                                    <div class="flex justify-between mt-auto pt-4 border-t border-stone-100">
-                                        <div class="h-6 w-1/3 bg-stone-200 animate-pulse rounded-sm"></div>
-                                        <div class="h-6 w-1/4 bg-stone-200 animate-pulse rounded-sm"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                </ProductList>
-            </div>
-        </div>
     </div>
 </Layout>
-
-<style>
-    /* Ocultar la barra de desplazamiento (scrollbar) en navegadores webkit pero permitir el scroll */
-    .hide-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    .hide-scrollbar {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-    }
-</style>

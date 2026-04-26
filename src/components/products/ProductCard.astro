@@ -23,17 +23,16 @@ const priceInEuros = product.price / 100;
 <article 
     id={`product-${product.id}-section`} 
     class="group w-full bg-white rounded-sm border border-stone-200 shadow-sm hover:shadow-lg hover:border-green-700 transition-all duration-300 overflow-hidden flex flex-col"
-    transition:animate="slide"
 >
     <a href={`./products/${product.id}`} class="flex flex-col h-full">
         
         <div class="relative w-full h-56 overflow-hidden bg-stone-100">
             <Image
                 src={product.url ?? defaultImage}
-                alt={`Imagen de ${product.name}`} 
+                alt={`${product.name}`} 
                 width="50"
                 height="50"
-                loading="eager"
+                loading="lazy"
                 transition:name={`product-image-${product.id}`}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" 
             />
