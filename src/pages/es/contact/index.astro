@@ -32,7 +32,7 @@ const tabName = "Contacto";
                 
                 <div class="flex flex-col gap-10">
                     <div>
-                        <h2 class="text-2xl font-serif text-green-900 mb-6 underline decoration-stone-300 underline-offset-8">
+                        <h2 class="text-2xl font-serif font-bold text-green-900 mb-6 underline decoration-stone-300 underline-offset-8">
                             Atención al Cliente
                         </h2>
                         
@@ -42,8 +42,8 @@ const tabName = "Contacto";
                                     <PhoneSVG />
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-stone-900">Teléfono</h4>
-                                    <a href={`tel:${BUS_DATA.phone_number}`} class="text-blue-500 font-medium" >{BUS_DATA.phone_number}</a>
+                                    <h4 class="font-inter font-bold text-stone-900">Teléfono</h4>
+                                    <a href={`tel:${BUS_DATA.phone_number}`} class="text-blue-500 font-inter" >{BUS_DATA.phone_number}</a>
                                 </div>
                             </div>
 
@@ -52,8 +52,8 @@ const tabName = "Contacto";
                                     <MailSVG />
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-stone-900">Email</h4>
-                                    <a href={`mailto:${BUS_DATA.email}`} class="text-blue-500 font-medium">{BUS_DATA.email}</p>
+                                    <h4 class="font-inter font-bold text-stone-900">Email</h4>
+                                    <a href={`mailto:${BUS_DATA.email}`} class="text-blue-500 font-inter">{BUS_DATA.email}</p>
                                 </div>
                             </div>
 
@@ -63,7 +63,7 @@ const tabName = "Contacto";
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-stone-900">Dirección</h4>
-                                    <p class="text-stone-600 font-light">{BUS_DATA.address}</p>
+                                    <p class="text-stone-600 font-inter">{BUS_DATA.address}</p>
                                 </div>
                             </div>
 
@@ -72,11 +72,11 @@ const tabName = "Contacto";
                                     <AnalogClockSVG />
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-stone-900">Horario</h4>
-                                    <p class="text-stone-600 font-light">Lunes a Viernes:</p>
-                                    <p class="text-stone-600 font-light">- Mañana: 08:30 - 14:30</p>
-                                    <p class="text-stone-600 font-light">- Tarde: 17:30 - 21:00</p>
-                                    <p class="text-stone-600 font-light">Sábados: 9:00 - 14:30</p>
+                                    <h4 class="font-inter font-bold text-stone-900">Horario</h4>
+                                    <p class="text-stone-600">Lunes a Viernes:</p>
+                                    <p class="text-stone-600">- Mañana: 08:30 - 14:30</p>
+                                    <p class="text-stone-600">- Tarde: 17:30 - 21:00</p>
+                                    <p class="text-stone-600">Sábados: 9:00 - 14:30</p>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@ const tabName = "Contacto";
                         <button 
                             id="submit-btn"
                             type="submit"
-                            class="mt-4 bg-green-900 hover:bg-green-800 text-white font-bold py-4 px-8 rounded-sm shadow-md transition-all duration-300 uppercase text-xs tracking-[0.2em] disabled:opacity-70 disabled:cursor-not-allowed"
+                            class="mt-4 bg-green-900 hover:bg-green-800 hover:cursor-pointer text-white font-bold py-4 px-8 rounded-sm shadow-md transition-all duration-300 uppercase text-xs tracking-[0.2em] disabled:opacity-70 disabled:cursor-not-allowed"
                         >
                             Enviar Mensaje
                         </button>
