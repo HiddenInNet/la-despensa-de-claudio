@@ -14,41 +14,41 @@ const { product } = Astro.props;
         <div>
             <span class="text-xs font-bold uppercase tracking-widest text-stone-800 mb-4 block">Selecciona el formato:</span>
             <div class="flex flex-wrap gap-3" id="weight-selector">
-                <button type="button" data-weight="100" class="weight-btn border-2 border-green-900 bg-green-900 text-white font-medium py-2 px-5 rounded-sm transition-colors text-sm">
+                <button type="button" data-weight="100" class="weight-btn border-2 border-green-900 bg-green-900 text-white font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
                     100 gr
                 </button>
-                <button type="button" data-weight="250" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors text-sm">
+                <button type="button" data-weight="250" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
                     250 gr
                 </button>
-                <button type="button" data-weight="500" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors text-sm">
+                <button type="button" data-weight="500" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
                     500 gr
                 </button>
-                <button type="button" data-weight="whole" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors text-sm">
+                <button type="button" data-weight="whole" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
                     Pieza entera
                 </button>
-                <button type="button" data-weight="custom" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors text-sm">
+                <button type="button" data-weight="custom" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
                     Personalizado
                 </button>
             </div>
 
             <div id="custom-weight-container" class="hidden mt-4 items-center gap-3 animate-fade-in">
                 <input type="number" id="custom-weight-input" min="50" step="50" placeholder="Ej: 250" class="border border-stone-300 p-2.5 rounded-sm w-28 text-stone-800 focus:outline-none focus:border-green-900 focus:ring-1 focus:ring-green-900" />
-                <span class="text-stone-500 text-sm">gramos (mín. 50g)</span>
+                <span class="text-stone-500 text-sm">gramos (mín. 100g)</span>
             </div>
         </div>
       
         <div class="flex flex-col sm:flex-row gap-4">
             <div class="flex w-fit items-center justify-center border border-stone-300 bg-white rounded-sm py-4">
-                <button id="btn-minus" class="px-4 h-full text-stone-500 hover:text-green-900 transition-colors focus:outline-none" aria-label="Disminuir cantidad">
+                <button id="btn-minus" class="px-4 h-full text-stone-500 hover:text-green-900 transition-colors focus:outline-none hover:cursor-pointer" aria-label="Disminuir cantidad">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
                 </button>
                 <input type="number" id="qty-input" value="1" min="1" readonly class="w-12 text-center text-stone-800 font-bold bg-transparent focus:outline-none pointer-events-none" />
-                <button id="btn-plus" class="px-4 h-full text-stone-500 hover:text-green-900 transition-colors focus:outline-none" aria-label="Aumentar cantidad">
+                <button id="btn-plus" class="px-4 h-full text-stone-500 hover:text-green-900 transition-colors focus:outline-none hover:cursor-pointer" aria-label="Aumentar cantidad">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 </button>
             </div>
 
-            <button id="add-to-cart-btn" class="bg-green-900 text-white font-bold py-4 px-8 rounded-sm hover:bg-green-800 transition-colors uppercase tracking-widest text-sm shadow-md flex justify-center items-center">
+            <button id="add-to-cart-btn" class="w-full bg-green-900 text-white font-bold py-4 px-8 rounded-sm hover:bg-green-800 transition-colors uppercase tracking-widest text-sm shadow-md flex justify-center items-center hover:cursor-pointer">
                 Añadir a la cesta
             </button>
         </div>
@@ -125,8 +125,8 @@ const { product } = Astro.props;
                 // Validación peso personalizado
                 if (selectedWeight === 'custom') {
                     const customValue = parseInt(customWeightInput.value);
-                    if (!customValue || customValue < 50) {
-                        alert("Por favor, introduce una cantidad válida (mínimo 50g)");
+                    if (!customValue || customValue < 100) {
+                        alert("Por favor, introduce una cantidad válida (mínimo 100g)");
                         return;
                     }
                     finalWeight = customValue.toString();
@@ -136,8 +136,10 @@ const { product } = Astro.props;
                 const item = {
                     id: product.id,
                     name: product.name,
+                    image: product.url,
                     pricePerKg: product.price,
-                    format: finalWeight === 'whole' ? 'Pieza entera' : `${finalWeight} gr`,
+                    pieceWeight: product.weight,
+                    format: finalWeight === 'whole' ? 'whole' : finalWeight,
                     quantity: units
                 };
                 

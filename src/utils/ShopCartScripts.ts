@@ -1,3 +1,5 @@
+import type { ShopItem } from "../types/shop";
+
 export function updateCartBadge() {
     const badge = document.getElementById('cart-badge');
     if (!badge) return;
@@ -23,51 +25,53 @@ export function updateCartBadge() {
 
 export function initCartMenu() {
 
-        const openBtn = document.getElementById('cart-toggle-btn');
-        const closeBtn = document.getElementById('close-cart-btn');
-        const drawer = document.getElementById('cart-drawer');
-        const backdrop = document.getElementById('cart-backdrop');
+    const openBtn = document.getElementById('cart-toggle-btn');
+    const closeBtn = document.getElementById('close-cart-btn');
+    const drawer = document.getElementById('cart-drawer');
+    const backdrop = document.getElementById('cart-backdrop');
 
-        if (!openBtn || !drawer || !openBtn.parentNode) return;
+    if (!openBtn || !drawer || !openBtn.parentNode) return;
 
-        const newOpenBtn = openBtn.cloneNode(true);
-        openBtn.parentNode.replaceChild(newOpenBtn, openBtn);
+    const newOpenBtn = openBtn.cloneNode(true);
+    openBtn.parentNode.replaceChild(newOpenBtn, openBtn);
 
-        updateCartBadge();
+    updateCartBadge();
 
-        function openCart() {
+    function openCart() {
 
-            if (!backdrop || !drawer) return;
+        if (!backdrop || !drawer) return;
 
-
+        backdrop.classList.remove('opacity-0', 'pointer-events-none');
+        backdrop.classList.add('opacity-100', 'pointer-events-auto');
             
-            // Mostrar backdrop
-            backdrop.classList.remove('opacity-0', 'pointer-events-none');
-            backdrop.classList.add('opacity-100', 'pointer-events-auto');
-            
-            // Subir drawer (eliminamos la traslación hacia abajo)
-            drawer.classList.remove('translate-y-full');
-            drawer.classList.add('translate-y-0', 'md:mb-4');
-        }
-
-        function closeCart() {
-            if (!backdrop || !drawer) return;
-
-            // Ocultar backdrop
-            backdrop.classList.remove('opacity-100', 'pointer-events-auto');
-            backdrop.classList.add('opacity-0', 'pointer-events-none');
-            
-            // Bajar drawer (volvemos a aplicar la traslación hacia abajo)
-            drawer.classList.remove('translate-y-0', 'md:mb-4');
-            drawer.classList.add('translate-y-full');
-        }
-
-        newOpenBtn.addEventListener('click', openCart);
-        closeBtn?.addEventListener('click', closeCart);
-        backdrop?.addEventListener('click', closeCart);
+        drawer.classList.remove('translate-y-full');
+        drawer.classList.add('translate-y-0', 'md:mb-4');
     }
 
-function refreshCartItems () {
+    function closeCart() {
+        if (!backdrop || !drawer) return;
 
-    
+        backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+        backdrop.classList.add('opacity-0', 'pointer-events-none');
+            
+        drawer.classList.remove('translate-y-0', 'md:mb-4');
+        drawer.classList.add('translate-y-full');
+    }
+
+    newOpenBtn.addEventListener('click', openCart);
+    closeBtn?.addEventListener('click', closeCart);
+    backdrop?.addEventListener('click', closeCart);
+}
+
+export function getProductListFromLocalStorage (): ShopItem[] {
+    const contenidoString = localStorage.getItem("SHOP_LIST") ?? "[]";
+    return JSON.parse(contenidoString) ?? [];
+}
+
+export function setProductListFromLocalStorage(value: ShopItem[]): boolean {
+    const dataString = JSON.stringify(value);
+    localStorage.setItem("SHOP_LIST", dataString);
+
+    const savedData = localStorage.getItem("SHOP_LIST");
+    return savedData === dataString;
 }

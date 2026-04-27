@@ -3,7 +3,10 @@ import ShoppingCart from "../../assets/svg/shopping-cart.svg";
 import CartResume from "./CartResume.astro";
 import ShoppingResumeContainer from "./ShoppingResumeContainer.astro";
 import Close from "../../assets/svg/close.svg";
+import { Image } from "astro:assets";
+import { getLangFromUrl } from "../../i18n/utils";
 
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <button 
@@ -44,13 +47,14 @@ import Close from "../../assets/svg/close.svg";
 <script>
     import { initCartMenu } from "../../utils/ShopCartScripts";
 
-    // document.addEventListener("DOMContentLoaded", initCartMenu);
     document.addEventListener("astro:page-load", initCartMenu);
 </script>
 
 
 <script>
     import type { ShopItem } from "../../types/shop";
+    import { updateCartBadge, getProductListFromLocalStorage, setProductListFromLocalStorage } from "../../utils/ShopCartScripts";
+    
 
     function init () {
         const cartBtn = document.getElementById("cart-toggle-btn") as HTMLButtonElement;
@@ -59,39 +63,105 @@ import Close from "../../assets/svg/close.svg";
             const itemsList = document.getElementById("shop-items-list") as HTMLButtonElement;
             if(!itemsList) return;
 
-            console.log(itemsList)
-
             try {
-                console.log("items")
-                const itemsString = localStorage.getItem("SHOP_LIST") ?? "";
-                const items: ShopItem[] = JSON.parse(itemsString);
+                const items: ShopItem[] = getProductListFromLocalStorage();
 
+                updateCartBadge();
+                window.dispatchEvent(new CustomEvent('cart-updated'));
 
-                items.map((item) => {
-                    itemsList.innerHTML += createItem(item);
-                })
+                itemsList.innerHTML = items.map((item, index) => createItem(item, index)).join('');
+
+                items.forEach((_, index) => {
+                    const removeBtn = document.querySelector(`[data-action="delete-${index}"]`) as HTMLButtonElement;
+                    if (removeBtn) {
+                        removeBtn.addEventListener("click", removeItem(index));
+                    }
+                });
 
             } catch (e) {
                 console.error("Error: ", e);
             }
         }
 
-        function createItem (item: ShopItem) {
-            return (`
-                <div class="flex gap-4 pb-4 border-b border-stone-100">
-                    <div class="w-20 h-20 bg-stone-200 rounded-md overflow-hidden">
-                        <!-- <img src="/placeholder-jamon.jpg" alt="" class="w-full h-full object-cover opacity-50" /> -->
+        function createItem(item: ShopItem, index: number) {
+            const path = window.location.pathname;
+            const lang = path.split('/')[1] || 'es';
+
+            const priceFormatter = new Intl.NumberFormat('es-ES', {
+                style: 'currency',
+                currency: 'EUR',
+            });
+
+            const isNumericFormat = !isNaN(Number(item.format));
+            const pieceWeight = Number(item.pieceWeight) / 1000;
+            const weightMultiplier = isNumericFormat ? Number(item.format) / 1000 : pieceWeight;
+            
+            // Precio por unidad de formato (en euros)
+            const unitPrice = (Number(item.pricePerKg) / 100) * weightMultiplier;
+            const lineTotal = unitPrice * Number(item.quantity);
+
+            return `
+                <div class="flex gap-4 pb-4 border-b border-stone-100 group relative">
+                    <a href="/${lang}/products/${item.id}" class="flex gap-4 flex-1">
+                        <div class="w-20 h-20 bg-stone-200 rounded-md overflow-hidden flex-shrink-0">
+                            <img 
+                                src="${item.image ?? "/images/no-photo.avif"}" 
+                                alt="${item.name}" 
+                                class="w-full h-full object-cover"
+                                loading="lazy"
+                            />
+                        </div>
+                        
+                        <div class="flex flex-col justify-between py-1">
+                            <div>
+                                <h3 class="font-bold text-stone-800 text-sm md:text-base leading-tight">
+                                    ${item.name}
+                                </h3>
+                                <p class="text-stone-500 text-xs mt-1">
+                                    ${item.quantity} x ${isNumericFormat ? item.format + ' gr' : 'Pieza entera'}
+                                </p>
+                            </div>
+                            <h4 class="text-xs text-stone-400">
+                                ${priceFormatter.format(Number(item.pricePerKg) / 100)} / kg
+                            </h4>
+                        </div>
+                    </a>
+
+                    <div class="flex flex-col justify-between items-end py-1">
+                        <button 
+                            data-action="delete-${index}"
+                            class="text-stone-300 hover:text-red-600 transition-colors cursor-pointer p-1"
+                            aria-label="Eliminar producto"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+                                <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                            </svg>                        
+                        </button>
+                        
+                        <span class="font-bold text-green-900 text-sm">
+                            ${priceFormatter.format(lineTotal)}
+                        </span>
                     </div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-stone-800 text-sm leading-tight">${item.name}</h3>
-                        <p class="text-stone-500 text-xs mt-1">${item.quantity} x ${item.format}</p>
-                    </div>
-                    <button class="text-stone-300 hover:text-red-500 hover:cursor-pointer transition-colors self-start">
-                        <Delete />
-                    </button>
-                </div>        
-            `);
+                </div>    
+            `;
         }
+
+        const removeItem = (index: number) => (ev: PointerEvent) => {
+            ev.preventDefault();
+            const rawData = localStorage.getItem("SHOP_LIST");
+            if (!rawData) return;
+
+            try {
+                const shopList: ShopItem[] = JSON.parse(rawData);
+                const newList = shopList.filter((_, i) => i !== index);
+                
+                setProductListFromLocalStorage(newList);
+                loadItems();
+                
+            } catch (error) {
+                console.error("Error al procesar la lista de compras:", error);
+            }
+        };
 
         cartBtn.addEventListener("click", loadItems);
     }

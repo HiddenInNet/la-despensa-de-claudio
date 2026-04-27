@@ -1,8 +1,7 @@
 // src/pages/api/contacto.ts
 import type { APIRoute } from "astro";
 import { Resend } from "resend";
-import { mailHTML } from "./mail-body";
-import BUS_DATA from "../../../docs/bussiness-data.json";
+import { mailHTML } from "./mail.body";
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
