@@ -13,11 +13,12 @@
 </div>
 
 <script>
+    import type { ShopItem } from "../../types/shop";
     import { calculatePrice } from "../../utils/PriceCalculator";
-import { getProductListFromLocalStorage } from "../../utils/ShopCartScripts";
+    import { getProductListFromLocalStorage } from "../../utils/ShopCartScripts";
 
     async function getTotalPrice () {
-        const total = await calculatePrice();
+        const total = await calculatePrice(getProductListFromLocalStorage());
         const totalFormatted = (total / 100).toLocaleString('es-ES', { 
             style: 'currency', 
             currency: 'EUR' 
@@ -29,9 +30,20 @@ import { getProductListFromLocalStorage } from "../../utils/ShopCartScripts";
         totalPriceSpan.innerText = totalFormatted;
     }
 
+    function initCartActions() {
+        getTotalPrice();
+        
+        const paymentBtn = document.getElementById("payment-btn") as HTMLButtonElement;
+        if (paymentBtn) {
+
+            paymentBtn.removeEventListener("click", sendDelivery);
+            paymentBtn.addEventListener("click", sendDelivery);
+        }
+    }
+
     async function sendDelivery () {
         try {
-            const cartItems = getProductListFromLocalStorage();
+            const cartItems: ShopItem[] = getProductListFromLocalStorage();
 
             if (cartItems.length === 0) {
                 alert("El carrito está vacío");
@@ -56,18 +68,8 @@ import { getProductListFromLocalStorage } from "../../utils/ShopCartScripts";
             console.error("Error al enviar el pedido:", error);
         }
     }
-
-    function initCartActions() {
-        getTotalPrice();
-        
-        const paymentBtn = document.getElementById("payment-btn") as HTMLButtonElement;
-        if (paymentBtn) {
-
-            paymentBtn.removeEventListener("click", sendDelivery);
-            paymentBtn.addEventListener("click", sendDelivery);
-        }
-    }
-
-    document.addEventListener("astro:page-load", initCartActions);
+    
     window.addEventListener("cart-updated", getTotalPrice);
+    window.addEventListener("refresh-total-price", getTotalPrice);
+    document.addEventListener("astro:page-load", initCartActions);
 </script>

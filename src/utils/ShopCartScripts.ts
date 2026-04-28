@@ -5,17 +5,16 @@ export function updateCartBadge() {
     if (!badge) return;
 
     try {
-        const localData = localStorage.getItem("SHOP_LIST");
-        const shopList = localData ? JSON.parse(localData) : [];
+        
+        const shopList = getProductListFromLocalStorage();
             
         const totalItems = shopList.length;
 
         if (totalItems > 0) {
-            badge.textContent = totalItems;
+            badge.textContent = totalItems.toString();
             badge.classList.remove('hidden');
             
         } else {
-        
             badge.classList.add('hidden');
         }
     } catch (e) {
@@ -64,8 +63,8 @@ export function initCartMenu() {
 }
 
 export function getProductListFromLocalStorage (): ShopItem[] {
-    const contenidoString = localStorage.getItem("SHOP_LIST") ?? "[]";
-    return JSON.parse(contenidoString) ?? [];
+    const contenidoString: string = localStorage.getItem("SHOP_LIST") ?? "[]";
+    return JSON.parse(contenidoString);
 }
 
 export function setProductListFromLocalStorage(value: ShopItem[]): boolean {

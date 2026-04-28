@@ -44,9 +44,9 @@ const lang = getLangFromUrl(Astro.url);
     <CartResume />
 </section>
 
+<!-- Comportamiento del boton del carrito -->
 <script>
     import { initCartMenu } from "../../utils/ShopCartScripts";
-
     document.addEventListener("astro:page-load", initCartMenu);
 </script>
 
@@ -55,31 +55,50 @@ const lang = getLangFromUrl(Astro.url);
     import type { ShopItem } from "../../types/shop";
     import { updateCartBadge, getProductListFromLocalStorage, setProductListFromLocalStorage } from "../../utils/ShopCartScripts";
     
-
     function init () {
         const cartBtn = document.getElementById("cart-toggle-btn") as HTMLButtonElement;
-        
+        const itemsList = document.getElementById("shop-items-list") as HTMLElement;
+
         function loadItems () {
-            const itemsList = document.getElementById("shop-items-list") as HTMLButtonElement;
             if(!itemsList) return;
 
             try {
                 const items: ShopItem[] = getProductListFromLocalStorage();
 
+                itemsList.innerHTML = items.length > 0 
+                    ? items.map((item, index) => createItem(item, index)).join('')
+                    : '<p class="text-center text-stone-400 py-10">Tu despensa está vacía</p>';
+
                 updateCartBadge();
-                window.dispatchEvent(new CustomEvent('cart-updated'));
 
-                itemsList.innerHTML = items.map((item, index) => createItem(item, index)).join('');
-
-                items.forEach((_, index) => {
-                    const removeBtn = document.querySelector(`[data-action="delete-${index}"]`) as HTMLButtonElement;
-                    if (removeBtn) {
-                        removeBtn.addEventListener("click", removeItem(index));
-                    }
-                });
-
+                window.dispatchEvent(new CustomEvent('refresh-total-price'));
             } catch (e) {
                 console.error("Error: ", e);
+            }
+        }
+
+        itemsList?.addEventListener("click", (e) => {
+            const target = e.target as HTMLElement;
+            const deleteBtn = target.closest('[data-action^="delete-"]') as HTMLButtonElement;
+            
+            if (deleteBtn) {
+                const index = parseInt((deleteBtn as HTMLElement).dataset.action!.split('-')[1]);
+                removeItem(index);
+            }
+        });
+
+        function removeItem(index: number) {
+            try {
+                const shopList: ShopItem[] = getProductListFromLocalStorage() ?? [];
+                const newList = shopList.filter((_, i) => i !== index);
+                
+                setProductListFromLocalStorage(newList);
+
+                window.dispatchEvent(new CustomEvent('cart-updated'));
+
+                loadItems();
+            } catch (error) {
+                console.error("Error al borrar:", error);
             }
         }
 
@@ -146,26 +165,10 @@ const lang = getLangFromUrl(Astro.url);
             `;
         }
 
-        const removeItem = (index: number) => (ev: PointerEvent) => {
-            ev.preventDefault();
-            const rawData = localStorage.getItem("SHOP_LIST");
-            if (!rawData) return;
+        cartBtn?.addEventListener("click", loadItems);
 
-            try {
-                const shopList: ShopItem[] = JSON.parse(rawData);
-                const newList = shopList.filter((_, i) => i !== index);
-                
-                setProductListFromLocalStorage(newList);
-                loadItems();
-                
-            } catch (error) {
-                console.error("Error al procesar la lista de compras:", error);
-            }
-        };
-
-        cartBtn.addEventListener("click", loadItems);
+        window.addEventListener("cart-updated", loadItems);
     }
-
+    
     document.addEventListener("astro:page-load", init);
-
 </script>

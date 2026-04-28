@@ -12,7 +12,7 @@ interface Props {
 
 const { title } = Astro.props;
 
-const userLang = getLangFromUrl(Astro.url);
+const userLang = getLangFromUrl(Astro.url) ?? "es";
 ---
 
 <!doctype html>

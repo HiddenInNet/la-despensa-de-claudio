@@ -1,30 +1,37 @@
+import type { ProductDetail } from "../../../types/products";
 import type { ShopItem } from "../../../types/shop";
+import { calculatePrice, calculateProductPrice, getProductsOnListFromDatabase } from "../../../utils/PriceCalculator";
 
-export function mailHTML(items: ShopItem[]) {
+export async function mailBodyFormatter(items: ShopItem[]) {
+
     let totalCents = 0;
 
+    const productsDB = await getProductsOnListFromDatabase(items);
+
     const rows = items.map(item => {
-        const isNumeric = !isNaN(Number(item.format));
-        const weightMultiplier = isNumeric ? Number(item.format) / 1000 : Number(item.quantity); 
-        const unitPrice = (Number(item.pricePerKg) / 100) * weightMultiplier;
-        const lineTotal = unitPrice * Number(item.quantity);
+
+        const dbProduct: ProductDetail | null = productsDB.find((p) => p.id === item.id) ?? null;
         
-        totalCents += lineTotal * 100;
+        if (!dbProduct) return ;
+        
+        const individualPrice: number = calculateProductPrice(dbProduct, item);
+        const isNumeric = !isNaN(Number(item.format));
 
         return `
             <tr>
                 <td style="padding: 12px; border-bottom: 1px solid #e5e5e5; color: #44403c;">
                     <strong>${item.name}</strong><br>
-                    <span style="color: #78716c; font-size: 14px;">${item.quantity} x ${isNumeric ? item.format + ' gr' : item.format}</span>
+                    <span style="color: #78716c; font-size: 14px;">${item.quantity} x ${isNumeric ? item.format + ' gr' : "Pieza entera"}</span>
                 </td>
                 <td style="padding: 12px; border-bottom: 1px solid #e5e5e5; color: #14532d; font-weight: bold; text-align: right;">
-                    ${lineTotal.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+                    ${(individualPrice / 100).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
                 </td>
             </tr>
         `;
     }).join('');
 
-    const finalTotal = (totalCents / 100).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+    const totalPrice = await calculatePrice(items);
+    const finalTotal = (totalPrice / 100).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
 
     return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 8px; overflow: hidden;">

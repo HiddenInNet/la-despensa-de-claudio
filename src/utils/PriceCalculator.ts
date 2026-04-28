@@ -1,34 +1,24 @@
 import { supabase } from "../db/supabase";
+import type { ProductDetail } from "../types/products";
 import type { ShopItem } from "../types/shop";
 import { getProductListFromLocalStorage } from "./ShopCartScripts";
 
-interface Prod {
-    id: string;
-    price: string; // Precio por Kg en céntimos (ej: 1990 para 19,90€)
-    weight: string; // Peso medio de una pieza en gramos (ej: 3000 para 3kg)
-}
 
-export async function calculatePrice(): Promise<number> {
-    const productList: ShopItem[] = getProductListFromLocalStorage();
-    
-    if (productList.length === 0) return 0;
+/**
+ * Calcula el precio total de los elementos de la lista de compra
+ * comparandolos con la base de datos para que no puedan ser
+ * manipulados los precios.
+ * 
+ * @param shopProducts | undefined
+ * @returns totalCents
+ */
+export async function calculatePrice(shopProductsLS?: ShopItem[]): Promise<number> {
 
-    const ids = productList.map((p) => p.id);
+    const productsLS: ShopItem[] = shopProductsLS ?? getProductListFromLocalStorage();
+    const productsDB: ProductDetail[] = await getProductsOnListFromDatabase(shopProductsLS);
 
-    const { data, error } = await supabase
-        .from("products")
-        .select("id, price, weight")
-        .in("id", ids);
-
-    if (error) {
-        console.error("Error al obtener productos de la DB:", error);
-        return 0;
-    }
-
-    const dbProducts: Prod[] = data ?? [];
-
-    const totalCents = productList.reduce((acc, localItem) => {
-        const dbProduct = dbProducts.find((p) => p.id === localItem.id);
+    const totalCents = productsLS.reduce((acc, localItem) => {
+        const dbProduct = productsDB.find((p) => p.id === localItem.id);
 
         if (!dbProduct) {
             console.warn(`Producto con ID ${localItem.id} no encontrado en la base de datos.`);
@@ -43,10 +33,10 @@ export async function calculatePrice(): Promise<number> {
     return totalCents; 
 }
 
-function calculateProductPrice(dbProduct: Prod, localProd: ShopItem): number {
+export function calculateProductPrice(dbProduct: ProductDetail, localProd: ShopItem): number {
     const quantity = Number(localProd.quantity);
-    const pricePerKg = Number(dbProduct.price); // Dato fiable de la DB
-    const dbPieceWeight = Number(dbProduct.weight); // Dato fiable de la DB (en gramos)
+    const pricePerKg = Number(dbProduct.price);
+    const dbPieceWeight = Number(dbProduct.weight);
 
     // Comprobamos si el formato es numérico (gramos) o "pieza entera"
     const isNumericFormat = !isNaN(Number(localProd.format));
@@ -63,3 +53,27 @@ function calculateProductPrice(dbProduct: Prod, localProd: ShopItem): number {
     // Total de la línea = Precio unidad * Cantidad
     return Math.round(unitPrice * quantity);
 }
+
+export async function getProductsOnListFromDatabase(shopProductsLS?: ShopItem[]): Promise<ProductDetail[]> {
+
+    const productsLS = shopProductsLS ?? getProductListFromLocalStorage();
+
+    if (productsLS.length === 0) return [];
+
+    const ids = productsLS.map((p) => p.id);
+
+    const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .in("id", ids);
+
+    if (error) {
+        console.error("Error al obtener productos de la DB:", error);
+        return [];
+    }
+
+    const dbProducts: ProductDetail[] = data ?? [];
+
+    return dbProducts;
+}
+
