@@ -1,10 +1,11 @@
-export function mailHTML(items: any[]) {
-    // Calculamos el total (asumiendo que format y quantity vienen en el JSON)
+import type { ShopItem } from "../../../types/shop";
+
+export function mailHTML(items: ShopItem[]) {
     let totalCents = 0;
 
     const rows = items.map(item => {
         const isNumeric = !isNaN(Number(item.format));
-        const weightMultiplier = isNumeric ? Number(item.format) / 1000 : 1; 
+        const weightMultiplier = isNumeric ? Number(item.format) / 1000 : Number(item.quantity); 
         const unitPrice = (Number(item.pricePerKg) / 100) * weightMultiplier;
         const lineTotal = unitPrice * Number(item.quantity);
         
