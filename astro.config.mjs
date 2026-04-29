@@ -24,7 +24,5 @@ export default defineConfig({
       },
     ],
   },
-  adapter: cloudflare({
-    imageService: { build: 'compile', runtime: 'cloudflare-binding' }
-  }),
+  adapter: cloudflare(),
 });

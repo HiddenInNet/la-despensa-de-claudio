@@ -1,9 +1,13 @@
 {
-  "name": "la-despensa-de-claudio",
-  "pages_build_output_dir": "./dist",
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Top-level configuration
+  "name": "la-despensa-worker",
+  "main": "src/index.js",
+  // Set this to today's date
   "compatibility_date": "2026-04-29",
-  "compatibility_flags": ["global_fetch_strictly_public"],
-  "observability": {
-    "enabled": true
-  }
+  "workers_dev": false,
+  "vars": {
+    "PUBLIC_SUPABASE_URL":"https://siiilfcyypzaqvqqnxzi.supabase.co",
+	"PUBLIC_SUPABASE_KEY":"sb_publishable_3IGXc5l9QExsf4sXxpzqng_0C6LTbu8"
+  },
 }
