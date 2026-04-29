@@ -6,6 +6,8 @@ dist/
 
 # generated types
 .astro/
+.vscode/
+.wrangler/
 
 # dependencies
 node_modules/
