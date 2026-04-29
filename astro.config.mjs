@@ -5,6 +5,10 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
+  output: "server",
+  adapter: cloudflare({
+    prerenderEnvironment: 'node',
+  }),
   vite: {
     plugins: [tailwindcss()],
   },
@@ -15,7 +19,6 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
-  output: "server",
   image: {
     remotePatterns: [
       {
@@ -24,5 +27,4 @@ export default defineConfig({
       },
     ],
   },
-  adapter: cloudflare(),
 });
