@@ -17,12 +17,12 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
-  // image: {
-  //   remotePatterns: [
-  //     {
-  //       protocol: "https",
-  //       hostname: "**.public.blob.vercel-storage.com",
-  //     },
-  //   ],
-  // },
+  image: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.public.blob.vercel-storage.com",
+      },
+    ],
+  },
 });
