@@ -1,41 +1,49 @@
 ---
 import type { ProductDetail } from '../../../types/products';
+import { products_categories } from "../../../docs/bussiness-data.json";
 
 interface Props {
     product: ProductDetail
 }
 
 const { product } = Astro.props;
+
+const divisibleCategories: string[] = products_categories.flatMap((c) => 
+  c.divisible ? [c.slug] : []
+);
 ---
 
 <product-add data-product={JSON.stringify(product)}>
     <div class="mt-8 flex flex-col gap-8">
         
-        <div>
-            <span class="text-xs font-bold uppercase tracking-widest text-stone-800 mb-4 block">Selecciona el formato:</span>
-            <div class="flex flex-wrap gap-3" id="weight-selector">
-                <button type="button" data-weight="100" class="weight-btn border-2 border-green-900 bg-green-900 text-white font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
-                    100 gr
-                </button>
-                <button type="button" data-weight="250" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
-                    250 gr
-                </button>
-                <button type="button" data-weight="500" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
-                    500 gr
-                </button>
-                <button type="button" data-weight="whole" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
-                    Pieza entera
-                </button>
-                <button type="button" data-weight="custom" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
-                    Personalizado
-                </button>
-            </div>
+        {
+            divisibleCategories.includes(product.category) &&
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-stone-800 mb-4 block">Selecciona el formato:</span>
+                <div class="flex flex-wrap gap-3" id="weight-selector">
+                    <button type="button" data-weight="100" class="weight-btn border-2 border-green-900 bg-green-900 text-white font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
+                        100 gr
+                    </button>
+                    <button type="button" data-weight="250" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
+                        250 gr
+                    </button>
+                    <button type="button" data-weight="500" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
+                        500 gr
+                    </button>
+                    <button type="button" data-weight="whole" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
+                        Pieza entera
+                    </button>
+                    <button type="button" data-weight="custom" class="weight-btn border-2 border-stone-200 text-stone-600 hover:border-green-900 hover:text-green-900 font-medium py-2 px-5 rounded-sm transition-colors hover:cursor-pointer text-sm">
+                        Personalizado
+                    </button>
+                </div>
 
-            <div id="custom-weight-container" class="hidden mt-4 items-center gap-3 animate-fade-in">
-                <input type="number" id="custom-weight-input" min="50" step="50" placeholder="Ej: 250" class="border border-stone-300 p-2.5 rounded-sm w-28 text-stone-800 focus:outline-none focus:border-green-900 focus:ring-1 focus:ring-green-900" />
-                <span class="text-stone-500 text-sm">gramos (mín. 100g)</span>
+                <div id="custom-weight-container" class="hidden mt-4 items-center gap-3 animate-fade-in">
+                    <input type="number" id="custom-weight-input" min="50" step="50" placeholder="Ej: 250" class="border border-stone-300 p-2.5 rounded-sm w-28 text-stone-800 focus:outline-none focus:border-green-900 focus:ring-1 focus:ring-green-900" />
+                    <span class="text-stone-500 text-sm">gramos (mín. 100g)</span>
+                </div>
             </div>
-        </div>
+        }
       
         <div class="flex flex-col sm:flex-row gap-4">
             <div class="flex w-fit items-center justify-center border border-stone-300 bg-white rounded-sm py-4">
@@ -58,6 +66,7 @@ const { product } = Astro.props;
 <script>
     import type { ProductDetail } from "../../../types/products";
     import { updateCartBadge } from "../../../utils/ShopCartScripts";
+    import { products_categories } from "../../../docs/bussiness-data.json";
 
     class ProductAdd extends HTMLElement {
 
@@ -65,9 +74,12 @@ const { product } = Astro.props;
             const productData: string = this.dataset.product ?? "";
             if (!productData) return;
 
+            const divisibleCategories: string[] = products_categories.flatMap((c) => 
+                c.divisible ? [c.slug] : []
+            );
+
             const product: ProductDetail = JSON.parse(productData);
             
-            // Usamos this.querySelector para buscar dentro de este componente
             const btnMinus = this.querySelector('#btn-minus') as HTMLButtonElement;
             const btnPlus = this.querySelector('#btn-plus') as HTMLButtonElement;
             const inputQty = this.querySelector('#qty-input') as HTMLInputElement;
@@ -79,7 +91,7 @@ const { product } = Astro.props;
 
             if (!btnMinus || !btnPlus || !inputQty || !btnAddToCart) return;
 
-            let selectedWeight = "100";
+            let selectedWeight = divisibleCategories.includes(product.category) ? "100" : "whole";
 
             // Lógica de Selección de Peso
             weightButtons.forEach(button => {
