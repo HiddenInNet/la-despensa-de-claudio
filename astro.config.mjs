@@ -6,9 +6,7 @@ import cloudflare from "@astrojs/cloudflare";
 // https://astro.build/config
 export default defineConfig({
   output: "server",
-  adapter: cloudflare({
-    imageService: 'passthrough',
-  }),
+  adapter: cloudflare(),
   vite: {
     plugins: [tailwindcss()],
   },
@@ -19,12 +17,12 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
-  image: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**.public.blob.vercel-storage.com",
-      },
-    ],
-  },
+  // image: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: "https",
+  //       hostname: "**.public.blob.vercel-storage.com",
+  //     },
+  //   ],
+  // },
 });
