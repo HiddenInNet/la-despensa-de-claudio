@@ -93,7 +93,7 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
 
             let selectedWeight = divisibleCategories.includes(product.category) ? "100" : "whole";
 
-            // Lógica de Selección de Peso
+            // Logica de seleccion de Peso
             weightButtons.forEach(button => {
                 button.addEventListener('click', (e) => {
                     weightButtons.forEach(btn => {
@@ -116,7 +116,7 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
                 });
             });
 
-            // Lógica de Unidades (+ / -)
+            // Logica de Unidades (+ / -)
             btnMinus.addEventListener('click', () => {
                 let currentValue = parseInt(inputQty.value);
                 if (currentValue > 1) {
@@ -144,14 +144,13 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
                     finalWeight = customValue.toString();
                 }
 
-                // Creamos el objeto usando la variable "product" que parseamos arriba
                 const item = {
                     id: product.id,
                     name: product.name,
                     image: product.url,
                     pricePerKg: product.price,
                     pieceWeight: product.weight,
-                    format: finalWeight === 'whole' ? 'whole' : finalWeight,
+                    format: finalWeight,
                     quantity: units
                 };
                 

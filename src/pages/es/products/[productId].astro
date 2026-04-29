@@ -6,6 +6,7 @@ import defaultImage from "../../../assets/images/no-photo.avif";
 import type { ProductDetail } from "../../../types/products";
 import ProductBreadcrumb from "../../../components/products/product-id/ProductBreadcrumb.astro";
 import ProductBuy from "../../../components/products/product-id/ProductBuy.astro";
+import SEO from "../../../components/seo/SEO.astro";
 
 const { productId: id } = Astro.params;
 
@@ -23,12 +24,13 @@ if (error || !data) {
 const formattedCategory = data.category.charAt(0).toUpperCase() + data.category.slice(1).toLowerCase();
 const priceInEuros = data.price / 100;
 const weightFormated = data.weight / 1000;
-// Formateador de moneda
 const priceFormatter = new Intl.NumberFormat('es-ES', {
   style: 'currency',
   currency: 'EUR',
 });
 ---
+
+<SEO product={data} />
 
 <Layout title={`${data.name} - La Despensa de Claudio`}>
     <div class="w-full min-h-screen bg-white font-sans text-stone-800 pb-20">

@@ -1,0 +1,35 @@
+---
+import type { ProductDetail } from "../../types/products";
+import { bussiness_name } from "../../docs/bussiness-data.json";
+
+interface Props {
+    title?: string;
+    description?: string;
+    product: ProductDetail
+}
+
+const { title, description, product } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": product.name,
+  "image": product.url,
+  "description": product.description,
+  "brand": {
+    "@type": "Brand",
+    "name": bussiness_name
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": ((product.price * product.weight) / 100).toFixed(2),
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/InStock",
+    "url": Astro.url.href
+  }
+};
+---
+
+<title>{title ?? product.name}</title>
+<meta name="description" content={description ?? product.description} />
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
