@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   // Top-level configuration
-  "name": "la-despensa-worker",
+  "name": "la-despensa-de-claudio-worker",
   "main": "src/index.js",
   // Set this to today's date
   "compatibility_date": "2026-04-29",
