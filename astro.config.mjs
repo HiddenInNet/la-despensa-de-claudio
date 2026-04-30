@@ -7,7 +7,10 @@ import cloudflare from "@astrojs/cloudflare";
 // https://astro.build/config
 export default defineConfig({
   output: "server",
-
+  build: {
+    client: ".",
+    server: "."
+  },
   vite: {
     plugins: [tailwindcss()],
   },
