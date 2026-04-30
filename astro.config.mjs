@@ -7,11 +7,12 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   output: "server",
   adapter: cloudflare({
-    imageService: { build: 'compile', runtime: 'cloudflare-binding' }
+    imageService: "passthrough",
   }),
   vite: {
     plugins: [tailwindcss()],
   },
+  integrations: [],
   i18n: {
     locales: ["es", "en", "fr"],
     defaultLocale: "es",
