@@ -3,14 +3,14 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "wrangler types && astro dev",
-    "build": "wrangler types && astro check && astro build",
+    "dev": "astro dev",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
-    "@astrojs/cloudflare": "^13.2.2",
+    "@astrojs/cloudflare": "^13.3.0",
     "@supabase/supabase-js": "^2.104.1",
     "@tailwindcss/vite": "^4.1.4",
     "astro": "^6.1.9",

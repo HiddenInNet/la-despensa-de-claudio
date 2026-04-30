@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import { Resend } from "resend";
 import { mailBodyFormatter } from "./mail.body";
 import { bussiness_name } from "../../../docs/bussiness-data.json"
-import { ShopItem } from "../../../types/shop";
+import type { ShopItem } from "../../../types/shop";
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
