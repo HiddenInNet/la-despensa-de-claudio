@@ -1,0 +1,9 @@
+{
+  "name": "la-despensa-de-claudio",
+  "compatibility_date": "2026-04-30",
+  "compatibility_flags": ["global_fetch_strictly_public"],
+  "pages_build_output_dir": "./dist",
+  "observability": {
+    "enabled": true
+  }
+}
