@@ -4,8 +4,6 @@ import { calculatePrice, calculateProductPrice, getProductsOnListFromDatabase } 
 
 export async function mailBodyFormatter(items: ShopItem[]) {
 
-    let totalCents = 0;
-
     const productsDB = await getProductsOnListFromDatabase(items);
 
     const rows = items.map(item => {

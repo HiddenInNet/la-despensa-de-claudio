@@ -32,4 +32,4 @@ const schema = {
 
 <title>{title ?? product.name}</title>
 <meta name="description" content={description ?? product.description} />
-<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />

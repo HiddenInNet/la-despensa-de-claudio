@@ -6,9 +6,9 @@
     "node": ">=24.11.1"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro check && astro dev",
     "build": "astro build",
-    "deploy": "astro build && wrangler deploy",
+    "deploy": "astro check && astro build && wrangler deploy",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",

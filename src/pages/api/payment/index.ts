@@ -6,9 +6,13 @@ import type { ShopItem } from "../../../types/shop";
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
+interface CartRequestBody {
+  items: ShopItem[];
+}
+
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const body = await request.json();
+    const body: CartRequestBody = await request.json();
     const cartItems: ShopItem[] = body.items;
 
     if (!cartItems || cartItems.length === 0) {
