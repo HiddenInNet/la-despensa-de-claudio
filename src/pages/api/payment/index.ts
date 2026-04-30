@@ -2,13 +2,14 @@ import type { APIRoute } from "astro";
 import { Resend } from "resend";
 import { mailBodyFormatter } from "./mail.body";
 import { bussiness_name } from "../../../docs/bussiness-data.json"
+import { ShopItem } from "../../../types/shop";
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
-    const cartItems = body.items;
+    const cartItems: ShopItem[] = body.items;
 
     if (!cartItems || cartItems.length === 0) {
       return new Response(JSON.stringify({ error: "El carrito está vacío" }), { status: 400 });

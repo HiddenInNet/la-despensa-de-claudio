@@ -3,19 +3,20 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "wrangler types && astro dev",
+    "build": "wrangler types && astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "generate-types": "wrangler types"
+    "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.9",
     "@astrojs/cloudflare": "^13.2.2",
     "@supabase/supabase-js": "^2.104.1",
     "@tailwindcss/vite": "^4.1.4",
     "astro": "^6.1.9",
     "resend": "^6.12.2",
     "tailwindcss": "^4.1.4",
+    "typescript": "^6.0.3",
     "wrangler": "^4.86.0"
   },
   "devDependencies": {
