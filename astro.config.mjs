@@ -29,7 +29,9 @@ export default defineConfig({
   },
 
   adapter: cloudflare({
-    imageService: "passthrough",
-    prerenderEnvironment: 'node'
+    platformProxy: {
+      enabled: true
+    },
+    imageService: "passthrough"
   }),
 });

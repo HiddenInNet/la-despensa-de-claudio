@@ -12,6 +12,8 @@ export const POST: APIRoute = async ({ request }) => {
   const subject = data.get("subject");
   const message = data.get("message");
 
+  console.log("Hola")
+
   if (!name || !email || !message || !subject) {
     return new Response(
       JSON.stringify({ error: "Faltan campos obligatorios" }),

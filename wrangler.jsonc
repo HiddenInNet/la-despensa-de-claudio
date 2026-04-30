@@ -1,0 +1,33 @@
+{
+	"compatibility_date": "2026-04-30",
+	"compatibility_flags": ["global_fetch_strictly_public", "nodejs_compat"],
+	"name": "la-despensa-de-claudio",
+	"assets": {
+    	"directory": "./dist/client/"
+  	},
+	"vars": {
+      	"PUBLIC_SUPABASE_KEY": "sb_publishable_3IGXc5l9QExsf4sXxpzqng_0C6LTbu8",
+  		"PUBLIC_SUPABASE_URL": "https://siiilfcyypzaqvqqnxzi.supabase.co"
+    },
+	"kv_namespaces": [
+		{
+		"binding": "SESSION", 
+		"id": "f5527fbb4ecf4d1e992f39a0764f0ed2" 
+		}
+  	],
+	"observability": {
+		"enabled": false,
+		"head_sampling_rate": 1,
+		"logs": {
+			"enabled": true,
+			"head_sampling_rate": 1,
+			"persist": true,
+			"invocation_logs": true
+		},
+			"traces": {
+			"enabled": false,
+			"persist": true,
+			"head_sampling_rate": 1
+		}
+	}
+}
