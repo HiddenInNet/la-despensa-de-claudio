@@ -7,16 +7,10 @@ import cloudflare from "@astrojs/cloudflare";
 // https://astro.build/config
 export default defineConfig({
   output: "server",
-  build: {
-    client: ".",
-    server: "."
-  },
   vite: {
     plugins: [tailwindcss()],
   },
-
   integrations: [],
-
   i18n: {
     locales: ["es", "en", "fr"],
     defaultLocale: "es",
@@ -35,6 +29,7 @@ export default defineConfig({
   },
 
   adapter: cloudflare({
-    imageService: "passthrough"
+    imageService: "passthrough",
+    prerenderEnvironment: 'node'
   }),
 });
