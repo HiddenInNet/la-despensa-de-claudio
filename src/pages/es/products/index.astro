@@ -16,6 +16,11 @@ const currentCategory = Astro.url.searchParams.get('cat') || "TODOS";
         
         <ProductHeader />
         <ProductCategoriesList categories={BUS_DATA.products_categories} currentCategory={currentCategory} />
+        <div class="w-full p-6 bg-amber-300">
+            <h2 class="font-bold text-2xl">
+                Esta web está en desarrollo. Los productos y precios no corresponden con los precios reales. 
+            </h2>
+        </div>
         <ProductCompleteList currentCategory={currentCategory} />
 
     </div>
