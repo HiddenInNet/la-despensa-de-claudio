@@ -13,6 +13,9 @@ interface Props {
 const { title } = Astro.props;
 
 const userLang = getLangFromUrl(Astro.url) ?? "es";
+
+const userAgent = Astro.request.headers.get('user-agent') || '';
+const isMobileUserAgent = /mobile|android|iphone|ipad|ipod/i.test(userAgent);
 ---
 
 <!doctype html>
@@ -26,11 +29,11 @@ const userLang = getLangFromUrl(Astro.url) ?? "es";
         <title>{title}</title>
     </head>
     <body class="flex flex-col min-h-screen bg-neutral-100 text-neutral-900">
-        <Header />
+        <Header transition:persist/>
         <main class="flex-1 pt-18 font-inter">
             <slot />
         </main>
-        <ShoppingComponent />
-        <Footer />
+        <ShoppingComponent transition:persist/>
+        <Footer transition:persist/>
     </body>
 </html>

@@ -4,7 +4,7 @@ import { calculatePrice, calculateProductPrice, getProductsOnListFromDatabase } 
 
 export async function mailBodyFormatter(items: ShopItem[]) {
 
-    const productsDB = await getProductsOnListFromDatabase(items);
+    const productsDB: ProductDetail[] = await getProductsOnListFromDatabase(items);
 
     const rows = items.map(item => {
 

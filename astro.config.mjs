@@ -4,13 +4,15 @@ import tailwindcss from "@tailwindcss/vite";
 
 import cloudflare from "@astrojs/cloudflare";
 
+import preact from "@astrojs/preact";
+
 // https://astro.build/config
 export default defineConfig({
   output: "server",
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [],
+  integrations: [preact()],
   i18n: {
     locales: ["es", "en", "fr"],
     defaultLocale: "es",
@@ -32,6 +34,6 @@ export default defineConfig({
     // platformProxy: {
     //   enabled: true
     // },
-    imageService: "passthrough"
+    imageService: "passthrough",
   }),
 });

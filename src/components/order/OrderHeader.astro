@@ -1,0 +1,16 @@
+---
+import OrderClientForm from "./OrderClientForm.astro";
+---
+
+<section class="w-full py-10 text-center bg-green-900 border rounded-b-2xl shadow-[0_40px_0] shadow-green-800">
+    <h1 class="text-4xl md:text-5xl font-serif text-white mb-3">Su pedido</h1>
+    <p class="text-green-100 font-light max-w-xl mx-auto px-4 text-sm md:text-base">
+        Rellene los siguientes campos para empezar a preparar su pedido.
+    </p>
+
+    <OrderClientForm />
+
+    <p class="text-green-100 font-light max-w-xl mx-auto px-4 pt-4 text-sm md:text-base">
+        Confirme que los datos del pedido son correctos.
+    </p>
+</section>

@@ -43,7 +43,7 @@ const priceFormatter = new Intl.NumberFormat('es-ES', {
                     <div class="relative w-full aspect-square bg-stone-100 rounded-sm overflow-hidden border border-stone-200">
                         <Image
                             src={data.url ?? defaultImage}
-                            alt={data.name} 
+                            alt={`${data.name.trim().toLowerCase().split(" ").join("-")}-image`}
                             class="w-full h-full object-cover object-center"
                             width={50}
                             height={50}

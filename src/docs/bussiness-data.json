@@ -5,7 +5,7 @@
   "address": "C. Juan Antonio Cavestany, 41018 Sevilla",
 
   "products_categories": [
-    { "label": "Todos", "slug": "TODOS", "divisible": false},
+    { "label": "Todos", "slug": "TODOS", "divisible": false },
     { "label": "Jamón", "slug": "JAMON", "divisible": true },
     { "label": "Queso", "slug": "QUESO", "divisible": true },
     { "label": "Embutido", "slug": "EMBUTIDO", "divisible": true },

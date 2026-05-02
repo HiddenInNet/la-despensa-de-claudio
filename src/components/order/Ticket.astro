@@ -1,0 +1,97 @@
+---
+import { bussiness_name } from "../../docs/bussiness-data.json";
+import {generateOrderCode} from "../../utils/OrderCode";
+
+import Toast from "../elements/Toast.astro";
+
+const orderCode = generateOrderCode();
+
+---
+
+<div id="ticket" class="w-5/6 min-w-80 md:w-xl h-fit bg-neutral-200 my-4 justify-self-center border border-t-6">
+    <section id="ticket-content" class="w-full p-4 flex flex-col items-center">
+        <span class="font-story-script text-3xl">{bussiness_name}</span>
+        
+        <div id="order-code-container" class="p-4 text-center border border-dashed rounded-md m-2">
+            <p class="text-xs text-neutral-500 uppercase font-semibold mb-1 select-none">Código de Pedido</p>
+            <p id="order-code" class="text-4xl font-mono font-black tracking-widest text-neutral-900 select-text">{orderCode}</p>
+        </div>
+        <Toast />
+
+        <span class="font-bold uppercase">Produtos</span>
+
+        <hr class="w-5/6 border-dashed my-2">
+
+        <div id="ticket-product-list" class="w-full flex flex-col items-center">
+
+        </div>
+
+        <hr class="w-5/6 border-dashed my-2">
+        
+        <div class="w-full p-2 flex justify-between text-xl font-bold">
+            <span class="uppercase">Total</span>
+            <span id="ticket-total"></span>
+        </div>
+
+    </section>
+</div>
+
+<script>
+    import type { ShopItem } from "../../types/shop";
+    import { calculatePrice } from "../../utils/PriceCalculator";
+    import { getProductListFromLocalStorage } from "../../utils/ShopCartScripts";
+
+    async function initTicket() {
+        const $productList = document.getElementById("ticket-product-list") as HTMLDivElement;
+        if (!$productList) return ;
+
+        const productsLS: ShopItem[] = getProductListFromLocalStorage();
+
+        const list = productsLS.map((p) => {
+
+            const priceFormatter = new Intl.NumberFormat('es-ES', {
+                style: 'currency',
+                currency: 'EUR',
+            });
+
+            const isNumericFormat = !isNaN(Number(p.format));
+            const pieceWeight = Number(p.pieceWeight) / 1000;
+            const weightMultiplier = isNumericFormat ? Number(p.format) / 1000 : pieceWeight;
+            
+            // Precio por unidad de formato (en euros)
+            const unitPrice = (Number(p.pricePerKg) / 100) * weightMultiplier;
+            const lineTotal = unitPrice * Number(p.quantity);
+
+            return `
+                <div class="w-full px-2">
+                    <span class="text-base font-bold">${p.name}</span>
+                    <div class="flex flex-row">
+                        <div class="w-4/6 text-sm pl-4">
+                            <div class="flex flex-col">
+                                <span>${p.quantity} x ${isNumericFormat ? p.format + ' gr' : 'Pieza entera'}</span>
+                                <span>${priceFormatter.format(Number(p.pricePerKg) / 100)} / kg</span>
+                            </div>
+                        </div>
+                        <div class="w-2/6 flex items-end justify-end">
+                            <span>${priceFormatter.format(lineTotal)}</span>
+                        </div>
+                    </div>
+                </div>
+            `
+        }).join(`<hr class="w-5/6 border-dashed my-2">`);
+
+        $productList.innerHTML = list;
+
+        const $total = document.getElementById("ticket-total") as HTMLSpanElement
+        if (!$total) return;
+
+        const price = await calculatePrice();
+        const priceFormated = new Intl.NumberFormat('es-ES', {
+            style: 'currency',
+            currency: 'EUR',
+        });
+        $total.innerText = priceFormated.format(price / 100).toString();
+    }
+
+    document.addEventListener("astro:page-load", initTicket);
+</script>

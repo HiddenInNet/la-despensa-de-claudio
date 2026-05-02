@@ -56,9 +56,9 @@ export function calculateProductPrice(dbProduct: ProductDetail, localProd: ShopI
 
 export async function getProductsOnListFromDatabase(shopProductsLS?: ShopItem[]): Promise<ProductDetail[]> {
 
-    const productsLS = shopProductsLS ?? getProductListFromLocalStorage();
+    const productsLS: ShopItem[] = shopProductsLS ?? getProductListFromLocalStorage();
 
-    if (productsLS.length === 0) return [];
+    if (!Array.isArray(productsLS) || productsLS.length === 0) return [];
 
     const ids = productsLS.map((p) => p.id);
 
