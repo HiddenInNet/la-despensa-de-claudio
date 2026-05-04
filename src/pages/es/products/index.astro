@@ -5,16 +5,13 @@ import BUS_DATA from "../../../docs/bussiness-data.json";
 import ProductCategoriesList from "../../../components/products/ProductCategoriesList.astro";
 import ProductCompleteList from "../../../components/products/ProductCompleteList.astro";
 
-const tabName = "Catálogo";
+const currentCategory: string = Astro.url.searchParams.get("cat") || "TODOS";
 
-const currentCategory = Astro.url.searchParams.get("cat") || "TODOS";
+const title: string = `Catálogo de ${currentCategory.toLowerCase()} · ${BUS_DATA.bussiness_name}`;
 ---
 
-<Layout title={`${tabName} - ${BUS_DATA.bussiness_name}`}>
-    <div
-        id={`${tabName}-main-container`}
-        class="flex min-h-screen w-full flex-col bg-stone-50 font-sans text-gray-800"
-    >
+<Layout title={title}>
+    <div class="flex min-h-screen w-full flex-col font-sans text-gray-800">
         <ProductHeader />
         <ProductCategoriesList
             categories={BUS_DATA.products_categories}
@@ -23,7 +20,7 @@ const currentCategory = Astro.url.searchParams.get("cat") || "TODOS";
         <div class="w-full bg-amber-300 p-6">
             <h2 class="text-2xl font-bold">
                 Esta web está en desarrollo. Los productos y precios no
-                corresponden con los precios reales.
+                corresponden con los reales.
             </h2>
         </div>
         <ProductCompleteList currentCategory={currentCategory} />

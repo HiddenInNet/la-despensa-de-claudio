@@ -10,7 +10,7 @@ const { currentCategory } = Astro.props;
 ---
 
 <div
-    class="mx-auto flex w-full max-w-7xl flex-grow flex-col items-center px-4 py-10 sm:px-6"
+    class="mx-auto flex w-full max-w-7xl grow flex-col items-center px-4 py-10 sm:px-6"
 >
     <div class="flex w-full flex-col">
         <ProductList category={currentCategory} server:defer>

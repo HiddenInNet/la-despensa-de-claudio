@@ -11,28 +11,22 @@ import PhoneSVG from "../../../assets/svg/phone.svg";
 import MailSVG from "../../../assets/svg/mail.svg";
 import AnalogClockSVG from "../../../assets/svg/analog-clock.svg";
 import LocationSVG from "../../../assets/svg/location.svg";
+import ContactHeader from "../../../components/contact/ContactHeader.astro";
+import { bussiness_name } from "../../../docs/bussiness-data.json";
 
-const tabName = "Contacto";
+const title: string = `Contacto · ${bussiness_name}`;
 ---
 
-<Layout title={`${tabName} - La Despensa de Claudio`}>
+<Layout title={title}>
     <main class="min-h-screen w-full bg-stone-50 font-sans text-stone-800">
-        <section class="bg-green-900 px-4 py-10 text-center">
-            <h1 class="mb-4 font-serif text-4xl text-white md:text-6xl">
-                Contacto
-            </h1>
-            <p class="mx-auto max-w-2xl text-lg font-light text-green-50">
-                ¿Tienes alguna duda sobre nuestros productos? Te asesoramos de
-                forma personalizada.
-            </p>
-        </section>
+        <ContactHeader />
 
         <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
             <div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
                 <div class="flex flex-col gap-10">
                     <div>
                         <h2
-                            class="mb-6 font-serif text-2xl font-bold text-green-900 underline decoration-stone-300 underline-offset-8"
+                            class="mb-6 font-serif text-2xl font-bold text-green-800 underline decoration-stone-300 underline-offset-8"
                         >
                             Atención al Cliente
                         </h2>
@@ -231,7 +225,7 @@ const tabName = "Contacto";
 
                         <button
                             id="submit-btn"
-                            class="mt-4 rounded-sm bg-green-900 px-8 py-4 text-xs font-bold tracking-[0.2em] text-white uppercase shadow-md transition-all duration-300 hover:cursor-pointer hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-70"
+                            class="mt-4 rounded-sm bg-green-800 px-8 py-4 text-xs font-bold tracking-[0.2em] text-white uppercase shadow-md transition-all duration-300 hover:cursor-pointer hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-70"
                         >
                             Enviar Mensaje
                         </button>
@@ -302,7 +296,7 @@ const tabName = "Contacto";
 
             if (response.ok) {
                 button.innerText = "¡ENVIADO!";
-                button.classList.replace("bg-green-900", "bg-green-600");
+                button.classList.replace("bg-green-800", "bg-green-600");
                 button.classList.replace(
                     "hover:bg-green-800",
                     "hover:bg-green-600",
@@ -316,7 +310,7 @@ const tabName = "Contacto";
 
                 setTimeout(() => {
                     button.innerText = originalText;
-                    button.classList.replace("bg-green-600", "bg-green-900");
+                    button.classList.replace("bg-green-600", "bg-green-800");
                     button.classList.replace(
                         "hover:bg-green-600",
                         "hover:bg-green-800",

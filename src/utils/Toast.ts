@@ -1,6 +1,6 @@
 // Asignamos las clases de color de Tailwind a cada tipo de mensaje
 export const enum MessageType {
-    OK = "bg-green-900",
+    OK = "bg-green-800",
     ALERT = "bg-yellow-500",
     ERROR = "bg-red-600",
 }

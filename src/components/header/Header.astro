@@ -15,7 +15,7 @@ const t = useTranslations(lang);
 
 <header
     id="header-container"
-    class="fixed top-0 left-0 z-50 h-fit w-full border-b border-neutral-300 bg-neutral-100"
+    class="fixed top-0 left-0 z-50 h-fit w-full border-b border-neutral-100 bg-green-800"
 >
     <!-- Main header -->
     <div
@@ -28,9 +28,9 @@ const t = useTranslations(lang);
         >
             <button
                 id="breadcrumb"
-                class="rounded-xl border-neutral-300 p-2 focus:border"
+                class="rounded-xl border-neutral-200 p-2 text-neutral-100 focus:border"
             >
-                <BreadOutline color={"black"} />
+                <BreadOutline />
             </button>
         </div>
 
@@ -42,10 +42,12 @@ const t = useTranslations(lang);
                 href={`/${lang}`}
                 class="font-story-script flex flex-col justify-center md:mx-10 lg:mx-20"
             >
-                <h1 class="-mb-3 self-end text-lg text-nowrap text-green-900">
+                <h1 class="-mb-3 self-end text-lg text-nowrap text-neutral-100">
                     de Claudio
                 </h1>
-                <h1 class="text-4xl text-nowrap text-green-900">La Despensa</h1>
+                <h1 class="text-4xl text-nowrap text-neutral-100">
+                    La Despensa
+                </h1>
             </a>
         </div>
 
@@ -74,9 +76,9 @@ const t = useTranslations(lang);
         <!-- Mobile nav -->
         <section
             id="phone-header-nav-bar"
-            class="absolute top-full left-0 z-40 flex h-screen w-full translate-x-[-100%] overflow-y-auto border-t-1 border-t-neutral-300 transition-transform duration-300 md:hidden"
+            class="absolute top-full left-0 z-40 flex h-screen w-full translate-x-[-100%] overflow-y-auto border-t border-t-neutral-300 transition-transform duration-300 md:hidden"
         >
-            <div class="h-full w-3/4 bg-neutral-100">
+            <div class="h-full w-3/4 border-r border-neutral-200 bg-green-800">
                 <MobileNav />
             </div>
             <div id="close-mobile-nav" class="h-full w-1/4 bg-neutral-500/40">
@@ -89,7 +91,7 @@ const t = useTranslations(lang);
     document.addEventListener("astro:page-load", () => {
         const $breadcrumb = document.querySelector("#breadcrumb");
         const $navbar = document.querySelector("#phone-header-nav-bar");
-        const $closeNavbar = document.querySelector("#close-mobile-nav");
+        const $closeNavbar = document.getElementById("close-mobile-nav");
 
         if (!$breadcrumb || !$navbar || !$closeNavbar) return;
 

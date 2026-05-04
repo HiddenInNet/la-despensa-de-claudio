@@ -4,14 +4,11 @@ import Presentation from "../../components/home/Presentation.astro";
 import Catalog from "../../components/home/Catalog.astro";
 
 import { bussiness_name } from "../../docs/bussiness-data.json";
+
+const title: string = `Inicio · ${bussiness_name}`;
 ---
 
-<Layout title={`Inicio - ${bussiness_name}`}>
-    <div
-        id="home-main-container"
-        class="flex h-full w-full flex-col bg-white font-sans"
-    >
-        <Presentation />
-        <Catalog />
-    </div>
+<Layout title={title}>
+    <Presentation />
+    <Catalog />
 </Layout>

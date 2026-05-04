@@ -25,35 +25,35 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
                         <button
                             type="button"
                             data-weight="100"
-                            class="weight-btn rounded-sm border-2 border-green-900 bg-green-900 px-5 py-2 text-sm font-medium text-white transition-colors hover:cursor-pointer"
+                            class="weight-btn rounded-sm border-2 border-green-800 bg-green-800 px-5 py-2 text-sm font-medium text-white transition-colors hover:cursor-pointer"
                         >
                             100 gr
                         </button>
                         <button
                             type="button"
                             data-weight="250"
-                            class="weight-btn rounded-sm border-2 border-stone-200 px-5 py-2 text-sm font-medium text-stone-600 transition-colors hover:cursor-pointer hover:border-green-900 hover:text-green-900"
+                            class="weight-btn rounded-sm border-2 border-stone-200 px-5 py-2 text-sm font-medium text-stone-600 transition-colors hover:cursor-pointer hover:border-green-800 hover:text-green-800"
                         >
                             250 gr
                         </button>
                         <button
                             type="button"
                             data-weight="500"
-                            class="weight-btn rounded-sm border-2 border-stone-200 px-5 py-2 text-sm font-medium text-stone-600 transition-colors hover:cursor-pointer hover:border-green-900 hover:text-green-900"
+                            class="weight-btn rounded-sm border-2 border-stone-200 px-5 py-2 text-sm font-medium text-stone-600 transition-colors hover:cursor-pointer hover:border-green-800 hover:text-green-800"
                         >
                             500 gr
                         </button>
                         <button
                             type="button"
                             data-weight="whole"
-                            class="weight-btn rounded-sm border-2 border-stone-200 px-5 py-2 text-sm font-medium text-stone-600 transition-colors hover:cursor-pointer hover:border-green-900 hover:text-green-900"
+                            class="weight-btn rounded-sm border-2 border-stone-200 px-5 py-2 text-sm font-medium text-stone-600 transition-colors hover:cursor-pointer hover:border-green-800 hover:text-green-800"
                         >
                             Pieza entera
                         </button>
                         <button
                             type="button"
                             data-weight="custom"
-                            class="weight-btn rounded-sm border-2 border-stone-200 px-5 py-2 text-sm font-medium text-stone-600 transition-colors hover:cursor-pointer hover:border-green-900 hover:text-green-900"
+                            class="weight-btn rounded-sm border-2 border-stone-200 px-5 py-2 text-sm font-medium text-stone-600 transition-colors hover:cursor-pointer hover:border-green-800 hover:text-green-800"
                         >
                             Personalizado
                         </button>
@@ -69,7 +69,7 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
                             min="50"
                             step="50"
                             placeholder="Ej: 250"
-                            class="w-28 rounded-sm border border-stone-300 p-2.5 text-stone-800 focus:border-green-900 focus:ring-1 focus:ring-green-900 focus:outline-none"
+                            class="w-28 rounded-sm border border-stone-300 p-2.5 text-stone-800 focus:border-green-800 focus:ring-1 focus:ring-green-800 focus:outline-none"
                         />
                         <span class="text-sm text-stone-500">
                             gramos (mín. 100g)
@@ -85,7 +85,7 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
             >
                 <button
                     id="btn-minus"
-                    class="h-full px-4 text-stone-500 transition-colors hover:cursor-pointer hover:text-green-900 focus:outline-none"
+                    class="h-full px-4 text-stone-500 transition-colors hover:cursor-pointer hover:text-green-800 focus:outline-none"
                     aria-label="Disminuir cantidad"
                 >
                     <svg
@@ -110,7 +110,7 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
                 />
                 <button
                     id="btn-plus"
-                    class="h-full px-4 text-stone-500 transition-colors hover:cursor-pointer hover:text-green-900 focus:outline-none"
+                    class="h-full px-4 text-stone-500 transition-colors hover:cursor-pointer hover:text-green-800 focus:outline-none"
                     aria-label="Aumentar cantidad"
                 >
                     <svg
@@ -129,7 +129,7 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
 
             <button
                 id="add-to-cart-btn"
-                class="flex w-full items-center justify-center rounded-sm bg-green-900 px-8 py-4 text-sm font-bold tracking-widest text-white uppercase shadow-md transition-colors hover:cursor-pointer hover:bg-green-800"
+                class="flex w-full items-center justify-center rounded-sm bg-green-800 px-8 py-4 text-sm font-bold tracking-widest text-white uppercase shadow-md transition-colors hover:cursor-pointer hover:bg-green-800"
             >
                 Añadir a la cesta
             </button>
@@ -185,15 +185,15 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
                 button.addEventListener("click", (e) => {
                     weightButtons.forEach((btn) => {
                         btn.classList.remove(
-                            "border-green-900",
-                            "bg-green-900",
+                            "border-green-800",
+                            "bg-green-800",
                             "text-white",
                         );
                         btn.classList.add(
                             "border-stone-200",
                             "text-stone-600",
-                            "hover:border-green-900",
-                            "hover:text-green-900",
+                            "hover:border-green-800",
+                            "hover:text-green-800",
                         );
                     });
 
@@ -201,12 +201,12 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
                     clickedBtn.classList.remove(
                         "border-stone-200",
                         "text-stone-600",
-                        "hover:border-green-900",
-                        "hover:text-green-900",
+                        "hover:border-green-800",
+                        "hover:text-green-800",
                     );
                     clickedBtn.classList.add(
-                        "border-green-900",
-                        "bg-green-900",
+                        "border-green-800",
+                        "bg-green-800",
                         "text-white",
                     );
 
@@ -287,13 +287,13 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
 
                 const originalText = btnAddToCart.innerHTML;
                 btnAddToCart.innerHTML = "¡Añadido!";
-                btnAddToCart.classList.replace("bg-green-900", "bg-green-600");
+                btnAddToCart.classList.replace("bg-green-800", "bg-green-600");
 
                 setTimeout(() => {
                     btnAddToCart.innerHTML = originalText;
                     btnAddToCart.classList.replace(
                         "bg-green-600",
-                        "bg-green-900",
+                        "bg-green-800",
                     );
                 }, 1500);
             });

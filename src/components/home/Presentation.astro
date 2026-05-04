@@ -1,22 +1,31 @@
 ---
-import { Image } from "astro:assets";
-import Stars from "../../assets/svg/stars.svg";
+import { getImage, Image } from "astro:assets";
 import dehesa from "../../assets/images/dehesa.jpg";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import BUS_DATA from "../../docs/bussiness-data.json";
+
+const optimizedImage = await getImage({ src: dehesa, format: "avif" });
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
+<link rel="preload" fetchpriority="high" as="image" href={optimizedImage.src} />
+
 <section
-    class="relative flex h-[70vh] min-h-125 w-full items-center justify-center overflow-hidden bg-green-900"
+    id="hero-section"
+    class="relative flex min-h-125 w-full items-center justify-center overflow-hidden bg-green-800"
 >
-    <div class="absolute inset-0 opacity-50">
+    <div class="absolute inset-0 bg-green-800 opacity-60">
         <Image
+            id="hero-bg"
             src={dehesa}
-            alt="Dehesa Ibérica"
+            alt="imagen-de-dehesa-iberica-la-despensa-de-claudio"
             loading="eager"
+            fetchpriority="high"
+            format="avif"
+            widths={[640, 1024, 1920]}
+            sizes="(max-width: 1024px) 100vw, 100vw"
             class="h-full w-full object-cover"
         />
     </div>
@@ -24,8 +33,9 @@ const t = useTranslations(lang);
     <div class="relative z-10 px-4 text-center">
         <span
             class="mb-4 block text-sm font-light tracking-[0.3em] text-white uppercase"
-            >Tradición y Sabor</span
         >
+            Tradición y Sabor
+        </span>
         <h1
             class="mb-6 font-serif text-5xl text-white drop-shadow-md md:text-7xl"
         >
@@ -40,32 +50,16 @@ const t = useTranslations(lang);
         <div class="flex flex-col justify-center gap-4 sm:flex-row">
             <a
                 href={`/${lang}/products`}
-                class="rounded-sm bg-white px-10 py-4 text-sm font-bold tracking-widest text-green-900 uppercase shadow-lg transition-all hover:bg-green-50"
+                class="rounded-sm bg-white px-10 py-4 text-sm font-bold tracking-widest text-green-800 uppercase shadow-lg transition-all hover:bg-green-50"
             >
                 Ver Catálogo
             </a>
             <a
                 href={`/${lang}/about`}
-                class="rounded-sm border border-white px-10 py-4 text-sm font-bold tracking-widest text-white uppercase transition-all hover:bg-white hover:text-green-900"
+                class="rounded-sm border border-white px-10 py-4 text-sm font-bold tracking-widest text-white uppercase transition-all hover:bg-white hover:text-green-800"
             >
                 Nuestra Historia
             </a>
-        </div>
-    </div>
-</section>
-
-<section class="border-b border-green-100 bg-green-50 py-12">
-    <div class="mx-auto grid max-w-7xl grid-cols-1 px-6 md:grid-cols-3">
-        <div class="flex items-center gap-4">
-            <div class="rounded-full bg-green-800 p-3 text-white">
-                <Stars />
-            </div>
-            <div>
-                <h3 class="font-bold text-green-900">Calidad Certificada</h3>
-                <p class="text-sm text-green-700">
-                    Productos con garantía de origen.
-                </p>
-            </div>
         </div>
     </div>
 </section>
