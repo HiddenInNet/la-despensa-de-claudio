@@ -11,6 +11,10 @@ export default defineConfig({
     output: "server",
     vite: {
         plugins: [tailwindcss()],
+        resolve: {
+            // Esto obliga a usar una sola copia de Preact para todo
+            dedupe: ["preact", "preact/hooks", "@nanostores/preact"],
+        },
     },
     integrations: [preact()],
     i18n: {
@@ -20,7 +24,6 @@ export default defineConfig({
             prefixDefaultLocale: true,
         },
     },
-
     image: {
         remotePatterns: [
             {

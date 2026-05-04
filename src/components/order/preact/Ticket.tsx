@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
-import { orderCode, totalPrice } from "../../../utils/nanoStores/order";
+import { orderCode, orderName, orderPhone, totalPrice } from "../../../utils/nanoStores/order";
 import { bussiness_name } from "../../../docs/bussiness-data.json";
 import { generateOrderCode } from "../../../utils/OrderCode";
 import { getProductListFromLocalStorage } from "../../../utils/ShopCartScripts";
@@ -12,6 +12,9 @@ export default function Ticket() {
     const currentOrderCode = useStore(orderCode);
     const [itemsLS, setItemsLS] = useState<ShopItem[]>([]);
     const price = useStore(totalPrice);
+
+    const client = useStore(orderName);
+    const phone = useStore(orderPhone);
 
     useEffect(() => {
         const savedCode = orderCode.get();
@@ -53,6 +56,17 @@ export default function Ticket() {
                         class="font-mono text-4xl font-black tracking-widest text-neutral-900 select-text pointer-events-none"
                     >
                         {currentOrderCode}
+                    </p>
+                </div>
+
+                <div id="form-data-render" class="w-full flex flex-col gap-2 px-2 py-4">
+                    <p class="w-full text-neutral-700">
+                        <span class="font-bold pr-2">Cliente:</span> 
+                        {client}
+                    </p>
+                    <p class="w-full text-neutral-700">
+                        <span class="font-bold pr-2">Teléfono:</span>
+                        {phone}
                     </p>
                 </div>
 

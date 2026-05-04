@@ -1,19 +1,30 @@
 import { useStore } from "@nanostores/preact";
-import { orderName, orderPhone } from "../../../utils/nanoStores/order";
+import { checkOrderName, checkPhoneNumber, orderName, orderPhone } from "../../../utils/nanoStores/order";
+import { useState } from "preact/hooks";
 
 export default function OrderClientForm() {
-    // Leemos los valores del store reactivamente
     const name = useStore(orderName);
     const phone = useStore(orderPhone);
+    const [isNameValid, setIsNameValid] = useState(true);
+    const [isPhoneValid, setIsPhoneValid] = useState(true);
 
     const handleNameChange = (e: Event) => {
         const target = e.currentTarget as HTMLInputElement;
-        console.log(target.value)
+        if (!checkOrderName(target.value)) {
+            setIsNameValid(false);
+        } else {
+            setIsNameValid(true);
+        };
         orderName.set(target.value);
     };
 
     const handlePhoneChange = (e: Event) => {
         const target = e.currentTarget as HTMLInputElement;
+        if (!checkPhoneNumber(target.value)) {
+            setIsPhoneValid(false);
+        } else {
+            setIsPhoneValid(true);
+        };
         orderPhone.set(target.value);
     };
 
@@ -25,7 +36,7 @@ export default function OrderClientForm() {
                         for="name"
                         class="text-xs font-bold tracking-wider text-neutral-200 uppercase"
                     >
-                        Nombre completo
+                        Nombre completo (Obligatorio)
                     </label>
                     <input
                         type="text"
@@ -35,8 +46,11 @@ export default function OrderClientForm() {
                         placeholder="Nombre completo"
                         value={name}
                         onInput={handleNameChange}
-                        class="rounded-sm border border-stone-200 bg-stone-50 px-4 py-3 transition-colors focus:border-green-800 focus:outline-none"
-                    />
+                        class={`rounded-sm border bg-stone-50 px-4 py-3 transition-colors focus:outline-none ${
+                        isNameValid 
+                            ? "border-stone-200 focus:border-green-800" 
+                            : "border-4 border-red-700"
+                        }`}                    />
                 </div>
                 
                 <div class="flex w-full max-w-100 flex-col gap-2 text-start">
@@ -44,7 +58,7 @@ export default function OrderClientForm() {
                         for="phone"
                         class="text-xs font-bold tracking-wider text-neutral-200 uppercase"
                     >
-                        Teléfono
+                        Teléfono (Obligatorio)
                     </label>
                     <input
                         type="number"
@@ -54,8 +68,11 @@ export default function OrderClientForm() {
                         placeholder="Teléfono"
                         value={phone}
                         onInput={handlePhoneChange}
-                        class="rounded-sm border border-stone-200 bg-stone-50 px-4 py-3 transition-colors focus:border-green-800 focus:outline-none"
-                    />
+                        class={`rounded-sm border bg-stone-50 px-4 py-3 transition-colors focus:outline-none ${
+                        isPhoneValid 
+                            ? "border-stone-200 focus:border-green-800" 
+                            : "border-4 border-red-700"
+                        }`}                    />
                 </div>
             </form>
         </div>

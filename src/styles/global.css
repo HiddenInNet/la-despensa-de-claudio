@@ -18,3 +18,15 @@
     font-weight: normal;
     font-style: normal;
 }
+
+/* Quitar flechas en Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Quitar flechas en Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
