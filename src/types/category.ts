@@ -1,4 +1,4 @@
 export interface Category {
-  label: string;
-  slug: string;
+    label: string;
+    slug: string;
 }

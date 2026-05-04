@@ -7,21 +7,25 @@ import ProductCompleteList from "../../../components/products/ProductCompleteLis
 
 const tabName = "Catálogo";
 
-const currentCategory = Astro.url.searchParams.get('cat') || "TODOS";
-
+const currentCategory = Astro.url.searchParams.get("cat") || "TODOS";
 ---
 
 <Layout title={`${tabName} - ${BUS_DATA.bussiness_name}`}>
-    <div id={`${tabName}-main-container`} class="w-full min-h-screen bg-stone-50 flex flex-col font-sans text-gray-800">
-        
+    <div
+        id={`${tabName}-main-container`}
+        class="flex min-h-screen w-full flex-col bg-stone-50 font-sans text-gray-800"
+    >
         <ProductHeader />
-        <ProductCategoriesList categories={BUS_DATA.products_categories} currentCategory={currentCategory} />
-        <div class="w-full p-6 bg-amber-300">
-            <h2 class="font-bold text-2xl">
-                Esta web está en desarrollo. Los productos y precios no corresponden con los precios reales. 
+        <ProductCategoriesList
+            categories={BUS_DATA.products_categories}
+            currentCategory={currentCategory}
+        />
+        <div class="w-full bg-amber-300 p-6">
+            <h2 class="text-2xl font-bold">
+                Esta web está en desarrollo. Los productos y precios no
+                corresponden con los precios reales.
             </h2>
         </div>
         <ProductCompleteList currentCategory={currentCategory} />
-
     </div>
 </Layout>

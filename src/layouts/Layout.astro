@@ -7,15 +7,12 @@ import { getLangFromUrl } from "../i18n/utils";
 import ShoppingComponent from "../components/shopping/ShoppingComponent.astro";
 
 interface Props {
-    title: string
+    title: string;
 }
 
 const { title } = Astro.props;
 
 const userLang = getLangFromUrl(Astro.url) ?? "es";
-
-const userAgent = Astro.request.headers.get('user-agent') || '';
-const isMobileUserAgent = /mobile|android|iphone|ipad|ipod/i.test(userAgent);
 ---
 
 <!doctype html>
@@ -28,12 +25,12 @@ const isMobileUserAgent = /mobile|android|iphone|ipad|ipod/i.test(userAgent);
         <ClientRouter />
         <title>{title}</title>
     </head>
-    <body class="flex flex-col min-h-screen bg-neutral-100 text-neutral-900">
-        <Header transition:persist/>
-        <main class="flex-1 pt-18 font-inter">
+    <body class="flex min-h-screen flex-col bg-neutral-100 text-neutral-900">
+        <Header transition:persist />
+        <main class="font-inter flex-1 pt-18">
             <slot />
         </main>
-        <ShoppingComponent transition:persist/>
-        <Footer transition:persist/>
+        <ShoppingComponent transition:persist />
+        <Footer transition:persist />
     </body>
 </html>

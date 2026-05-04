@@ -1,11 +1,11 @@
 ---
 // Icon imports
-import BreadOutline from "../../assets/svg/bread-outline.svg"
+import BreadOutline from "../../assets/svg/bread-outline.svg";
 
-import MobileNav from "./components/mobile/MobileNav.astro"
-import DesktopNav from "./components/desktop/DesktopNav.astro"
+import MobileNav from "./components/mobile/MobileNav.astro";
+import DesktopNav from "./components/desktop/DesktopNav.astro";
 
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import { Image } from "astro:assets";
 import spainFlag from "../../assets/images/flag-spain.webp";
 
@@ -13,75 +13,100 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<header id="header-container" class="w-full h-fit fixed top-0 left-0 border-b border-neutral-300 bg-neutral-100 z-50">
-  <!-- Main header -->
-  <div id="main-header" class="w-full h-fit p-2 grid grid-cols-[2fr_5fr_2fr] gap-2">
-    <div id="header-breadcrumb-container" class="w-full h-full flex justify-center items-center md:hidden">
-      <button id="breadcrumb" class="p-2 rounded-xl focus:border border-neutral-300">
-        <BreadOutline color={"black"} />
-      </button>
-    </div>
-    
-    <div id="header-title-container" class="w-full h-full flex justify-center items-center">
-      <a href={`/${lang}`} class="md:mx-10 lg:mx-20 flex flex-col justify-center font-story-script">
-        <h1 class="text-lg text-green-900 self-end -mb-3 text-nowrap">de Claudio</h1>
-        <h1 class="text-4xl text-green-900 text-nowrap">La Despensa</h1>
-      </a>
-    </div>
-
-    <!-- Desktop header nav bar -->
-    <section 
-      id="desktop-header-nav-bar" 
-      class="hidden md:flex justify-start"
+<header
+    id="header-container"
+    class="fixed top-0 left-0 z-50 h-fit w-full border-b border-neutral-300 bg-neutral-100"
+>
+    <!-- Main header -->
+    <div
+        id="main-header"
+        class="grid h-fit w-full grid-cols-[2fr_5fr_2fr] gap-2 p-2"
     >
-      <DesktopNav />
-    </section>
+        <div
+            id="header-breadcrumb-container"
+            class="flex h-full w-full items-center justify-center md:hidden"
+        >
+            <button
+                id="breadcrumb"
+                class="rounded-xl border-neutral-300 p-2 focus:border"
+            >
+                <BreadOutline color={"black"} />
+            </button>
+        </div>
 
-    <div id="header-aux-container" class="h-full w-full flex justify-center">
-      <div id="header-aux" class="h-full w-auto flex items-center">
-        <Image src={spainFlag} alt="Bandera de España" class="w-10 h-10" loading="eager"/>
-      </div>
-    </div>    
+        <div
+            id="header-title-container"
+            class="flex h-full w-full items-center justify-center"
+        >
+            <a
+                href={`/${lang}`}
+                class="font-story-script flex flex-col justify-center md:mx-10 lg:mx-20"
+            >
+                <h1 class="-mb-3 self-end text-lg text-nowrap text-green-900">
+                    de Claudio
+                </h1>
+                <h1 class="text-4xl text-nowrap text-green-900">La Despensa</h1>
+            </a>
+        </div>
 
-    <!-- Mobile nav -->
-    <section
-      id="phone-header-nav-bar"
-      class="absolute top-full flex left-0 w-full h-screen translate-x-[-100%] border-t-1 border-t-neutral-300 transition-transform duration-300 z-40 md:hidden overflow-y-auto"
-    >
-      <div class="w-3/4 h-full bg-neutral-100">
-        <MobileNav />
-      </div>
-      <div id="close-mobile-nav" class="w-1/4 h-full bg-neutral-500/40">
+        <!-- Desktop header nav bar -->
+        <section
+            id="desktop-header-nav-bar"
+            class="hidden justify-start md:flex"
+        >
+            <DesktopNav />
+        </section>
 
-      </div>
-    </section>
-  </div>
+        <div
+            id="header-aux-container"
+            class="flex h-full w-full justify-center"
+        >
+            <div id="header-aux" class="flex h-full w-auto items-center">
+                <Image
+                    src={spainFlag}
+                    alt="Bandera de España"
+                    class="h-10 w-10"
+                    loading="eager"
+                />
+            </div>
+        </div>
+
+        <!-- Mobile nav -->
+        <section
+            id="phone-header-nav-bar"
+            class="absolute top-full left-0 z-40 flex h-screen w-full translate-x-[-100%] overflow-y-auto border-t-1 border-t-neutral-300 transition-transform duration-300 md:hidden"
+        >
+            <div class="h-full w-3/4 bg-neutral-100">
+                <MobileNav />
+            </div>
+            <div id="close-mobile-nav" class="h-full w-1/4 bg-neutral-500/40">
+            </div>
+        </section>
+    </div>
 </header>
 
-
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const $breadcrumb = document.querySelector("#breadcrumb");
-    const $navbar = document.querySelector("#phone-header-nav-bar");
-    const $closeNavbar = document.querySelector("#close-mobile-nav")
+    document.addEventListener("astro:page-load", () => {
+        const $breadcrumb = document.querySelector("#breadcrumb");
+        const $navbar = document.querySelector("#phone-header-nav-bar");
+        const $closeNavbar = document.querySelector("#close-mobile-nav");
 
-    if (!$breadcrumb || !$navbar || !$closeNavbar) return;
+        if (!$breadcrumb || !$navbar || !$closeNavbar) return;
 
-    $breadcrumb.addEventListener("click", () => {
-      const isOpen = !$navbar.classList.contains("translate-x-[-100%]");
+        $breadcrumb.addEventListener("click", () => {
+            const isOpen = !$navbar.classList.contains("translate-x-[-100%]");
 
-      if (isOpen) {
-        $navbar.classList.add("translate-x-[-100%]");
-        $navbar.classList.remove("translate-x-0");
-      } else {
-        $navbar.classList.remove("translate-x-[-100%]");
-        $navbar.classList.add("translate-x-0");
-      }
+            if (isOpen) {
+                $navbar.classList.add("translate-x-[-100%]");
+                $navbar.classList.remove("translate-x-0");
+            } else {
+                $navbar.classList.remove("translate-x-[-100%]");
+                $navbar.classList.add("translate-x-0");
+            }
+        });
+
+        $closeNavbar.addEventListener("click", () => {
+            $navbar.classList.add("translate-x-[-100%]");
+        });
     });
-
-    $closeNavbar.addEventListener("click", () => {
-      $navbar.classList.add("translate-x-[-100%]");
-    })
-
-  });
 </script>

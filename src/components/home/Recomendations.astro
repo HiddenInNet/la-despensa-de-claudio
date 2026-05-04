@@ -1,36 +1,68 @@
 ---
 import { Image } from "astro:assets";
 import imagenJamon from "../../../public/images/montesierra-jamon-100.webp";
-
 ---
 
-<section class="py-20 bg-stone-50 border-t border-stone-200">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="flex justify-between items-end mb-12">
-                    <div>
-                        <h2 class="text-3xl font-serif text-green-900">Recomendaciones de Claudio</h2>
-                        <p class="text-green-700 mt-2">Nuestros productos más vendidos.</p>
-                    </div>
-                    <a href="./products" class="hidden md:block text-green-800 font-bold border-b-2 border-green-800 pb-1 hover:text-green-600 hover:border-green-600 transition-all">
-                        Ir a la tienda completa
-                    </a>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="bg-white group p-4 border border-transparent hover:border-green-100 hover:shadow-xl transition-all rounded-sm">
-                        <div class="h-64 bg-gray-100 mb-4 overflow-hidden relative">
-                            <Image src={imagenJamon} alt="Producto" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                            <span class="absolute top-2 left-2 bg-green-800 text-white text-[10px] px-2 py-1 uppercase tracking-tighter">100% Ibérico</span>
-                        </div>
-                        <h4 class="text-lg font-bold text-green-900 mb-1">Jamón de Bellota</h4>
-                        <p class="text-sm text-gray-500 mb-4">Pieza de 7-8kg aprox.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xl font-serif text-green-900 font-bold">285,00 €</span>
-                            <button class="bg-green-900 text-white p-2 rounded-sm hover:bg-green-700 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                            </button>
-                        </div>
-                    </div>
-                    </div>
+<section class="border-t border-stone-200 bg-stone-50 py-20">
+    <div class="mx-auto max-w-7xl px-6">
+        <div class="mb-12 flex items-end justify-between">
+            <div>
+                <h2 class="font-serif text-3xl text-green-900">
+                    Recomendaciones de Claudio
+                </h2>
+                <p class="mt-2 text-green-700">
+                    Nuestros productos más vendidos.
+                </p>
             </div>
-        </section>
+            <a
+                href="./products"
+                class="hidden border-b-2 border-green-800 pb-1 font-bold text-green-800 transition-all hover:border-green-600 hover:text-green-600 md:block"
+            >
+                Ir a la tienda completa
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div
+                class="group rounded-sm border border-transparent bg-white p-4 transition-all hover:border-green-100 hover:shadow-xl"
+            >
+                <div class="relative mb-4 h-64 overflow-hidden bg-gray-100">
+                    <Image
+                        src={imagenJamon}
+                        alt="Producto"
+                        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <span
+                        class="absolute top-2 left-2 bg-green-800 px-2 py-1 text-[10px] tracking-tighter text-white uppercase"
+                        >100% Ibérico</span
+                    >
+                </div>
+                <h4 class="mb-1 text-lg font-bold text-green-900">
+                    Jamón de Bellota
+                </h4>
+                <p class="mb-4 text-sm text-gray-500">Pieza de 7-8kg aprox.</p>
+                <div class="flex items-center justify-between">
+                    <span class="font-serif text-xl font-bold text-green-900"
+                        >285,00 €</span
+                    >
+                    <button
+                        class="rounded-sm bg-green-900 p-2 text-white transition-colors hover:bg-green-700"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            ><path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 4v16m8-8H4"></path></svg
+                        >
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

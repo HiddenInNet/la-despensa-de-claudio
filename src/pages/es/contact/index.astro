@@ -10,223 +10,335 @@ import facebookLogo from "../../../assets/images/facebook-logo.png";
 import PhoneSVG from "../../../assets/svg/phone.svg";
 import MailSVG from "../../../assets/svg/mail.svg";
 import AnalogClockSVG from "../../../assets/svg/analog-clock.svg";
-import LocationSVG from "../../../assets/svg/location.svg"
-
+import LocationSVG from "../../../assets/svg/location.svg";
 
 const tabName = "Contacto";
 ---
 
 <Layout title={`${tabName} - La Despensa de Claudio`}>
-    <main class="w-full min-h-screen bg-stone-50 font-sans text-stone-800">
-        
-        <section class="bg-green-900 py-10 px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-serif text-white mb-4">Contacto</h1>
-            <p class="text-green-50 font-light max-w-2xl mx-auto text-lg">
-                ¿Tienes alguna duda sobre nuestros productos? 
-                Te asesoramos de forma personalizada.
+    <main class="min-h-screen w-full bg-stone-50 font-sans text-stone-800">
+        <section class="bg-green-900 px-4 py-10 text-center">
+            <h1 class="mb-4 font-serif text-4xl text-white md:text-6xl">
+                Contacto
+            </h1>
+            <p class="mx-auto max-w-2xl text-lg font-light text-green-50">
+                ¿Tienes alguna duda sobre nuestros productos? Te asesoramos de
+                forma personalizada.
             </p>
         </section>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                
+        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+            <div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
                 <div class="flex flex-col gap-10">
                     <div>
-                        <h2 class="text-2xl font-serif font-bold text-green-900 mb-6 underline decoration-stone-300 underline-offset-8">
+                        <h2
+                            class="mb-6 font-serif text-2xl font-bold text-green-900 underline decoration-stone-300 underline-offset-8"
+                        >
                             Atención al Cliente
                         </h2>
-                        
+
                         <div class="space-y-6">
                             <div class="flex items-start gap-4">
-                                <div class="bg-white p-3 shadow-sm rounded-sm text-green-800">
+                                <div
+                                    class="rounded-sm bg-white p-3 text-green-800 shadow-sm"
+                                >
                                     <PhoneSVG />
                                 </div>
                                 <div>
-                                    <h4 class="font-inter font-bold text-stone-900">Teléfono</h4>
-                                    <a href={`tel:${BUS_DATA.phone_number}`} class="text-blue-500 font-inter" >{BUS_DATA.phone_number}</a>
+                                    <h4
+                                        class="font-inter font-bold text-stone-900"
+                                    >
+                                        Teléfono
+                                    </h4>
+                                    <a
+                                        href={`tel:${BUS_DATA.phone_number}`}
+                                        class="font-inter text-blue-500"
+                                        >{BUS_DATA.phone_number}</a
+                                    >
                                 </div>
                             </div>
 
                             <div class="flex items-start gap-4">
-                                <div class="bg-white p-3 shadow-sm rounded-sm text-green-800">
+                                <div
+                                    class="rounded-sm bg-white p-3 text-green-800 shadow-sm"
+                                >
                                     <MailSVG />
                                 </div>
                                 <div>
-                                    <h4 class="font-inter font-bold text-stone-900">Email</h4>
-                                    <a href={`mailto:${BUS_DATA.email}`} class="text-blue-500 font-inter">{BUS_DATA.email}</p>
+                                    <h4
+                                        class="font-inter font-bold text-stone-900"
+                                    >
+                                        Email
+                                    </h4>
+                                    <a
+                                        href={`mailto:${BUS_DATA.email}`}
+                                        class="font-inter text-blue-500"
+                                        >{BUS_DATA.email}</a
+                                    >
                                 </div>
                             </div>
 
                             <div class="flex items-start gap-4">
-                                <div class="bg-white p-3 shadow-sm rounded-sm text-green-800">
+                                <div
+                                    class="rounded-sm bg-white p-3 text-green-800 shadow-sm"
+                                >
                                     <LocationSVG />
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-stone-900">Dirección</h4>
-                                    <p class="text-stone-600 font-inter">{BUS_DATA.address}</p>
+                                    <h4 class="font-bold text-stone-900">
+                                        Dirección
+                                    </h4>
+                                    <p class="font-inter text-stone-600">
+                                        {BUS_DATA.address}
+                                    </p>
                                 </div>
                             </div>
 
                             <div class="flex items-start gap-4">
-                                <div class="bg-white p-3 shadow-sm rounded-sm text-green-800">
+                                <div
+                                    class="rounded-sm bg-white p-3 text-green-800 shadow-sm"
+                                >
                                     <AnalogClockSVG />
                                 </div>
                                 <div>
-                                    <h4 class="font-inter font-bold text-stone-900">Horario</h4>
-                                    <p class="text-stone-600">Lunes a Viernes:</p>
-                                    <p class="text-stone-600">- Mañana: 08:30 - 14:30</p>
-                                    <p class="text-stone-600">- Tarde: 17:30 - 21:00</p>
-                                    <p class="text-stone-600">Sábados: 9:00 - 14:30</p>
+                                    <h4
+                                        class="font-inter font-bold text-stone-900"
+                                    >
+                                        Horario
+                                    </h4>
+                                    <p class="text-stone-600">
+                                        Lunes a Viernes:
+                                    </p>
+                                    <p class="text-stone-600">
+                                        - Mañana: 08:30 - 14:30
+                                    </p>
+                                    <p class="text-stone-600">
+                                        - Tarde: 17:30 - 21:00
+                                    </p>
+                                    <p class="text-stone-600">
+                                        Sábados: 9:00 - 14:30
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pt-8 border-t border-stone-200">
-                        <h4 class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-4">Síguenos</h4>
+                    <div class="border-t border-stone-200 pt-8">
+                        <h4
+                            class="mb-4 text-xs font-bold tracking-widest text-stone-400 uppercase"
+                        >
+                            Síguenos
+                        </h4>
                         <div class="flex gap-4">
-                            <a href="https://www.instagram.com/ladespensadeclaudio/" class="flex justify-center items-center">
-                                <Image src={instagramLogo} alt={'Logo Instagram'} class="size-20"/>
+                            <a
+                                href="https://www.instagram.com/ladespensadeclaudio/"
+                                class="flex items-center justify-center"
+                            >
+                                <Image
+                                    src={instagramLogo}
+                                    alt={"Logo Instagram"}
+                                    class="size-20"
+                                />
                             </a>
-                            <a href="https://www.facebook.com/ladespensa.declaudio/" class="flex justify-center items-center">
-                                <Image src={facebookLogo} alt={'Facebook Logo'} class="size-10"/>
+                            <a
+                                href="https://www.facebook.com/ladespensa.declaudio/"
+                                class="flex items-center justify-center"
+                            >
+                                <Image
+                                    src={facebookLogo}
+                                    alt={"Facebook Logo"}
+                                    class="size-10"
+                                />
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white p-8 md:p-12 shadow-xl shadow-stone-200/50 rounded-sm border border-stone-100">
+                <div
+                    class="rounded-sm border border-stone-100 bg-white p-8 shadow-xl shadow-stone-200/50 md:p-12"
+                >
                     <form id="contact-form" class="flex flex-col gap-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div class="flex flex-col gap-2">
-                                <label for="name" class="text-xs font-bold uppercase tracking-wider text-stone-500">Nombre completo</label>
-                                <input 
-                                    type="text" 
-                                    id="name" 
+                                <label
+                                    for="name"
+                                    class="text-xs font-bold tracking-wider text-stone-500 uppercase"
+                                    >Nombre completo</label
+                                >
+                                <input
+                                    type="text"
+                                    id="name"
                                     name="name"
                                     required
                                     placeholder="Ej. Claudio González"
-                                    class="bg-stone-50 border border-stone-200 rounded-sm py-3 px-4 focus:outline-none focus:border-green-800 transition-colors"
+                                    class="rounded-sm border border-stone-200 bg-stone-50 px-4 py-3 transition-colors focus:border-green-800 focus:outline-none"
                                 />
                             </div>
                             <div class="flex flex-col gap-2">
-                                <label for="email" class="text-xs font-bold uppercase tracking-wider text-stone-500">Correo electrónico</label>
-                                <input 
-                                    type="email" 
-                                    id="email" 
+                                <label
+                                    for="email"
+                                    class="text-xs font-bold tracking-wider text-stone-500 uppercase"
+                                    >Correo electrónico</label
+                                >
+                                <input
+                                    type="email"
+                                    id="email"
                                     name="email"
                                     required
                                     placeholder="claudio@ejemplo.com"
-                                    class="bg-stone-50 border border-stone-200 rounded-sm py-3 px-4 focus:outline-none focus:border-green-800 transition-colors"
+                                    class="rounded-sm border border-stone-200 bg-stone-50 px-4 py-3 transition-colors focus:border-green-800 focus:outline-none"
                                 />
                             </div>
                         </div>
 
                         <div class="flex flex-col gap-2">
-                            <label for="subject" class="text-xs font-bold uppercase tracking-wider text-stone-500">Asunto</label>
-                            <select id="subject" name="subject" required class="bg-stone-50 border border-stone-200 rounded-sm py-3 px-4 focus:outline-none focus:border-green-800 transition-colors">
-                                <option value="Consulta sobre productos">Consulta sobre productos</option>
-                                <option value="Pedido / Reserva">Pedido / Reserva</option>
+                            <label
+                                for="subject"
+                                class="text-xs font-bold tracking-wider text-stone-500 uppercase"
+                                >Asunto</label
+                            >
+                            <select
+                                id="subject"
+                                name="subject"
+                                required
+                                class="rounded-sm border border-stone-200 bg-stone-50 px-4 py-3 transition-colors focus:border-green-800 focus:outline-none"
+                            >
+                                <option value="Consulta sobre productos"
+                                    >Consulta sobre productos</option
+                                >
+                                <option value="Pedido / Reserva"
+                                    >Pedido / Reserva</option
+                                >
                                 <option value="Otro motivo">Otro motivo</option>
                             </select>
                         </div>
 
                         <div class="flex flex-col gap-2">
-                            <label for="message" class="text-xs font-bold uppercase tracking-wider text-stone-500">Mensaje</label>
-                            <textarea 
-                                id="message" 
+                            <label
+                                for="message"
+                                class="text-xs font-bold tracking-wider text-stone-500 uppercase"
+                                >Mensaje</label
+                            >
+                            <textarea
+                                id="message"
                                 name="message"
                                 required
-                                rows="5" 
+                                rows="5"
                                 placeholder="Escribe aquí tu consulta..."
-                                class="bg-stone-50 border border-stone-200 rounded-sm py-3 px-4 focus:outline-none focus:border-green-800 transition-colors resize-none"
+                                class="resize-none rounded-sm border border-stone-200 bg-stone-50 px-4 py-3 transition-colors focus:border-green-800 focus:outline-none"
                             ></textarea>
                         </div>
 
-                        <button 
+                        <button
                             id="submit-btn"
-                            class="mt-4 bg-green-900 hover:bg-green-800 hover:cursor-pointer text-white font-bold py-4 px-8 rounded-sm shadow-md transition-all duration-300 uppercase text-xs tracking-[0.2em] disabled:opacity-70 disabled:cursor-not-allowed"
+                            class="mt-4 rounded-sm bg-green-900 px-8 py-4 text-xs font-bold tracking-[0.2em] text-white uppercase shadow-md transition-all duration-300 hover:cursor-pointer hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-70"
                         >
                             Enviar Mensaje
                         </button>
 
-                        <div id="form-feedback" class="hidden text-sm p-4 rounded-sm text-center font-medium transition-all duration-300">
+                        <div
+                            id="form-feedback"
+                            class="hidden rounded-sm p-4 text-center text-sm font-medium transition-all duration-300"
+                        >
                         </div>
-                        
-                        <p class="text-[10px] text-stone-400 text-center mt-2 leading-relaxed">
-                            Al enviar este formulario, aceptas nuestra política de privacidad y el tratamiento de tus datos para gestionar tu consulta.
+
+                        <p
+                            class="mt-2 text-center text-[10px] leading-relaxed text-stone-400"
+                        >
+                            Al enviar este formulario, aceptas nuestra política
+                            de privacidad y el tratamiento de tus datos para
+                            gestionar tu consulta.
                         </p>
                     </form>
                 </div>
-
             </div>
         </div>
 
-        <section class="w-full h-100 p-4 relative hover:grayscale-0 transition-all duration-700">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1308.2847920783786!2d-5.980913126137285!3d37.38947654687013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126ea7a9b54171%3A0x395d9ad3fd29d9b8!2sLa%20Despensa%20De%20Claudio!5e0!3m2!1ses!2ses!4v1777116442510!5m2!1ses!2ses" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <section
+            class="relative h-100 w-full p-4 transition-all duration-700 hover:grayscale-0"
+        >
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1308.2847920783786!2d-5.980913126137285!3d37.38947654687013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126ea7a9b54171%3A0x395d9ad3fd29d9b8!2sLa%20Despensa%20De%20Claudio!5e0!3m2!1ses!2ses!4v1777116442510!5m2!1ses!2ses"
+                class="h-full w-full"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
         </section>
     </main>
 </Layout>
 
 <script>
-  const form = document.getElementById("contact-form") as HTMLFormElement;
-  const button = document.getElementById("submit-btn") as HTMLButtonElement;
-  const feedback = document.getElementById("form-feedback") as HTMLDivElement;
+    const form = document.getElementById("contact-form") as HTMLFormElement;
+    const button = document.getElementById("submit-btn") as HTMLButtonElement;
+    const feedback = document.getElementById("form-feedback") as HTMLDivElement;
 
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    
-    feedback.classList.add("hidden");
-    feedback.classList.remove("bg-green-100", "text-green-800", "bg-red-100", "text-red-800");
-    
-    const originalText = button.innerText;
-    button.innerText = "ENVIANDO...";
-    button.disabled = true;
+    form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    const formData = new FormData(form);
+        feedback.classList.add("hidden");
+        feedback.classList.remove(
+            "bg-green-100",
+            "text-green-800",
+            "bg-red-100",
+            "text-red-800",
+        );
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        body: formData,
-      });
+        const originalText = button.innerText;
+        button.innerText = "ENVIANDO...";
+        button.disabled = true;
 
-      const result: ApiResponse = await response.json();
+        const formData = new FormData(form);
 
-      feedback.classList.remove("hidden");
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                body: formData,
+            });
 
-      if (response.ok) {
-        button.innerText = "¡ENVIADO!";
-        button.classList.replace("bg-green-900", "bg-green-600");
-        button.classList.replace("hover:bg-green-800", "hover:bg-green-600");
-        
-        feedback.classList.add("bg-green-100", "text-green-800");
-        feedback.innerText = "¡Gracias! Tu mensaje ha sido enviado con éxito. Te responderemos muy pronto.";
-        
-        form.reset();
+            const result: ApiResponse = await response.json();
 
-        setTimeout(() => {
+            feedback.classList.remove("hidden");
+
+            if (response.ok) {
+                button.innerText = "¡ENVIADO!";
+                button.classList.replace("bg-green-900", "bg-green-600");
+                button.classList.replace(
+                    "hover:bg-green-800",
+                    "hover:bg-green-600",
+                );
+
+                feedback.classList.add("bg-green-100", "text-green-800");
+                feedback.innerText =
+                    "¡Gracias! Tu mensaje ha sido enviado con éxito. Te responderemos muy pronto.";
+
+                form.reset();
+
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.classList.replace("bg-green-600", "bg-green-900");
+                    button.classList.replace(
+                        "hover:bg-green-600",
+                        "hover:bg-green-800",
+                    );
+                    button.disabled = false;
+                    feedback.classList.add("hidden");
+                }, 4000);
+            } else {
+                button.innerText = originalText;
+                button.disabled = false;
+
+                feedback.classList.add("bg-red-100", "text-red-800");
+                feedback.innerText = "Hubo un error: " + result.error;
+            }
+        } catch (error) {
             button.innerText = originalText;
-            button.classList.replace("bg-green-600", "bg-green-900");
-            button.classList.replace("hover:bg-green-600", "hover:bg-green-800");
             button.disabled = false;
-            feedback.classList.add("hidden");
-        }, 4000);
 
-      } else {
-        button.innerText = originalText;
-        button.disabled = false;
-        
-        feedback.classList.add("bg-red-100", "text-red-800");
-        feedback.innerText = "Hubo un error: " + result.error;
-      }
-    } catch (error) {
-        button.innerText = originalText;
-        button.disabled = false;
-        
-        feedback.classList.remove("hidden");
-        feedback.classList.add("bg-red-100", "text-red-800");
-        feedback.innerText = "Error de conexión. Por favor, comprueba tu internet e inténtalo de nuevo.";
-    }
-  });
+            feedback.classList.remove("hidden");
+            feedback.classList.add("bg-red-100", "text-red-800");
+            feedback.innerText =
+                "Error de conexión. Por favor, comprueba tu internet e inténtalo de nuevo.";
+        }
+    });
 </script>

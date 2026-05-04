@@ -6,51 +6,51 @@ import { mailHTML } from "./mail.body";
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const POST: APIRoute = async ({ request }) => {
-  const data = await request.formData();
-  const name = data.get("name");
-  const email = data.get("email");
-  const subject = data.get("subject");
-  const message = data.get("message");
+    const data = await request.formData();
+    const name = data.get("name");
+    const email = data.get("email");
+    const subject = data.get("subject");
+    const message = data.get("message");
 
-  console.log("Hola")
+    console.log("Hola");
 
-  if (!name || !email || !message || !subject) {
-    return new Response(
-      JSON.stringify({ error: "Faltan campos obligatorios" }),
-      { status: 400 },
-    );
-  }
-
-  const emailHtml = mailHTML(
-    name.toString(),
-    email.toString(),
-    subject.toString(),
-    message.toString(),
-  );
-
-  try {
-    const { error } = await resend.emails.send({
-      from: "La Despensa de Claudio <onboarding@resend.dev>",
-      to: "dgongar3112@gmail.com",
-      replyTo: email.toString(),
-      subject: `CONTACTO: ${subject} - ${name}`,
-      html: emailHtml,
-    });
-
-    if (error) {
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 500,
-      });
+    if (!name || !email || !message || !subject) {
+        return new Response(
+            JSON.stringify({ error: "Faltan campos obligatorios" }),
+            { status: 400 },
+        );
     }
 
-    return new Response(
-      JSON.stringify({ success: "Mensaje enviado correctamente" }),
-      { status: 200 },
+    const emailHtml = mailHTML(
+        name.toString(),
+        email.toString(),
+        subject.toString(),
+        message.toString(),
     );
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ error: "Error interno del servidor" }),
-      { status: 500 },
-    );
-  }
+
+    try {
+        const { error } = await resend.emails.send({
+            from: "La Despensa de Claudio <onboarding@resend.dev>",
+            to: "dgongar3112@gmail.com",
+            replyTo: email.toString(),
+            subject: `CONTACTO: ${subject} - ${name}`,
+            html: emailHtml,
+        });
+
+        if (error) {
+            return new Response(JSON.stringify({ error: error.message }), {
+                status: 500,
+            });
+        }
+
+        return new Response(
+            JSON.stringify({ success: "Mensaje enviado correctamente" }),
+            { status: 200 },
+        );
+    } catch (error) {
+        return new Response(
+            JSON.stringify({ error: "Error interno del servidor" }),
+            { status: 500 },
+        );
+    }
 };

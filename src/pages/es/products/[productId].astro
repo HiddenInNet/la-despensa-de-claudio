@@ -10,104 +10,183 @@ import SEO from "../../../components/seo/SEO.astro";
 
 const { productId: id } = Astro.params;
 
-const { data, error }: { data: ProductDetail | null, error: any } = await supabase
-    .from("products")
-    .select("*")
-    .eq("id", id)
-    .single();
+const { data, error }: { data: ProductDetail | null; error: any } =
+    await supabase.from("products").select("*").eq("id", id).single();
 
 if (error || !data) {
     console.error("Error fetching product:", error?.message);
-    return Astro.redirect('/404');
+    return Astro.redirect("/404");
 }
 
-const formattedCategory = data.category.charAt(0).toUpperCase() + data.category.slice(1).toLowerCase();
+const formattedCategory =
+    data.category.charAt(0).toUpperCase() +
+    data.category.slice(1).toLowerCase();
 const priceInEuros = data.price / 100;
 const weightFormated = data.weight / 1000;
-const priceFormatter = new Intl.NumberFormat('es-ES', {
-  style: 'currency',
-  currency: 'EUR',
+const priceFormatter = new Intl.NumberFormat("es-ES", {
+    style: "currency",
+    currency: "EUR",
 });
 ---
 
 <SEO product={data} />
 
 <Layout title={`${data.name} - La Despensa de Claudio`}>
-    <div class="w-full min-h-screen bg-white font-sans text-stone-800 pb-20">
-        
-        <ProductBreadcrumb category={data.category} name={data.name} formattedCategory={formattedCategory} />
+    <div class="min-h-screen w-full bg-white pb-20 font-sans text-stone-800">
+        <ProductBreadcrumb
+            category={data.category}
+            name={data.name}
+            formattedCategory={formattedCategory}
+        />
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-            <div class="flex flex-col lg:flex-row gap-12 lg:gap-20">
-                <div class="w-full lg:w-1/2 flex flex-col gap-4">
-                    <div class="relative w-full aspect-square bg-stone-100 rounded-sm overflow-hidden border border-stone-200">
+        <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+            <div class="flex flex-col gap-12 lg:flex-row lg:gap-20">
+                <div class="flex w-full flex-col gap-4 lg:w-1/2">
+                    <div
+                        class="relative aspect-square w-full overflow-hidden rounded-sm border border-stone-200 bg-stone-100"
+                    >
                         <Image
                             src={data.url ?? defaultImage}
                             alt={`${data.name.trim().toLowerCase().split(" ").join("-")}-image`}
-                            class="w-full h-full object-cover object-center"
+                            class="h-full w-full object-cover object-center"
                             width={50}
                             height={50}
                             loading="eager"
                             transition:name={`product-image-${data.id}`}
                             transition:animate="fade"
                         />
-                        <span class="absolute top-4 left-4 bg-green-900 text-white text-xs font-bold px-4 py-1.5 uppercase tracking-widest shadow-md rounded-xs">
+                        <span
+                            class="absolute top-4 left-4 rounded-xs bg-green-900 px-4 py-1.5 text-xs font-bold tracking-widest text-white uppercase shadow-md"
+                        >
                             Calidad Oro
                         </span>
                     </div>
                 </div>
 
-                <div class="w-full lg:w-1/2 flex flex-col pt-2 lg:pt-8">
-                    
-                    <span class="text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">{formattedCategory}</span>
-                    <h1 class="text-3xl md:text-5xl font-serif text-green-900 leading-tight mb-4">
+                <div class="flex w-full flex-col pt-2 lg:w-1/2 lg:pt-8">
+                    <span
+                        class="mb-2 text-xs font-bold tracking-widest text-stone-400 uppercase"
+                        >{formattedCategory}</span
+                    >
+                    <h1
+                        class="mb-4 font-serif text-3xl leading-tight text-green-900 md:text-5xl"
+                    >
                         {data.name}
                     </h1>
-                    
-                    <div class="text-3xl font-serif font-bold text-gray-900 mb-6">
+
+                    <div
+                        class="mb-6 font-serif text-3xl font-bold text-gray-900"
+                    >
                         {priceFormatter.format(priceInEuros)}
-                        <span class="font-thin text-neutral-500 text-sm">
+                        <span class="text-sm font-thin text-neutral-500">
                             / kg
                         </span>
                     </div>
 
-                    <p class="text-stone-600 font-light leading-relaxed mb-8">
+                    <p class="mb-8 leading-relaxed font-light text-stone-600">
                         {data.description}
                     </p>
 
-                    <ul class="flex flex-col gap-3 py-6 border-y border-stone-200">
+                    <ul
+                        class="flex flex-col gap-3 border-y border-stone-200 py-6"
+                    >
                         <li class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span class="text-sm font-medium text-stone-800">Origen: <span class="font-light text-stone-600">{data.origin}</span></span>
+                            <svg
+                                class="h-5 w-5 text-green-800"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                                ><path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                ></path><path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                ></path></svg
+                            >
+                            <span class="text-sm font-medium text-stone-800"
+                                >Origen: <span class="font-light text-stone-600"
+                                    >{data.origin}</span
+                                ></span
+                            >
                         </li>
                         <li class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
-                            <span class="text-sm font-medium text-stone-800">Peso estimado: <span class="font-light text-stone-600">{weightFormated} kg</span></span>
+                            <svg
+                                class="h-5 w-5 text-green-800"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                                ><path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
+                                ></path></svg
+                            >
+                            <span class="text-sm font-medium text-stone-800"
+                                >Peso estimado: <span
+                                    class="font-light text-stone-600"
+                                    >{weightFormated} kg</span
+                                ></span
+                            >
                         </li>
                         <li class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="text-sm font-medium text-stone-800">Curación: <span class="font-light text-stone-600">± {data.curing} meses</span></span>
+                            <svg
+                                class="h-5 w-5 text-green-800"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                                ><path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                                ></path></svg
+                            >
+                            <span class="text-sm font-medium text-stone-800"
+                                >Curación: <span
+                                    class="font-light text-stone-600"
+                                    >± {data.curing} meses</span
+                                ></span
+                            >
                         </li>
                     </ul>
 
-                    <ProductBuy product={data}/>
-
+                    <ProductBuy product={data} />
                 </div>
             </div>
 
-            <div class="w-full mt-10">
-                <div class="border-b border-stone-200 mb-8">
-                    <ul class="flex gap-8 text-sm font-bold uppercase tracking-widest">
-                        <li class="pb-3 border-b-2 border-green-900 text-green-900 cursor-pointer">Notas de Cata</li>
+            <div class="mt-10 w-full">
+                <div class="mb-8 border-b border-stone-200">
+                    <ul
+                        class="flex gap-8 text-sm font-bold tracking-widest uppercase"
+                    >
+                        <li
+                            class="cursor-pointer border-b-2 border-green-900 pb-3 text-green-900"
+                        >
+                            Notas de Cata
+                        </li>
                     </ul>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-stone-600 font-light leading-relaxed">
+
+                <div
+                    class="grid grid-cols-1 gap-12 leading-relaxed font-light text-stone-600 md:grid-cols-2"
+                >
                     <div>
-                        <h4 class="font-serif text-xl text-green-900 mb-3">Sabor y Aroma</h4>
-                        <div class="flex flex-col gap-4 mb-4" set:html={data.taste_notes}>
-                            
-                        </div>
+                        <h4 class="mb-3 font-serif text-xl text-green-900">
+                            Sabor y Aroma
+                        </h4>
+                        <div
+                            class="mb-4 flex flex-col gap-4"
+                            set:html={data.taste_notes}
+                        />
                     </div>
                 </div>
             </div>

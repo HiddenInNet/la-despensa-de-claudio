@@ -1,4 +1,4 @@
 interface ApiResponse {
-  error?: string;
-  success?: boolean;
+    error?: string;
+    success?: boolean;
 }

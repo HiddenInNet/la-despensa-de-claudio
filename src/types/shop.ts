@@ -3,7 +3,7 @@ export interface ShopItem {
     name: string;
     image: string;
     pricePerKg: string;
-    pieceWeight: string; 
+    pieceWeight: string;
     format: string;
     quantity: string;
 }

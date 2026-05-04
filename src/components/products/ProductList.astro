@@ -1,5 +1,5 @@
 ---
-import ProductCard from "./ProductCard.astro"; 
+import ProductCard from "./ProductCard.astro";
 import { supabase } from "../../db/supabase";
 import type { ProductDetail } from "../../types/products";
 
@@ -24,14 +24,12 @@ if (error) {
 const productsFiltered: ProductDetail[] = data ? (data as ProductDetail[]) : [];
 ---
 
-<div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="grid w-full grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
     {
         productsFiltered && productsFiltered.length > 0 ? (
-            productsFiltered.map(product => (
-                <ProductCard product={product} />
-            ))
+            productsFiltered.map((product) => <ProductCard product={product} />)
         ) : (
-            <p class="col-span-full text-center text-stone-500 py-12 font-light">
+            <p class="col-span-full py-12 text-center font-light text-stone-500">
                 No se encontraron productos en esta categoría.
             </p>
         )

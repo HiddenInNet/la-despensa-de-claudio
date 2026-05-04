@@ -5,19 +5,36 @@ interface Props {
     formattedCategory: string;
 }
 
-const {category, name, formattedCategory} = Astro.props;
+const { category, name, formattedCategory } = Astro.props;
 ---
 
-<nav class="w-full bg-stone-50 border-b border-stone-200 py-4">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <ol class="flex items-center space-x-2 text-sm text-stone-500 font-light">
-            <li><a href="/" class="hover:text-green-800 transition-colors">Inicio</a></li>
+<nav class="w-full border-b border-stone-200 bg-stone-50 py-4">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+        <ol
+            class="flex items-center space-x-2 text-sm font-light text-stone-500"
+        >
+            <li>
+                <a href="/" class="transition-colors hover:text-green-800"
+                    >Inicio</a
+                >
+            </li>
             <li><span class="mx-1">/</span></li>
-            <li><a href="../products" class="hover:text-green-800 transition-colors">Catálogo</a></li>
+            <li>
+                <a
+                    href="../products"
+                    class="transition-colors hover:text-green-800">Catálogo</a
+                >
+            </li>
             <li><span class="mx-1">/</span></li>
-            <li><a href={`../products?cat=${category}`} class="hover:text-green-800 transition-colors">{formattedCategory}</a></li>
+            <li>
+                <a
+                    href={`../products?cat=${category}`}
+                    class="transition-colors hover:text-green-800"
+                    >{formattedCategory}</a
+                >
+            </li>
             <li><span class="mx-1">/</span></li>
-            <li class="text-stone-800 font-medium truncate">{name}</li>
+            <li class="truncate font-medium text-stone-800">{name}</li>
         </ol>
     </div>
 </nav>

@@ -2,13 +2,12 @@
 import Layout from "../../../layouts/Layout.astro";
 import OrderHeader from "../../../components/order/OrderHeader.astro";
 import { bussiness_name } from "../../../docs/bussiness-data.json";
-import Ticket from "../../../components/order/Ticket.astro";
+import Ticket from "../../../components/order/preact/Ticket";
 
 const tabName: string = `Pedido | ${bussiness_name}`;
 ---
 
 <Layout title={tabName}>
     <OrderHeader />
-    <Ticket />
-    
+    <Ticket client:load />
 </Layout>

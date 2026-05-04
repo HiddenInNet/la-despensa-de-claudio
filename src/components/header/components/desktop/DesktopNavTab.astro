@@ -9,8 +9,11 @@ const currentUrl = Astro.url.pathname;
 const { href, title } = Astro.props as Props;
 ---
 
-<li class="flex justify-start items-center">
-    <a href={`${href}`} class=`flex w-full gap-2 py-2 items-center px-5 hover:bg-neutral-200 rounded-xl ${currentUrl === href ? "shadow-inner bg-neutral-200" : ""} transition-all duration-300 ease-in-out`>
+<li class="flex items-center justify-start">
+    <a
+        href={`${href}`}
+        class=`flex w-full gap-2 py-2 items-center px-5 hover:bg-neutral-200 rounded-xl ${currentUrl === href ? "shadow-inner bg-neutral-200" : ""} transition-all duration-300 ease-in-out`
+    >
         <slot />
         <h3 class="rounded-xl text-lg text-nowrap">{title}</h3>
     </a>

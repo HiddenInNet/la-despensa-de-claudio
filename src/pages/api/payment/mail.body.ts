@@ -1,35 +1,47 @@
 import type { ProductDetail } from "../../../types/products";
 import type { ShopItem } from "../../../types/shop";
-import { calculatePrice, calculateProductPrice, getProductsOnListFromDatabase } from "../../../utils/PriceCalculator";
+import {
+    calculatePrice,
+    calculateProductPrice,
+    getProductsOnListFromDatabase,
+} from "../../../utils/PriceCalculator";
 
 export async function mailBodyFormatter(items: ShopItem[]) {
+    const productsDB: ProductDetail[] =
+        await getProductsOnListFromDatabase(items);
 
-    const productsDB: ProductDetail[] = await getProductsOnListFromDatabase(items);
+    const rows = items
+        .map((item) => {
+            const dbProduct: ProductDetail | null =
+                productsDB.find((p) => p.id === item.id) ?? null;
 
-    const rows = items.map(item => {
+            if (!dbProduct) return;
 
-        const dbProduct: ProductDetail | null = productsDB.find((p) => p.id === item.id) ?? null;
-        
-        if (!dbProduct) return ;
-        
-        const individualPrice: number = calculateProductPrice(dbProduct, item);
-        const isNumeric = !isNaN(Number(item.format));
+            const individualPrice: number = calculateProductPrice(
+                dbProduct,
+                item,
+            );
+            const isNumeric = !isNaN(Number(item.format));
 
-        return `
+            return `
             <tr>
                 <td style="padding: 12px; border-bottom: 1px solid #e5e5e5; color: #44403c;">
                     <strong>${item.name}</strong><br>
-                    <span style="color: #78716c; font-size: 14px;">${item.quantity} x ${isNumeric ? item.format + ' gr' : "Pieza entera"}</span>
+                    <span style="color: #78716c; font-size: 14px;">${item.quantity} x ${isNumeric ? item.format + " gr" : "Pieza entera"}</span>
                 </td>
                 <td style="padding: 12px; border-bottom: 1px solid #e5e5e5; color: #14532d; font-weight: bold; text-align: right;">
-                    ${(individualPrice / 100).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+                    ${(individualPrice / 100).toLocaleString("es-ES", { style: "currency", currency: "EUR" })}
                 </td>
             </tr>
         `;
-    }).join('');
+        })
+        .join("");
 
     const totalPrice = await calculatePrice(items);
-    const finalTotal = (totalPrice / 100).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+    const finalTotal = (totalPrice / 100).toLocaleString("es-ES", {
+        style: "currency",
+        currency: "EUR",
+    });
 
     return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 8px; overflow: hidden;">

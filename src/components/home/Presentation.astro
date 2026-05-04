@@ -9,44 +9,62 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<section class="relative w-full h-[70vh] min-h-[500px] flex items-center justify-center bg-green-900 overflow-hidden">
+<section
+    class="relative flex h-[70vh] min-h-125 w-full items-center justify-center overflow-hidden bg-green-900"
+>
     <div class="absolute inset-0 opacity-50">
         <Image
             src={dehesa}
-            alt="Dehesa Ibérica" 
+            alt="Dehesa Ibérica"
             loading="eager"
-            class="w-full h-full object-cover"
+            class="h-full w-full object-cover"
         />
     </div>
-            
-    <div class="relative z-10 text-center px-4">
-        <span class="text-white uppercase tracking-[0.3em] text-sm mb-4 block font-light">Tradición y Sabor</span>
-        <h1 class="text-5xl md:text-7xl font-serif text-white mb-6 drop-shadow-md">
+
+    <div class="relative z-10 px-4 text-center">
+        <span
+            class="mb-4 block text-sm font-light tracking-[0.3em] text-white uppercase"
+            >Tradición y Sabor</span
+        >
+        <h1
+            class="mb-6 font-serif text-5xl text-white drop-shadow-md md:text-7xl"
+        >
             {BUS_DATA.bussiness_name}
         </h1>
-        <p class="text-lg md:text-xl text-green-50 mb-10 max-w-2xl mx-auto font-light">
-            Selección exclusiva de embutidos y jamones ibéricos directos desde la raíz a tu mesa.
+        <p
+            class="mx-auto mb-10 max-w-2xl text-lg font-light text-green-50 md:text-xl"
+        >
+            Selección exclusiva de embutidos y jamones ibéricos directos desde
+            la raíz a tu mesa.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href={`/${lang}/products`} class="bg-white text-green-900 hover:bg-green-50 font-bold py-4 px-10 transition-all rounded-sm shadow-lg uppercase text-sm tracking-widest">
+        <div class="flex flex-col justify-center gap-4 sm:flex-row">
+            <a
+                href={`/${lang}/products`}
+                class="rounded-sm bg-white px-10 py-4 text-sm font-bold tracking-widest text-green-900 uppercase shadow-lg transition-all hover:bg-green-50"
+            >
                 Ver Catálogo
             </a>
-            <a href={`/${lang}/about`} class="border border-white text-white hover:bg-white hover:text-green-900 font-bold py-4 px-10 transition-all rounded-sm uppercase text-sm tracking-widest">
+            <a
+                href={`/${lang}/about`}
+                class="rounded-sm border border-white px-10 py-4 text-sm font-bold tracking-widest text-white uppercase transition-all hover:bg-white hover:text-green-900"
+            >
                 Nuestra Historia
             </a>
         </div>
     </div>
 </section>
 
-<section class="py-12 bg-green-50 border-b border-green-100">
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3">
+<section class="border-b border-green-100 bg-green-50 py-12">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 px-6 md:grid-cols-3">
         <div class="flex items-center gap-4">
-            <div class="bg-green-800 text-white p-3 rounded-full">
+            <div class="rounded-full bg-green-800 p-3 text-white">
                 <Stars />
             </div>
             <div>
                 <h3 class="font-bold text-green-900">Calidad Certificada</h3>
-                <p class="text-sm text-green-700">Productos con garantía de origen.</p>
+                <p class="text-sm text-green-700">
+                    Productos con garantía de origen.
+                </p>
             </div>
         </div>
     </div>
