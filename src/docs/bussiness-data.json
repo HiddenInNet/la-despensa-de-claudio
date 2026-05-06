@@ -11,5 +11,12 @@
         { "label": "Embutido", "slug": "EMBUTIDO", "divisible": true },
         { "label": "Vinos", "slug": "VINO", "divisible": false },
         { "label": "Otros", "slug": "OTRO", "divisible": false }
+    ],
+    "weight_options": [
+        { "id": "100", "label": "100 gr" },
+        { "id": "250", "label": "250 gr" },
+        { "id": "500", "label": "500 gr" },
+        { "id": "whole", "label": "Pieza entera" },
+        { "id": "custom", "label": "Personalizado" }
     ]
 }

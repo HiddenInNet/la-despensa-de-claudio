@@ -2,8 +2,8 @@ export interface ShopItem {
     id: string;
     name: string;
     image: string;
-    pricePerKg: string;
-    pieceWeight: string;
+    pricePerKg: number;
+    pieceWeight: number;
     format: string;
-    quantity: string;
+    quantity: number;
 }

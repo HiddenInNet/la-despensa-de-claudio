@@ -8,16 +8,19 @@ import { getProductListFromLocalStorage } from "./ShopCartScripts";
  * comparandolos con la base de datos para que no puedan ser
  * manipulados los precios.
  *
- * @param shopProducts | undefined
+ * @param shopProductsLS | undefined
  * @returns totalCents
  */
 export async function calculatePrice(
-    shopProductsLS?: ShopItem[],
+    // ✅ CORRECCIÓN 1: Sintaxis correcta de readonly y parámetro opcional
+    shopProductsLS?: readonly ShopItem[],
 ): Promise<number> {
-    const productsLS: ShopItem[] =
+    // ✅ CORRECCIÓN 2: El array de fallback también debe aceptar el readonly
+    const productsLS: readonly ShopItem[] =
         shopProductsLS ?? getProductListFromLocalStorage();
+
     const productsDB: ProductDetail[] =
-        await getProductsOnListFromDatabase(shopProductsLS);
+        await getProductsOnListFromDatabase(productsLS);
 
     const totalCents = productsLS.reduce((acc, localItem) => {
         const dbProduct = productsDB.find((p) => p.id === localItem.id);
@@ -39,7 +42,8 @@ export async function calculatePrice(
 
 export function calculateProductPrice(
     dbProduct: ProductDetail,
-    localProd: ShopItem,
+    // Aquí no es estrictamente necesario el readonly porque accedemos a sus propiedades individuales
+    localProd: ShopItem | Readonly<ShopItem>,
 ): number {
     const quantity = Number(localProd.quantity);
     const pricePerKg = Number(dbProduct.price);
@@ -62,9 +66,10 @@ export function calculateProductPrice(
 }
 
 export async function getProductsOnListFromDatabase(
-    shopProductsLS?: ShopItem[],
+    // ✅ CORRECCIÓN 3: Propagamos el readonly aquí para que no choque con la función anterior
+    shopProductsLS?: readonly ShopItem[],
 ): Promise<ProductDetail[]> {
-    const productsLS: ShopItem[] =
+    const productsLS: readonly ShopItem[] =
         shopProductsLS ?? getProductListFromLocalStorage();
 
     if (!Array.isArray(productsLS) || productsLS.length === 0) return [];

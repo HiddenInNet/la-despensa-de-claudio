@@ -5,8 +5,8 @@ import Layout from "../../../layouts/Layout.astro";
 import defaultImage from "../../../assets/images/no-photo.avif";
 import type { ProductDetail } from "../../../types/products";
 import ProductBreadcrumb from "../../../components/products/product-id/ProductBreadcrumb.astro";
-import ProductBuy from "../../../components/products/product-id/ProductBuy.astro";
 import SEO from "../../../components/seo/SEO.astro";
+import ProductAdd from "../../../components/products/product-id/ProductAdd";
 
 const { productId: id } = Astro.params;
 
@@ -159,7 +159,7 @@ const priceFormatter = new Intl.NumberFormat("es-ES", {
                         </li>
                     </ul>
 
-                    <ProductBuy product={data} />
+                    <ProductAdd product={data} client:only="preact" />
                 </div>
             </div>
 

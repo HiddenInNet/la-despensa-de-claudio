@@ -4,7 +4,7 @@ import Header from "../components/header/Header.astro";
 import Footer from "../components/footer/Footer.astro";
 import "../styles/global.css";
 import { getLangFromUrl } from "../i18n/utils";
-import ShoppingComponent from "../components/shopping/ShoppingComponent.astro";
+import CartDrawer from "../components/shopping/CartDrawer.tsx";
 
 interface Props {
     title: string;
@@ -30,7 +30,7 @@ const userLang = getLangFromUrl(Astro.url) ?? "es";
         <main class="md:font-inter flex-1 bg-neutral-100 pt-18">
             <slot />
         </main>
-        <ShoppingComponent transition:persist />
+        <CartDrawer client:only="preact" />
         <Footer transition:persist />
     </body>
 </html>

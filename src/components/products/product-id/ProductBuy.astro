@@ -1,4 +1,4 @@
----
+<!-- ---
 import type { ProductDetail } from "../../../types/products";
 import { products_categories } from "../../../docs/bussiness-data.json";
 
@@ -141,6 +141,8 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
     import type { ProductDetail } from "../../../types/products";
     import { updateCartBadge } from "../../../utils/ShopCartScripts";
     import { products_categories } from "../../../docs/bussiness-data.json";
+    import { cartItems } from "../../../utils/nanoStores/cartItems";
+    import type { ShopItem } from "../../../types/shop";
 
     class ProductAdd extends HTMLElement {
         connectedCallback() {
@@ -263,22 +265,21 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
                 };
 
                 try {
-                    const localData = localStorage.getItem("SHOP_LIST");
-                    let shopList = localData ? JSON.parse(localData) : [];
+                    let localData: ShopItem[] = cartItems.get();
 
-                    const existingItemIndex = shopList.findIndex(
+                    const existingItemIndex = localData.findIndex(
                         (cartItem: any) =>
                             cartItem.id === item.id &&
                             cartItem.format === item.format,
                     );
 
                     if (existingItemIndex !== -1) {
-                        shopList[existingItemIndex].quantity += item.quantity;
+                        localData[existingItemIndex].quantity += item.quantity;
                     } else {
-                        shopList.push(item);
+                        localData.push(item);
                     }
 
-                    localStorage.setItem("SHOP_LIST", JSON.stringify(shopList));
+                    cartItems.set(localData);
 
                     updateCartBadge();
                 } catch (e) {
@@ -303,4 +304,4 @@ const divisibleCategories: string[] = products_categories.flatMap((c) =>
     if (!customElements.get("product-add")) {
         customElements.define("product-add", ProductAdd);
     }
-</script>
+</script> -->

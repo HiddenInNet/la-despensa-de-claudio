@@ -4,17 +4,24 @@ import tailwindcss from "@tailwindcss/vite";
 
 import cloudflare from "@astrojs/cloudflare";
 
+import preact from "@astrojs/preact";
+
 // https://astro.build/config
 export default defineConfig({
     output: "server",
     vite: {
         plugins: [tailwindcss()],
-        // resolve: {
-        //     // Esto obliga a usar una sola copia de Preact para todo
-        //     dedupe: ["preact", "preact/hooks", "@nanostores/preact"],
-        // },
+        resolve: {
+            dedupe: ["preact", "preact/hooks", "@nanostores/preact"],
+        },
+        optimizeDeps: {
+            include: ['preact', 'preact/hooks', 'preact/compat']
+        },
+        ssr: {
+            noExternal: ['preact', '@astrojs/preact']
+        }
     },
-    integrations: [],
+    integrations: [preact()],
     i18n: {
         locales: ["es", "en", "fr"],
         defaultLocale: "es",
@@ -33,7 +40,7 @@ export default defineConfig({
 
     adapter: cloudflare({
         // platformProxy: {
-        //   enabled: true
+        //     enabled: true,
         // },
         imageService: "passthrough",
     }),
