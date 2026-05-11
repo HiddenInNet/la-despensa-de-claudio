@@ -1,6 +1,7 @@
 export interface ProductsList {
     id: string;
     name: string;
+    slug: string;
     description: string;
     url: string;
     category: string;
@@ -10,6 +11,7 @@ export interface ProductsList {
 export interface ProductDetail {
     id: string;
     name: string;
+    slug: string;
     description: string;
     url: string;
     category: string;

@@ -15,11 +15,11 @@ export default defineConfig({
             dedupe: ["preact", "preact/hooks", "@nanostores/preact"],
         },
         optimizeDeps: {
-            include: ['preact', 'preact/hooks', 'preact/compat']
+            include: ["preact", "preact/hooks", "preact/compat"],
         },
         ssr: {
-            noExternal: ['preact', '@astrojs/preact']
-        }
+            noExternal: ["preact", "@astrojs/preact"],
+        },
     },
     integrations: [preact()],
     i18n: {

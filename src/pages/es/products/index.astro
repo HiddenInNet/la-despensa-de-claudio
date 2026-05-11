@@ -10,7 +10,7 @@ const currentCategory: string = Astro.url.searchParams.get("cat") || "TODOS";
 const title: string = `Catálogo de ${currentCategory.toLowerCase()} · ${BUS_DATA.bussiness_name}`;
 ---
 
-<Layout title={title}>
+<Layout title={title} description="Todos nuestros productos">
     <div class="flex min-h-screen w-full flex-col font-sans text-gray-800">
         <ProductHeader />
         <ProductCategoriesList

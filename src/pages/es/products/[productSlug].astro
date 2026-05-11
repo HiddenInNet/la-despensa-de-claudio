@@ -5,13 +5,13 @@ import Layout from "../../../layouts/Layout.astro";
 import defaultImage from "../../../assets/images/no-photo.avif";
 import type { ProductDetail } from "../../../types/products";
 import ProductBreadcrumb from "../../../components/products/product-id/ProductBreadcrumb.astro";
-import SEO from "../../../components/seo/SEO.astro";
 import ProductAdd from "../../../components/products/product-id/ProductAdd";
+import { bussiness_name } from "../../../docs/bussiness-data.json";
 
-const { productId: id } = Astro.params;
+const { productSlug: slug } = Astro.params;
 
 const { data, error }: { data: ProductDetail | null; error: any } =
-    await supabase.from("products").select("*").eq("id", id).single();
+    await supabase.from("products").select("*").eq("slug", slug).single();
 
 if (error || !data) {
     console.error("Error fetching product:", error?.message);
@@ -29,9 +29,11 @@ const priceFormatter = new Intl.NumberFormat("es-ES", {
 });
 ---
 
-<SEO product={data} />
-
-<Layout title={`${data.name} - La Despensa de Claudio`}>
+<!-- <SEO product={data} /> -->
+<Layout
+    title={`${data.name} - ${bussiness_name}`}
+    description={data.description}
+>
     <div class="min-h-screen w-full bg-white pb-20 font-sans text-stone-800">
         <ProductBreadcrumb
             category={data.category}
