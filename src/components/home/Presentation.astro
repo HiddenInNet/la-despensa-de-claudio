@@ -1,5 +1,5 @@
 ---
-import { getImage, Image } from "astro:assets";
+import { getImage, Picture } from "astro:assets";
 import dehesa from "../../assets/images/dehesa.jpg";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import BUS_DATA from "../../docs/bussiness-data.json";
@@ -17,13 +17,14 @@ const t = useTranslations(lang);
     class="relative flex min-h-125 w-full items-center justify-center overflow-hidden bg-green-800"
 >
     <div class="absolute inset-0 bg-green-800 opacity-60">
-        <Image
+        <Picture
             id="hero-bg"
             src={dehesa}
             alt="imagen-de-dehesa-iberica-la-despensa-de-claudio"
             loading="eager"
             fetchpriority="high"
-            format="avif"
+            formats={["avif", "webp"]}
+            quality={80}
             widths={[640, 1024, 1920]}
             sizes="(max-width: 1024px) 100vw, 100vw"
             class="h-full w-full object-cover"
