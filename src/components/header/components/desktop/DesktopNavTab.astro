@@ -15,6 +15,6 @@ const { href, title } = Astro.props as Props;
         class=`flex w-full gap-2 py-2 items-center text-neutral-200 px-5 hover:bg-green-700 rounded-xl ${currentUrl === href ? "shadow-inner bg-green-700" : ""} transition-all duration-300 ease-in-out`
     >
         <slot />
-        <h3 class="rounded-xl text-lg text-nowrap">{title}</h3>
+        <span class="rounded-xl text-lg text-nowrap">{title}</span>
     </a>
 </li>
