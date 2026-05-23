@@ -1,5 +1,5 @@
 ---
-import dehesa from "../../assets/images/dehesa-2.avif";
+import dehesa from "../../assets/images/dehesa.avif";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import BUS_DATA from "../../docs/bussiness-data.json";
 import { Image } from "astro:assets";
@@ -12,17 +12,16 @@ const t = useTranslations(lang);
     id="hero-section"
     class="relative flex min-h-125 w-full items-center justify-center overflow-hidden bg-green-800"
 >
-    <div class="absolute inset-0 bg-green-800 opacity-60">
-        <Image
-            id="hero-bg"
-            src={dehesa}
-            alt="imagen-de-dehesa-iberica-la-despensa-de-claudio"
-            loading="eager"
-            fetchpriority="high"
-            quality={60}
-            class="w-full h-full object-cover"
-        />
-    </div>
+    <Image
+        id="hero-bg"
+        src={dehesa}
+        alt="imagen-de-dehesa-iberica-la-despensa-de-claudio"
+        loading="eager"
+        fetchpriority="high"
+        class="absolute inset-0 h-full w-full object-cover"
+    />
+
+    <div class="pointer-events-none absolute inset-0 bg-green-900/50"></div>
 
     <div class="relative z-10 px-4 text-center">
         <span
