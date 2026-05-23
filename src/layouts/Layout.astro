@@ -5,26 +5,33 @@ import Footer from "../components/footer/Footer.astro";
 import "../styles/global.css";
 import { getLangFromUrl } from "../i18n/utils";
 import CartDrawer from "../components/shopping/CartDrawer.tsx";
+import { getImage } from "astro:assets";
+import dehesa from "../assets/images/dehesa.jpg";
 
 // 1. Ampliamos las Props para recibir información vital de cada página
 interface Props {
     title: string;
     description: string;
-    image?: string;      // Opcional: Imagen que sale al compartir en WhatsApp/Twitter
+    image?: string; // Opcional: Imagen que sale al compartir en WhatsApp/Twitter
     canonicalURL?: URL | string; // Opcional: Para evitar penalizaciones por contenido duplicado
 }
 
-const { 
-    title, 
-    description, 
-    // Pon la ruta a una foto bonita de un jamón de tu tienda como fallback
-    image = "/images/dehesa.jpg", 
-    canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
+const preloadImage = await getImage({
+    src: dehesa,
+    format: "avif",
+    width: 1920,
+    quality: 80,
+});
+
+const {
+    title,
+    description,
+    image = "/images/dehesa.jpg",
+    canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin),
 } = Astro.props;
 
 const userLang = getLangFromUrl(Astro.url) ?? "es";
 
-// Generamos la URL absoluta de la imagen para redes sociales
 const socialImageURL = new URL(image, Astro.url.origin);
 ---
 
@@ -36,7 +43,15 @@ const socialImageURL = new URL(image, Astro.url.origin);
         <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
         <meta name="generator" content={Astro.generator} />
         <ClientRouter />
-        
+
+        <link
+            rel="preload"
+            href={preloadImage.src}
+            as="image"
+            type="image/avif"
+            fetchpriority="high"
+        />
+
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonicalURL} />
@@ -52,7 +67,6 @@ const socialImageURL = new URL(image, Astro.url.origin);
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
         <meta property="twitter:image" content={socialImageURL} />
-
     </head>
     <body class="flex min-h-screen flex-col text-neutral-900">
         <Header transition:persist />

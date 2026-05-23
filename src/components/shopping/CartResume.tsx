@@ -1,39 +1,30 @@
 import { useState, useEffect } from "preact/hooks";
-import type { ShopItem } from "../../types/shop";
 import { calculatePrice, priceFormatter } from "../../utils/PriceCalculator";
 import { cartItems, removeCartItems } from "../../utils/nanoStores/cartItems";
 import Delete from "../../assets/svg/delete.svg?raw";
 
 export default function CartResume() {
-    // 1. Estados de Preact (le damos un valor inicial para evitar parpadeos vacíos)
+    
     const [totalFormatted, setTotalFormatted] = useState<string>("0,00 €");
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
-    // 2. Efecto reactivo a Nano Stores
     useEffect(() => {
-        // .subscribe se ejecuta automáticamente al montar el componente 
-        // y CADA VEZ que el carrito sufre cualquier cambio.
+        
         const unsubscribe = cartItems.subscribe(async (items) => {
             const total = await calculatePrice(items);
             const formatted = priceFormatter.format(total / 100);
             setTotalFormatted(formatted);
         });
 
-        // IMPORTANTE: Limpiamos la suscripción cuando el componente se desmonta 
-        // para evitar fugas de memoria (memory leaks).
+        
         return () => unsubscribe();
     }, []);
 
-    // 3. Lógica de vaciar carrito
     const handleRemoveOrder = () => {
         removeCartItems();
-        // NOTA: Al ejecutar removeCartItems(), Nano Stores avisa al subscribe 
-        // de arriba y el precio se actualiza a 0 automáticamente. ¡Magia!
     };
 
-    // 4. Lógica de hacer pedido
     const handleCheckout = async () => {
-        // Usamos readonly para que TypeScript no se queje si Nano Stores devuelve una tienda protegida
         // const items: readonly ShopItem[] = cartItems.get();
 
         // if (items.length === 0) {
