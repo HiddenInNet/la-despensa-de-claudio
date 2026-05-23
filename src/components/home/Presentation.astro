@@ -1,16 +1,12 @@
 ---
-import { getImage, Picture } from "astro:assets";
-import dehesa from "../../assets/images/dehesa.jpg";
+import { Picture } from "astro:assets";
+import dehesa from "../../assets/images/dehesa.avif";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import BUS_DATA from "../../docs/bussiness-data.json";
-
-const optimizedImage = await getImage({ src: dehesa, format: "avif" });
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
-
-<link rel="preload" fetchpriority="high" as="image" href={optimizedImage.src} />
 
 <section
     id="hero-section"
@@ -23,10 +19,8 @@ const t = useTranslations(lang);
             alt="imagen-de-dehesa-iberica-la-despensa-de-claudio"
             loading="eager"
             fetchpriority="high"
-            formats={["avif", "webp"]}
             quality={80}
             widths={[640, 1024, 1920]}
-            sizes="(max-width: 1024px) 100vw, 100vw"
             class="h-full w-full object-cover"
         />
     </div>

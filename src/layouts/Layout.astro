@@ -5,8 +5,6 @@ import Footer from "../components/footer/Footer.astro";
 import "../styles/global.css";
 import { getLangFromUrl } from "../i18n/utils";
 import CartDrawer from "../components/shopping/CartDrawer.tsx";
-import { getImage } from "astro:assets";
-import dehesa from "../assets/images/dehesa.jpg";
 
 // 1. Ampliamos las Props para recibir información vital de cada página
 interface Props {
@@ -16,17 +14,10 @@ interface Props {
     canonicalURL?: URL | string; // Opcional: Para evitar penalizaciones por contenido duplicado
 }
 
-const preloadImage = await getImage({
-    src: dehesa,
-    format: "avif",
-    width: 1920,
-    quality: 80,
-});
-
 const {
     title,
     description,
-    image = "/images/dehesa.jpg",
+    image = "/images/dehesa.avif",
     canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin),
 } = Astro.props;
 
@@ -43,15 +34,9 @@ const socialImageURL = new URL(image, Astro.url.origin);
         <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
         <meta name="generator" content={Astro.generator} />
         <meta name="robots" content="max-image-preview:large, index, follow" />
-        <ClientRouter />
 
-        <link
-            rel="preload"
-            href={preloadImage.src}
-            as="image"
-            type="image/avif"
-            fetchpriority="high"
-        />
+        <!-- animaciones entre paginas -->
+        <ClientRouter />
 
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -69,6 +54,7 @@ const socialImageURL = new URL(image, Astro.url.origin);
         <meta property="twitter:description" content={description} />
         <meta property="twitter:image" content={socialImageURL} />
     </head>
+
     <body class="flex min-h-screen flex-col text-neutral-900">
         <Header transition:persist />
         <main class="md:font-inter flex-1 bg-neutral-100 pt-18">

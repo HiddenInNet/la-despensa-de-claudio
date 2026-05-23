@@ -7,7 +7,7 @@ import ProductCompleteList from "../../../components/products/ProductCompleteLis
 
 const currentCategory: string = Astro.url.searchParams.get("cat") || "TODOS";
 
-const title: string = `Catálogo de ${currentCategory.toLowerCase()} · ${BUS_DATA.bussiness_name}`;
+const title: string = `Catálogo de productos · ${BUS_DATA.bussiness_name}`;
 ---
 
 <Layout title={title} description="Todos nuestros productos">

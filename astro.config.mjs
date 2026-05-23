@@ -10,6 +10,9 @@ import preact from "@astrojs/preact";
 export default defineConfig({
     site: "https://www.ladespensadeclaudio.com",
     output: "server",
+    build: {
+        inlineStylesheets: "always",
+    },
     vite: {
         plugins: [tailwindcss()],
         resolve: {
@@ -17,9 +20,14 @@ export default defineConfig({
         },
         optimizeDeps: {
             include: ["preact", "preact/hooks", "preact/compat"],
+            exclude: [
+                "astro/assets/services/noop",
+                "astro/virtual-modules/transitions.js",
+            ],
         },
         ssr: {
             noExternal: ["preact", "@astrojs/preact"],
+            external: ["node:buffer"],
         },
     },
     integrations: [preact()],
