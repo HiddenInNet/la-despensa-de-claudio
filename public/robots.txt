@@ -1,0 +1,40 @@
+# https://www.ladespensadeclaudio.com/robots.txt
+
+User-agent: *
+Allow: /
+Allow: /es
+
+# --- EVITAR DUPLICADOS POR IDIOMAS Y BUSCADOR ---
+# Bloquea rastreos de parámetros de búsqueda internos que generan contenido duplicado
+Disallow: /*?q=
+Disallow: /*?search=
+Disallow: /*?s=
+Disallow: /*?filter=
+
+# --- PROCESO DE COMPRA Y PRIVACIDAD (No aportan SEO) ---
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /carrito/
+Disallow: /account/
+Disallow: /mi-cuenta/
+Disallow: /login/
+Disallow: /logout/
+Disallow: /api/
+
+# --- ENLACES LEGALES (Opcional, evita que indexen TyC en lugar de productos) ---
+Disallow: /es/legal/
+Disallow: /es/privacidad/
+Disallow: /es/cookies/
+
+# --- OPTIMIZACIÓN DE BOTS MALICIOSOS ---
+# Protege los recursos de tu servidor de bots de spam conocidos
+User-agent: SemrushBot
+Disallow: /
+User-agent: AhrefsBot
+Disallow: /
+User-agent: DotBot
+Disallow: /
+
+# --- MAPA DEL SITIO ---
+# Cambia esto por la URL real de tu sitemap generado por Astro
+Sitemap: https://www.ladespensadeclaudio.com/sitemap.xml
